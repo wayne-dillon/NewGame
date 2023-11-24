@@ -1,0 +1,12 @@
+.vs
+.vscode
+NewGame/bin
+NewGame/obj
+NewGame/Source/Content/obj
+NewGame/Source/Content/bin
+NewGame/.config
+NewGame/app.manifest
+NewGame/Content.zip
+Tests/bin
+Tests/obj
+Tests/Tests.csproj
