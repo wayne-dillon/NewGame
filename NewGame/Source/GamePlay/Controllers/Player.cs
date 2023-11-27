@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 public class Player
@@ -6,27 +5,31 @@ public class Player
     private Sprite sprite;
 
     private float horizontalAcceleration = 0.05f;
-    private float horizontalDeceleration = 0.1f;
+    private float horizontalDeceleration = 0.3f;
     private float speed;
-    private float fallSpeed = 0.1f;
+    private float gravity = 0.1f;
+    private float fallSpeed;
+    private float maxFallSpeed = 4;
     private Vector2 velocity = new();
-    private readonly float maxSpeed = 3;
-    private readonly List<Direction> contactDirections = new();
+    private readonly float maxSpeed = 2;
+    private bool grounded;
+    private bool blockedLeft;
+    private bool blockedRight;
+    private bool blockedTop;
 
     public Player()
     {
-        sprite = new SpriteBuilder().WithPath("Cards//145x210//SPADES_ACE").WithInteractableType(InteractableType.CHARACTER).WithDims(new Vector2(145, 210)).Build();
+        sprite = new SpriteBuilder().WithPath("Cards//145x210//SPADES_ACE")
+                            .WithInteractableType(InteractableType.CHARACTER)
+                            .WithDims(new Vector2(145, 210))
+                            .WithOffset(new Vector2(-200, 0))
+                            .Build();
     }
 
     public void Update()
     {
         CheckForContact();
-        if (contactDirections.Count != 0)
-        {
-            GroundedMovement();
-        } else {
-            AirMovement();
-        }
+        Movement();
         MoveSprite();
         UpdatePosition();
         sprite.Update();
@@ -34,38 +37,43 @@ public class Player
 
     public void CheckForContact()
     {
-        contactDirections.Clear();
+        ResetContacts();
 
         foreach (Hitbox box in Platforms.hitboxes)
         {
-            Direction contact = sprite.hitbox.GetContactDirection(box);
-            if (contact != Direction.NONE) contactDirections.Add(contact);
+            switch (sprite.hitbox.GetContactDirection(box))
+            {
+                case Direction.NONE:
+                case Direction.UP_LEFT:
+                case Direction.UP_RIGHT:
+                    break;
+                case Direction.LEFT:
+                    blockedLeft = true;
+                    fallSpeed = 0;
+                    break;
+                case Direction.RIGHT:
+                    blockedRight = true;
+                    fallSpeed = 0;
+                    break;
+                case Direction.DOWN:
+                case Direction.DOWN_LEFT:
+                case Direction.DOWN_RIGHT:
+                    grounded = true;
+                    fallSpeed = 0;
+                    break;
+            }
         }
     }
-
-    public void GroundedMovement()
+    
+    public void ResetContacts()
     {
-        if (InputController.Left() && !InputController.Right())
-        {
-            speed -= horizontalAcceleration;
-            if (speed < -maxSpeed)
-                speed = -maxSpeed;
-        } else if (InputController.Right() && !InputController.Left())
-        {
-            speed += horizontalAcceleration;
-            if (speed > maxSpeed)
-                speed = maxSpeed;
-        } else if (speed > 0)
-        {
-            speed -= horizontalDeceleration;
-            if (speed < 0) speed = 0;
-        } else {
-            speed += horizontalDeceleration;
-            if (speed > 0) speed = 0;
-        }
+        grounded = false;
+        blockedLeft = false;
+        blockedRight = false;
+        blockedTop = false;
     }
 
-    public void AirMovement()
+    public void Movement()
     {
         if (InputController.Left() && !InputController.Right())
         {
@@ -89,27 +97,28 @@ public class Player
 
     private void MoveSprite()
     {
-        if (contactDirections.Count == 0)
+        if (!grounded && !blockedLeft && !blockedRight)
         {
-            velocity += new Vector2(speed * Globals.gameTime.ElapsedGameTime.Milliseconds, fallSpeed * Globals.gameTime.ElapsedGameTime.Milliseconds);
+            fallSpeed = fallSpeed < maxFallSpeed ? fallSpeed + gravity : maxFallSpeed;
+            velocity = new Vector2(speed, fallSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
             return;
         }
         if (speed > 0)
         {
-            if (!contactDirections.Contains(Direction.RIGHT))
+            if (blockedRight)
             {
-                velocity = new Vector2(speed * Globals.gameTime.ElapsedGameTime.Milliseconds, 0);
+                velocity = blockedTop ? Vector2.Zero : new Vector2(0, -speed * Globals.gameTime.ElapsedGameTime.Milliseconds);
             } else {
-                velocity = new Vector2(0, -speed * Globals.gameTime.ElapsedGameTime.Milliseconds);
+                velocity = new Vector2(speed * Globals.gameTime.ElapsedGameTime.Milliseconds, 0);
             }
         }
-        if (speed < 0)
+        if (speed <= 0)
         {
-            if (!contactDirections.Contains(Direction.LEFT))
+            if (blockedLeft)
             {
-                velocity = new Vector2(speed * Globals.gameTime.ElapsedGameTime.Milliseconds, 0);
+                velocity = blockedTop ? Vector2.Zero : new Vector2(0, speed * Globals.gameTime.ElapsedGameTime.Milliseconds);
             } else {
-                velocity = new Vector2(0, speed * Globals.gameTime.ElapsedGameTime.Milliseconds);
+                velocity = new Vector2(speed * Globals.gameTime.ElapsedGameTime.Milliseconds, 0);
             }
         }
     }
@@ -131,16 +140,22 @@ public class Player
                     sprite.Pos = new Vector2(box.left - sprite.dims.X/2, sprite.Pos.Y);
                     break;
                 case Direction.UP:
-                case Direction.UP_LEFT:
-                case Direction.UP_RIGHT:
                     sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y/2);
                     break;
                 case Direction.DOWN:
-                case Direction.DOWN_LEFT:
-                case Direction.DOWN_RIGHT:
                     sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y/2);
                     break;
-                default:
+                case Direction.UP_LEFT:
+                    sprite.Pos = new Vector2(box.right + sprite.dims.X/2, box.top - sprite.dims.Y/2);
+                    break;
+                case Direction.UP_RIGHT:
+                    sprite.Pos = new Vector2(box.left - sprite.dims.X/2, box.top - sprite.dims.Y/2);
+                    break;
+                case Direction.DOWN_LEFT:
+                    sprite.Pos = new Vector2(box.right + sprite.dims.X/2, box.bottom + sprite.dims.Y/2);
+                    break;
+                case Direction.DOWN_RIGHT:
+                    sprite.Pos = new Vector2(box.left - sprite.dims.X/2, box.bottom + sprite.dims.Y/2);
                     break;
             }
         }

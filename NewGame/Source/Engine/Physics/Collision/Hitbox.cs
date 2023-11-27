@@ -43,7 +43,7 @@ public struct Hitbox
     public Direction PassesThrough(Hitbox oldBox, Hitbox newBox)
     {
         if ((left > oldBox.right && left > newBox.right) || (right < oldBox.left && right < newBox.left)
-                || (top > oldBox.bottom && top > newBox.right) || (bottom < oldBox.top && bottom < oldBox.top))
+                || (top > oldBox.bottom && top > newBox.bottom) || (bottom < oldBox.top && bottom < newBox.top))
         {
             return Direction.NONE;
         }
