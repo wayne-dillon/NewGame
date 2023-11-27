@@ -9,13 +9,13 @@ public class TextComponent : Animatable
     private readonly Alignment textAlignment;
 
     public TextComponent(string TEXT, SpriteFont FONT, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, IAnimate ANIMATION, bool ISTRANSITIONABLE)
-        : base(COLOR, Coordinates.Get(SCREENALIGNMENT) + OFFSET, Vector2.Zero, SCREENALIGNMENT, ANIMATION, ISTRANSITIONABLE)
+        : base(COLOR, Coordinates.Get(SCREENALIGNMENT) + OFFSET, Vector2.Zero, SCREENALIGNMENT, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE)
     {
         text = TEXT;
         font = FONT ?? Fonts.defaultFont;
         textAlignment = TEXTALIGNMENT;
 
-        SetAnchor(pos);
+        SetAnchor(Pos);
     }
 
     public override void Update() 
@@ -26,7 +26,7 @@ public class TextComponent : Animatable
     public void Update(string TEXT) 
     {
         text = TEXT;
-        absolutePos = pos + GetTextAlignmentOffset();
+        absolutePos = Pos + GetTextAlignmentOffset();
         base.Update();
     }
 
@@ -44,14 +44,14 @@ public class TextComponent : Animatable
 
     public void SetAnchor(Vector2 ANCHOR)
     {
-        pos = ANCHOR;
-        absolutePos = pos + GetTextAlignmentOffset();
+        Pos = ANCHOR;
+        absolutePos = Pos + GetTextAlignmentOffset();
     }
 
     private void SetPosition(Vector2 OFFSET)
     {
-        pos = Coordinates.Get(alignment) + OFFSET;
-        absolutePos = pos + GetTextAlignmentOffset();
+        Pos = Coordinates.Get(alignment) + OFFSET;
+        absolutePos = Pos + GetTextAlignmentOffset();
     }
 
     public void Draw() 

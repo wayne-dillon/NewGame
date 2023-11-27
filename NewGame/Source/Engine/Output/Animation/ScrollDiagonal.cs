@@ -16,11 +16,11 @@ public class ScrollDiagonal : IAnimate
     public void Animate(Animatable TARGET)
     {
         float shift = Globals.gameTime.ElapsedGameTime.Milliseconds * speed;
-        if (TARGET.pos.Y >= 1000)
+        if (TARGET.Pos.Y >= 1000)
         {
-            TARGET.pos -= new Vector2(1100, 1100);
+            TARGET.Pos -= new Vector2(1100, 1100);
         } else {
-            TARGET.pos += new Vector2(shift, shift);
+            TARGET.Pos += new Vector2(shift, shift);
         }
     }
 

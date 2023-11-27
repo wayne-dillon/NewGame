@@ -15,11 +15,12 @@ public class SpriteBuilder
     private EventHandler<object> ButtonAction;
     private object ButtonInfo;
     private Sprite Parent;
+    private InteractableType Type = InteractableType.NONE;
     private bool IsAvailable = true;
     private bool IsTransitionable = true;
     private bool IsChecked;
 
-    public Sprite Build() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, IsTransitionable);
+    public Sprite Build() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable);
 
     public Button BuildButton() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, 
                 UnavailableColor, HoverScale, Animation, Text, Font, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable);
@@ -31,7 +32,7 @@ public class SpriteBuilder
 
     public LinkedCheckbox BuildLinkedCheckbox() => new(Text, ScreenAlignment, Offset, Animation, ButtonAction, ButtonInfo, IsTransitionable, IsChecked);
 
-    public ChildSprite BuildChild() => new(Path, Dims, Offset, Parent, IsTransitionable);
+    public ChildSprite BuildChild() => new(Path, Dims, Offset, Parent, Type, IsTransitionable);
 
     public Clickable BuildClickable() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, 
                 UnavailableColor, Animation, HoverScale, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable);
@@ -126,6 +127,12 @@ public class SpriteBuilder
     public SpriteBuilder WithParent(Sprite PARENT)
     {
         Parent = PARENT;
+        return this;
+    }
+
+    public SpriteBuilder WithInteractableType(InteractableType TYPE)
+    {
+        Type = TYPE;
         return this;
     }
 

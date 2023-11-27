@@ -8,6 +8,9 @@ public class Globals
 {
     public static int screenHeight;
     public static int screenWidth;
+
+    public static Vector2 screenPosition = Vector2.Zero;
+
     public static GameState gameState = GameState.MAIN_MENU;
     public static Random random = new();
 

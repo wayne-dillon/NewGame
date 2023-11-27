@@ -7,7 +7,7 @@ public class Dragable : Sprite
     public Vector2 cursorOffset;
 
     public Dragable(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, object INFO, bool ISTRANSITIONABLE) 
-        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, ISTRANSITIONABLE) 
+        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE) 
     {
         info = INFO;
 
@@ -21,7 +21,7 @@ public class Dragable : Sprite
             if (Globals.mouse.LeftClick())
             {
                 isHeld = true;
-                cursorOffset = pos - Globals.mouse.newMousePos;
+                cursorOffset = Pos - Globals.mouse.newMousePos;
             }
         }
         if (Globals.mouse.LeftClickRelease())
@@ -31,7 +31,7 @@ public class Dragable : Sprite
 
         if (isHeld)
         {
-            pos = Globals.mouse.newMousePos + cursorOffset;
+            Pos = Globals.mouse.newMousePos + cursorOffset;
         }
 
         base.Update();

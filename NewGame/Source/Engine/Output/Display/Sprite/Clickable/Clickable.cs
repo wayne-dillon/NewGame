@@ -13,7 +13,7 @@ public class Clickable : Sprite
     public Clickable(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, 
                     Color HOVERCOLOR, Color UNAVAILABLECOLOR, IAnimate ANIMATION, Vector2 HOVERSCALE, 
                     bool ISAVAILABLE, EventHandler<object> BUTTONCLICKED, object INFO, bool ISTRANSITIONABLE) 
-        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, ISTRANSITIONABLE) 
+        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE) 
     {
         isAvailable = ISAVAILABLE;
         ButtonClicked = BUTTONCLICKED;
