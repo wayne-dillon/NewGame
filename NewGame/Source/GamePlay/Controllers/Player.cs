@@ -7,6 +7,9 @@ public class Player
 
     private Dictionary<CharacterMode, Mode> modes = new();
     private CharacterMode currentMode;
+    private CharacterState currentState;
+
+    private bool animationChanged;
 
     public float speed;
     public float fallSpeed;
@@ -42,6 +45,16 @@ public class Player
     {
         SetMode();
         CheckForContact();
+        CharacterState newState = SetState();
+        if (newState != currentState)
+        {
+            currentState = newState;
+            animationChanged = true;
+        }
+        if (animationChanged)
+        {
+            SetAnimationRange();
+        }
         modes[currentMode].MovementControl();
         UpdatePosition();
         modeText.Update(currentMode.ToString());
@@ -86,34 +99,48 @@ public class Player
         blockedTop = false;
     }
 
+    private void SetAnimationRange()
+    {
+        int num = 10 * (int)currentMode;
+        num += (int)currentState;
+        sprite.SetRange(num, num);
+        animationChanged = false;
+    }
+
     private void SetMode()
     {
         if (InputController.NextMode())
         {
             currentMode = (int)currentMode == 2 ? 0 : currentMode + 1;
-            SetAnimationRange();
+            animationChanged = true;
         }
         if (InputController.PrevMode())
         {
             currentMode = currentMode == 0 ? (CharacterMode)2 : currentMode - 1;
-            SetAnimationRange();
+            animationChanged = true;
         }
     }
 
-    private void SetAnimationRange()
+    private CharacterState SetState()
     {
-        switch (currentMode)
+        if (grounded && speed == 0) return CharacterState.IDLE;
+        if (currentMode != CharacterMode.CAT)
         {
-            case CharacterMode.GECKO:
-                sprite.SetRange(0, 4);
-                break;
-            case CharacterMode.FROG:
-                sprite.SetRange(5, 9);
-                break;
-            case CharacterMode.CAT:
-                sprite.SetRange(10, 14);
-                break;
+            if (currentMode == CharacterMode.GECKO)
+            {
+                if (blockedLeft && speed < 0) return CharacterState.CLIMBING_LEFT;
+                if (blockedRight && speed > 0) return CharacterState.CLIMBING_RIGHT;
+            }
+            if (blockedLeft) return CharacterState.CLINGING_LEFT;
+            if (blockedRight) return CharacterState.CLINGING_RIGHT;
         }
+        if (grounded)
+        {
+            if (speed < 0) return CharacterState.RUNNING_LEFT;
+            if (speed > 0) return CharacterState.RUNNING_RIGHT;
+        }
+        if (velocity.Y < 0) return CharacterState.JUMPING;
+        return CharacterState.FALLING;
     }
 
     private void UpdatePosition()

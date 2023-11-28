@@ -1,0 +1,12 @@
+public enum CharacterState
+{
+    IDLE,
+    RUNNING_LEFT,
+    RUNNING_RIGHT,
+    JUMPING,
+    FALLING,
+    CLINGING_LEFT,
+    CLINGING_RIGHT,
+    CLIMBING_LEFT,
+    CLIMBING_RIGHT
+}
