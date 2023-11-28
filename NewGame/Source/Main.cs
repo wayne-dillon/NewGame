@@ -129,7 +129,10 @@ public class Main : Game
 
         ui.Draw();
 
-        cursor.Draw();
+        if (Globals.gameState != GameState.GAME_PLAY)
+        {
+            cursor.Draw();
+        }
         Globals.spriteBatch.End();
 
         base.Draw(gameTime);

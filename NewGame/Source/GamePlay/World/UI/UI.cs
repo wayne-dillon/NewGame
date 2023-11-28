@@ -21,6 +21,7 @@ public class UI
                                     .WithDims(new Vector2(32, 32))
                                     .WithButtonAction(changeGameState)
                                     .WithButtonInfo(GameState.MAIN_MENU)
+                                    .WithUI(true)
                                     .BuildClickable();
 
         fpsDisplay = new FPSDisplay();

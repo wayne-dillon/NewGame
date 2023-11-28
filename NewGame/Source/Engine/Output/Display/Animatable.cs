@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 public abstract class Animatable
 {
     public Color color;
-    public Vector2 pos;
+    private Vector2 pos;
     public Vector2 dims, baseDims;
     public Alignment alignment;
     public IAnimate animation;

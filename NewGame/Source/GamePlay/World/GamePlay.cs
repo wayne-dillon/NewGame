@@ -4,13 +4,20 @@ using Microsoft.Xna.Framework;
 
 public class GamePlay
 {
-    private readonly EventHandler<object> ChangeGameState;
     private Player player;
-    private List<Sprite> platforms = new();
+    private Camera camera;
+    private List<Sprite> platforms;
 
     public GamePlay()
     {
+        Init();
+    }
+
+    private void Init()
+    {
         player = new Player();
+        camera = new Camera(player.sprite);
+        platforms = new();
 
         SpriteBuilder platformBuilder = new SpriteBuilder().WithInteractableType(InteractableType.PLATFORM)
                                                         .WithPath("rect")
@@ -29,13 +36,12 @@ public class GamePlay
                                     .WithOffset(new Vector2(0, -50))
                                     .WithScreenAlignment(Alignment.BOTTOM)
                                     .Build());
-
-        ChangeGameState = TransitionManager.ChangeGameState;
     }
 
     public virtual void Update()
     {
         player.Update();
+        camera.Update();
         foreach (Sprite platform in platforms)
         {
             platform.Update();
@@ -49,13 +55,7 @@ public class GamePlay
 
     public virtual void ResetWorld(object SENDER, object INFO)
     {
-        GameGlobals.roundState = RoundState.START;
-    }
-
-    public void ResetAndChange(object SENDER, object INFO)
-    {
-        GameGlobals.roundState = RoundState.START;
-        ChangeGameState(SENDER, INFO);
+        Init();
     }
 
     public virtual void Draw()

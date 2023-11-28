@@ -6,8 +6,8 @@ public class Dragable : Sprite
     public object info;
     public Vector2 cursorOffset;
 
-    public Dragable(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, object INFO, bool ISTRANSITIONABLE) 
-        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE) 
+    public Dragable(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, object INFO, bool ISTRANSITIONABLE, bool ISUI) 
+        : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE, ISUI) 
     {
         info = INFO;
 

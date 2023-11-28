@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 public class Cursor : Sprite
 {
-    public Cursor() : base("UI//Cursor", Alignment.TOP_LEFT, new Vector2(0,0), new Vector2(16,16), Color.White, null, InteractableType.NONE, false) 
+    public Cursor() : base("UI//Cursor", Alignment.TOP_LEFT, new Vector2(0,0), new Vector2(16,16), Color.White, null, InteractableType.NONE, false, true) 
     {
     }
 

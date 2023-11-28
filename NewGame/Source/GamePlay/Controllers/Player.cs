@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 public class Player
 {
-    private AnimatedSprite sprite;
+    public AnimatedSprite sprite;
 
     private Dictionary<CharacterMode, Mode> modes = new();
     private CharacterMode currentMode;

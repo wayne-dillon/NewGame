@@ -8,8 +8,8 @@ public class LinkedCheckbox : Checkbox
     private TextComponent label;
     
     public LinkedCheckbox(string LABEL, Alignment ALIGNMENT, Vector2 OFFSET, IAnimate ANIMATION, EventHandler<object> BUTTONCLICKED, 
-                            object INFO, bool ISTRANSITIONABLE, bool ISCHECKED) 
-        : base(ALIGNMENT, OFFSET, ANIMATION, BUTTONCLICKED, INFO, ISTRANSITIONABLE, ISCHECKED) 
+                            object INFO, bool ISTRANSITIONABLE, bool ISCHECKED, bool ISUI) 
+        : base(ALIGNMENT, OFFSET, ANIMATION, BUTTONCLICKED, INFO, ISTRANSITIONABLE, ISCHECKED, ISUI) 
     {
         label = new TextComponentBuilder().WithText(LABEL)
                                         .WithScreenAlignment(ALIGNMENT)

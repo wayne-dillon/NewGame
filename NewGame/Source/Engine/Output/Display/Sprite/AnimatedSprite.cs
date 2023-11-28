@@ -12,8 +12,8 @@ public class AnimatedSprite : Sprite
     private int rangeMax;
 
     public AnimatedSprite(Dictionary<int, string> PATHDICT, int FRAMETIME, int RANGEMIN, int RANGEMAX, Alignment ALIGNMENT, 
-            Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE)
-        : base("rect", ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, TYPE, ISTRANSITIONABLE)
+            Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE, bool ISUI)
+        : base("rect", ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, TYPE, ISTRANSITIONABLE, ISUI)
     {
         foreach (KeyValuePair<int, string> path in PATHDICT)
         {

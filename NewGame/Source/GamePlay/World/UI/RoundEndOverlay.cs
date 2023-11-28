@@ -11,7 +11,8 @@ public class RoundEndOverlay
     {
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("UI//Button220x32")
                                                         .WithDims(new Vector2(220, 32))
-                                                        .WithColor(Colors.Buttons);
+                                                        .WithColor(Colors.Buttons)
+                                                        .WithUI(true);
         resetBtn = buttonBuilder.WithOffset(new Vector2(-120, 200))
                             .WithText("Play Again")
                             .WithButtonAction(RESET)

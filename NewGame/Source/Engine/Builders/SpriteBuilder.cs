@@ -20,32 +20,33 @@ public class SpriteBuilder
     private bool IsAvailable = true;
     private bool IsTransitionable = true;
     private bool IsChecked;
+    private bool IsUI;
 
     private Dictionary<int, string> PathDict;
     private int FrameTime;
     private int RangeMin;
     private int RangeMax;
 
-    public Sprite Build() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable);
+    public Sprite Build() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable, IsUI);
 
-    public AnimatedSprite BuildAnimated() => new(PathDict, FrameTime, RangeMin, RangeMax, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable);
+    public AnimatedSprite BuildAnimated() => new(PathDict, FrameTime, RangeMin, RangeMax, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable, IsUI);
 
     public Button BuildButton() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, 
-                UnavailableColor, HoverScale, Animation, Text, Font, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable);
+                UnavailableColor, HoverScale, Animation, Text, Font, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable, IsUI);
 
     public LinkedButton BuildLinkedButton() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, 
-                UnavailableColor, HoverScale, Animation, Text, Font, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable);
+                UnavailableColor, HoverScale, Animation, Text, Font, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable, IsUI);
 
-    public Checkbox BuildCheckbox() => new(ScreenAlignment, Offset, Animation, ButtonAction, ButtonInfo, IsTransitionable, IsChecked);
+    public Checkbox BuildCheckbox() => new(ScreenAlignment, Offset, Animation, ButtonAction, ButtonInfo, IsTransitionable, IsChecked, IsUI);
 
-    public LinkedCheckbox BuildLinkedCheckbox() => new(Text, ScreenAlignment, Offset, Animation, ButtonAction, ButtonInfo, IsTransitionable, IsChecked);
+    public LinkedCheckbox BuildLinkedCheckbox() => new(Text, ScreenAlignment, Offset, Animation, ButtonAction, ButtonInfo, IsTransitionable, IsChecked, IsUI);
 
-    public ChildSprite BuildChild() => new(Path, Dims, Offset, Parent, Type, IsTransitionable);
+    public ChildSprite BuildChild() => new(Path, Dims, Offset, Parent, Type, IsTransitionable, IsUI);
 
-    public Clickable BuildClickable() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, 
-                UnavailableColor, Animation, HoverScale, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable);
+    public Clickable BuildClickable() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, UnavailableColor, Animation, HoverScale, IsAvailable, 
+            ButtonAction, ButtonInfo, IsTransitionable, IsUI);
 
-    public Dragable BuildDragable() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, ButtonInfo, IsTransitionable);
+    public Dragable BuildDragable() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, ButtonInfo, IsTransitionable, IsUI);
 
     public SpriteBuilder WithPath(string PATH)
     {
@@ -147,6 +148,12 @@ public class SpriteBuilder
     public SpriteBuilder WithTransitionable(bool ISTRANSITIONABLE)
     {
         IsTransitionable = ISTRANSITIONABLE;
+        return this;
+    }
+
+    public SpriteBuilder WithUI(bool ISUI)
+    {
+        IsUI = ISUI;
         return this;
     }
 

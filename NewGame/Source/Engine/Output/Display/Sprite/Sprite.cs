@@ -4,10 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 public class Sprite : Animatable
 {
     public float rot;
+    public bool ui;
     public Texture2D myModel;
-    public Sprite(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE)
+    public Sprite(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE, bool ISUI)
         : base(COLOR, Coordinates.Get(ALIGNMENT) + OFFSET, DIMS, ALIGNMENT, ANIMATION, TYPE, ISTRANSITIONABLE)
     {
+        ui = ISUI;
         myModel = Globals.content.Load<Texture2D>(PATH);
     }
 
@@ -54,7 +56,7 @@ public class Sprite : Animatable
 
     public virtual void Draw(Vector2 POS, Color COLOR)
     {
-        if (Globals.gameState == GameState.GAME_PLAY)
+        if (Globals.gameState == GameState.GAME_PLAY && !ui)
         {
             POS -= Globals.screenPosition;
         }

@@ -9,9 +9,9 @@ public class LinkedButton : Button
     
     public LinkedButton(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, Color HOVERCOLOR, Color UNAVAILABLECOLOR,
                 Vector2 HOVERSCALE, IAnimate ANIMATION, string TEXT, SpriteFont FONT, bool ISAVAILABLE, EventHandler<object> BUTTONCLICKED,
-                object INFO, bool ISTRANSITIONABLE) 
+                object INFO, bool ISTRANSITIONABLE, bool ISUI) 
         : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, HOVERCOLOR, UNAVAILABLECOLOR, HOVERSCALE, ANIMATION, TEXT, FONT, ISAVAILABLE, BUTTONCLICKED,
-                INFO, ISTRANSITIONABLE)
+                INFO, ISTRANSITIONABLE, ISUI)
     {
     }
 
