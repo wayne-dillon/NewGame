@@ -25,16 +25,21 @@ public class OptionsMenu
                                                 .WithButtonAction((sender, args) => { Globals.graphics.ToggleFullScreen(); })
                                                 .BuildCheckbox();
 
-        resolutionCheckboxs.Add(new SpriteBuilder().WithText("1600 x 900")
+        resolutionCheckboxs.Add(new SpriteBuilder().WithText("1920 x 1080")
                                                     .WithOffset(new Vector2(100, 50))
                                                     .WithButtonAction(UpdateResolution)
-                                                    .WithButtonInfo(new Vector2(1600, 900))
+                                                    .WithButtonInfo(new Vector2(1920, 1080))
                                                     .WithChecked(true)
                                                     .BuildLinkedCheckbox());
-        resolutionCheckboxs.Add(new SpriteBuilder().WithText("1920 x 1080")
+        resolutionCheckboxs.Add(new SpriteBuilder().WithText("1600 x 900")
                                                     .WithOffset(new Vector2(100, 75))
                                                     .WithButtonAction(UpdateResolution)
-                                                    .WithButtonInfo(new Vector2(1920, 1080))
+                                                    .WithButtonInfo(new Vector2(1600, 900))
+                                                    .BuildLinkedCheckbox());
+        resolutionCheckboxs.Add(new SpriteBuilder().WithText("1280 x 720")
+                                                    .WithOffset(new Vector2(100, 100))
+                                                    .WithButtonAction(UpdateResolution)
+                                                    .WithButtonInfo(new Vector2(1280, 720))
                                                     .BuildLinkedCheckbox());
 
         foreach (LinkedCheckbox box in resolutionCheckboxs)

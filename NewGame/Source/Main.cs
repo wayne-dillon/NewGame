@@ -5,7 +5,7 @@ using System;
 
 public class Main : Game
 {
-    private Backdrop backdrop;
+    // private Backdrop backdrop;
     private MainMenu mainMenu;
     private OptionsMenu optionsMenu;
     private AboutMenu aboutMenu;
@@ -23,8 +23,8 @@ public class Main : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        Globals.screenWidth = Coordinates.screenWidth = 1600;
-        Globals.screenHeight = Coordinates.screenHeight = 900;
+        Globals.screenWidth = Coordinates.screenWidth = 1920;
+        Globals.screenHeight = Coordinates.screenHeight = 1080;
 
         Globals.graphics.PreferredBackBufferWidth = Globals.screenWidth;
         Globals.graphics.PreferredBackBufferHeight = Globals.screenHeight;
@@ -46,7 +46,7 @@ public class Main : Game
         Globals.keyboard = new MyKeyboard();
         Globals.mouse = new MyMouseControl();
 
-        backdrop = new Backdrop();
+        // backdrop = new Backdrop();
         mainMenu = new MainMenu();
         optionsMenu = new OptionsMenu();
         aboutMenu = new AboutMenu();
@@ -69,7 +69,7 @@ public class Main : Game
         Globals.keyboard.Update();
         Globals.mouse.Update();
 
-        backdrop.Update();
+        // backdrop.Update();
 
         switch (Globals.gameState)
         {
@@ -106,7 +106,7 @@ public class Main : Game
         Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
 
         // TODO: Add your drawing code here
-        backdrop.Draw();
+        // backdrop.Draw();
 
         if (TransitionManager.transState != TransitionState.PAUSE)
         {
