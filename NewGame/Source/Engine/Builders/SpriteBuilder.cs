@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,7 +21,14 @@ public class SpriteBuilder
     private bool IsTransitionable = true;
     private bool IsChecked;
 
+    private Dictionary<int, string> PathDict;
+    private int FrameTime;
+    private int RangeMin;
+    private int RangeMax;
+
     public Sprite Build() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable);
+
+    public AnimatedSprite BuildAnimated() => new(PathDict, FrameTime, RangeMin, RangeMax, ScreenAlignment, Offset, Dims, Color, Animation, Type, IsTransitionable);
 
     public Button BuildButton() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, 
                 UnavailableColor, HoverScale, Animation, Text, Font, IsAvailable, ButtonAction, ButtonInfo, IsTransitionable);
@@ -151,6 +159,25 @@ public class SpriteBuilder
     public SpriteBuilder WithAvailable(bool ISAVAILABLE)
     {
         IsAvailable = ISAVAILABLE;
+        return this;
+    }
+
+    public SpriteBuilder WithPathDict(Dictionary<int, string> PATHDICT)
+    {
+        PathDict = PATHDICT;
+        return this;
+    }
+
+    public SpriteBuilder WithFrameTime(int FRAMETIME)
+    {
+        FrameTime = FRAMETIME;
+        return this;
+    }
+
+    public SpriteBuilder WithRangeMinMax(int MIN, int MAX)
+    {
+        RangeMin = MIN;
+        RangeMax = MAX;
         return this;
     }
 }

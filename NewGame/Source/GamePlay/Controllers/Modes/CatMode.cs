@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 
-public class GeckoMode : Mode
+public class CatMode : Mode
 {
-    public GeckoMode(Player PLAYER) : base(PLAYER, 0.3f, 0.25f, 1.5f, 0.2f, 4)
+    public CatMode(Player PLAYER) : base(PLAYER, 0.5f, 0.3f, 3, 0.2f, 4)
     {}
 
     public override void MovementControl()
