@@ -129,7 +129,7 @@ public class Main : Game
 
         ui.Draw();
 
-        if (Globals.gameState != GameState.GAME_PLAY)
+        if (Globals.gameState != GameState.GAME_PLAY || GameGlobals.roundState == RoundState.END)
         {
             cursor.Draw();
         }

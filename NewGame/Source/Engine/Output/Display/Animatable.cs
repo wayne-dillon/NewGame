@@ -32,6 +32,7 @@ public abstract class Animatable
         isTransitionable = ISTRANSITIONABLE;
         hitbox = new(Pos.X - dims.X / 2, Pos.X + dims.X / 2, Pos.Y - dims.Y / 2, Pos.Y + dims.Y / 2);
         if (type == InteractableType.PLATFORM) Platforms.hitboxes.Add(hitbox);
+        if (type == InteractableType.HAZARD) Hazards.hitboxes.Add(hitbox);
     }
 
     public virtual void Update()

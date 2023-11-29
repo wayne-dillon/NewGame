@@ -2,5 +2,8 @@ public enum InteractableType
 {
     NONE,
     CHARACTER,
-    PLATFORM
+    PLATFORM,
+    HAZARD,
+    START_TIMER,
+    END_ROUND
 }

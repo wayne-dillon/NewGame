@@ -9,6 +9,8 @@ public class Player
     private CharacterMode currentMode;
     private CharacterState currentState;
 
+    public Hitbox prevHitbox;
+
     private bool animationChanged;
 
     public float speed;
@@ -43,22 +45,61 @@ public class Player
 
     public void Update()
     {
-        SetMode();
-        CheckForContact();
-        CharacterState newState = SetState();
-        if (newState != currentState)
+        if (GameGlobals.roundState != RoundState.END)
         {
-            currentState = newState;
-            animationChanged = true;
+            SetMode();
+            CheckForContact();
+            CharacterState newState = SetState();
+            if (newState != currentState)
+            {
+                currentState = newState;
+                animationChanged = true;
+            }
+            if (animationChanged)
+            {
+                SetAnimationRange();
+            }
+            modes[currentMode].MovementControl();
+            UpdatePosition();
+            modeText.Update(currentMode.ToString());
         }
-        if (animationChanged)
-        {
-            SetAnimationRange();
-        }
-        modes[currentMode].MovementControl();
-        UpdatePosition();
-        modeText.Update(currentMode.ToString());
         sprite.Update();
+    }
+
+    private void AdjustForPlatforms()
+    {
+        foreach (Hitbox box in Platforms.hitboxes)
+        {
+            switch (box.PassesThrough(prevHitbox, sprite.hitbox))
+            {
+                case Direction.NONE:
+                    break;
+                case Direction.LEFT:
+                    sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, sprite.Pos.Y);
+                    break;
+                case Direction.RIGHT:
+                    sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, sprite.Pos.Y);
+                    break;
+                case Direction.UP:
+                    sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
+                    break;
+                case Direction.DOWN:
+                    sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
+                    break;
+                case Direction.UP_LEFT:
+                    sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, box.top - sprite.dims.Y / 2);
+                    break;
+                case Direction.UP_RIGHT:
+                    sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, box.top - sprite.dims.Y / 2);
+                    break;
+                case Direction.DOWN_LEFT:
+                    sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, box.bottom + sprite.dims.Y / 2);
+                    break;
+                case Direction.DOWN_RIGHT:
+                    sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, box.bottom + sprite.dims.Y / 2);
+                    break;
+            }
+        }
     }
 
     public void CheckForContact()
@@ -87,6 +128,17 @@ public class Player
                     grounded = true;
                     fallSpeed = 0;
                     break;
+            }
+        }
+    }
+    
+    public void CheckForHazards()
+    {
+        foreach (Hitbox box in Hazards.hitboxes)
+        {
+            if (box.PassesThrough(prevHitbox, sprite.hitbox) != Direction.NONE)
+            {
+                GameGlobals.roundState = RoundState.END;
             }
         }
     }
@@ -145,40 +197,10 @@ public class Player
 
     private void UpdatePosition()
     {
-        Hitbox oldBox = sprite.hitbox.Clone();
+        prevHitbox = sprite.hitbox.Clone();
         sprite.Pos += velocity;
-        foreach (Hitbox box in Platforms.hitboxes)
-        {
-            switch (box.PassesThrough(oldBox, sprite.hitbox))
-            {
-                case Direction.NONE:
-                    break;
-                case Direction.LEFT:
-                    sprite.Pos = new Vector2(box.right + sprite.dims.X/2, sprite.Pos.Y);
-                    break;
-                case Direction.RIGHT:
-                    sprite.Pos = new Vector2(box.left - sprite.dims.X/2, sprite.Pos.Y);
-                    break;
-                case Direction.UP:
-                    sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y/2);
-                    break;
-                case Direction.DOWN:
-                    sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y/2);
-                    break;
-                case Direction.UP_LEFT:
-                    sprite.Pos = new Vector2(box.right + sprite.dims.X/2, box.top - sprite.dims.Y/2);
-                    break;
-                case Direction.UP_RIGHT:
-                    sprite.Pos = new Vector2(box.left - sprite.dims.X/2, box.top - sprite.dims.Y/2);
-                    break;
-                case Direction.DOWN_LEFT:
-                    sprite.Pos = new Vector2(box.right + sprite.dims.X/2, box.bottom + sprite.dims.Y/2);
-                    break;
-                case Direction.DOWN_RIGHT:
-                    sprite.Pos = new Vector2(box.left - sprite.dims.X/2, box.bottom + sprite.dims.Y/2);
-                    break;
-            }
-        }
+        AdjustForPlatforms();
+        CheckForHazards();
     }
 
     public void Draw()

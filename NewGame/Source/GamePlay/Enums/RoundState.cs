@@ -1,7 +1,6 @@
 public enum RoundState
 {
     START,
-    AWAITING_PICK,
-    ANIMATING,
+    TIMER_RUNNING,
     END
 }

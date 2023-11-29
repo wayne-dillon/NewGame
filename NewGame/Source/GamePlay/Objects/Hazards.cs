@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Platforms
+public class Hazards
 {
     public static List<Hitbox> hitboxes = new();
 
