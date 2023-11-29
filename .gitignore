@@ -4,10 +4,7 @@ NewGame/bin
 NewGame/obj
 NewGame/Source/Content/obj
 NewGame/Source/Content/bin
-NewGame/.config
-NewGame/app.manifest
 NewGame/Content.zip
 NewGame/log.txt
 Tests/bin
 Tests/obj
-Tests/Tests.csproj
