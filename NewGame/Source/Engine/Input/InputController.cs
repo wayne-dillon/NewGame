@@ -4,7 +4,7 @@ public class InputController
 
     public static bool Right() => Globals.keyboard.GetPress("D") || Globals.keyboard.GetPress("Right");
 
-    public static bool Jump() => Globals.keyboard.GetPress("W") || Globals.keyboard.GetPress("Up") || Globals.keyboard.GetPress(" ");
+    public static bool Jump() => Globals.keyboard.GetPress("W") || Globals.keyboard.GetPress("Up") || Globals.keyboard.GetPress("Space");
 
     public static bool NextMode() => Globals.keyboard.GetSinglePress("E") || Globals.mouse.RightClick();
 

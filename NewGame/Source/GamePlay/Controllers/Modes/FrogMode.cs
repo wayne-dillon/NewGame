@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 public class FrogMode : Mode
 {
-    public FrogMode(Player PLAYER) : base(PLAYER, 0.2f, 0.1f, 0.8f, 0.2f, 4)
+    public FrogMode(Player PLAYER) : base(PLAYER, 0.2f, 0.1f, 0.8f, 5, 200, 0.2f, 4)
     {}
 
     public override void MovementControl()
@@ -18,13 +18,19 @@ public class FrogMode : Mode
             Fall();
             return;
         }
+        if (InputController.Jump())
+        {
+            Jump();
+            Fall();
+            return;
+        }
         if (player.speed > 0)
         {
             if (player.blockedRight)
             {
                 player.velocity = Vector2.Zero;
             } else {
-                MoveRight();
+                HorizontalMovement();
             }
         }
         if (player.speed <= 0)
@@ -33,7 +39,7 @@ public class FrogMode : Mode
             {
                 player.velocity = Vector2.Zero;
             } else {
-                MoveLeft();
+                HorizontalMovement();
             }
         }
     }
