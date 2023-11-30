@@ -670,6 +670,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/UbuntuBold.spritefont
 
+#begin Levels/Level1.csv
+/copy:Levels/Level1.csv
+
 #begin rect.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -704,7 +707,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Symbols/Diamonds.png;Symbols/Diamonds.png
+/build:Symbols/Diamonds.png
 
 #begin Symbols/Hearts.png
 /importer:TextureImporter
@@ -716,7 +719,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Symbols/Hearts.png;Symbols/Hearts.png
+/build:Symbols/Hearts.png
 
 #begin Symbols/Spades.png
 /importer:TextureImporter

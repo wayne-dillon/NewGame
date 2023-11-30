@@ -6,10 +6,7 @@ public class GamePlay
 {
     private Player player;
     private Camera camera;
-    private List<Sprite> platforms;
-    private List<Sprite> hazards;
-    private Sprite startLine;
-    private Sprite finishLine;
+    private Level level;
     private TextComponent timeDisplay;
 
     private TimeSpan runTime;
@@ -30,13 +27,10 @@ public class GamePlay
 
     private void Init()
     {
-        Platforms.Reset();
-        Hazards.Reset();
+        level = LevelBuilder.Build("Source//Content//Levels//Level1.csv");
 
-        player = new Player();
+        player = new Player(level.playerStartPos);
         camera = new Camera(player.sprite);
-        platforms = new();
-        hazards = new();
         runTime = new();
 
         timeDisplay = new TextComponentBuilder().WithText(TimerText)
@@ -45,57 +39,6 @@ public class GamePlay
                                                 .WithOffset(new Vector2(-75,75))
                                                 .Build();
 
-        SpriteBuilder platformBuilder = new SpriteBuilder().WithInteractableType(InteractableType.PLATFORM)
-                                                        .WithPath("rect")
-                                                        .WithColor(Colors.SealBrown);
-        platforms.Add(platformBuilder.WithDims(new Vector2(1600, 20))
-                                    .WithScreenAlignment(Alignment.TOP)
-                                    .Build());
-        platforms.Add(platformBuilder.WithScreenAlignment(Alignment.BOTTOM)
-                                    .Build());
-        platforms.Add(platformBuilder.WithOffset(new Vector2(2000, -200))
-                                    .Build());
-        platforms.Add(platformBuilder.WithDims(new Vector2(20, 900))
-                                    .WithScreenAlignment(Alignment.CENTER_LEFT)
-                                    .Build());
-        platforms.Add(platformBuilder.WithScreenAlignment(Alignment.CENTER_RIGHT)
-                                    .Build());
-        platforms.Add(platformBuilder.WithDims(new Vector2(500, 100))
-                                    .WithOffset(new Vector2(0, -50))
-                                    .WithScreenAlignment(Alignment.BOTTOM)
-                                    .Build());
-                                    
-        SpriteBuilder hazardBuilder = new SpriteBuilder().WithInteractableType(InteractableType.HAZARD)
-                                                        .WithPath("rect")
-                                                        .WithColor(Color.Red);
-        hazards.Add(hazardBuilder.WithDims(new Vector2(10000, 20))
-                                    .WithScreenAlignment(Alignment.TOP)
-                                    .WithOffset(new Vector2(0, -500))
-                                    .Build());
-        hazards.Add(hazardBuilder.WithScreenAlignment(Alignment.BOTTOM)
-                                    .WithOffset(new Vector2(0, 500))
-                                    .Build());
-        hazards.Add(hazardBuilder.WithDims(new Vector2(20, 3000))
-                                    .WithScreenAlignment(Alignment.CENTER_LEFT)
-                                    .WithOffset(new Vector2(-500, 0))
-                                    .Build());
-        hazards.Add(hazardBuilder.WithScreenAlignment(Alignment.CENTER_RIGHT)
-                                    .WithOffset(new Vector2(4000, 0))
-                                    .Build());
-
-        startLine = new SpriteBuilder().WithInteractableType(InteractableType.START_TIMER)
-                                    .WithPath("rect")
-                                    .WithColor(Colors.ShamrockGreen)
-                                    .WithDims(new Vector2(20, 3000))
-                                    .Build();
-
-        finishLine = new SpriteBuilder().WithInteractableType(InteractableType.END_ROUND)
-                                    .WithPath("rect")
-                                    .WithColor(Colors.AmaranthPurple)
-                                    .WithDims(new Vector2(20, 3000))
-                                    .WithOffset(new Vector2(3000, 0))
-                                    .Build();
-
         GameGlobals.roundState = RoundState.START;
     }
 
@@ -103,31 +46,37 @@ public class GamePlay
     {
         player.Update();
         camera.Update();
-        startLine.Update();
-        finishLine.Update();
-        foreach (Sprite platform in platforms)
+        foreach (Sprite start in level.start)
+        {
+            start.Update();
+            if (GameGlobals.roundState == RoundState.START)
+            {
+                if (start.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
+                {
+                    GameGlobals.roundState = RoundState.TIMER_RUNNING;
+                }
+            }
+        }
+        foreach (Sprite end in level.end)
+        {
+            end.Update();
+            if (GameGlobals.roundState == RoundState.TIMER_RUNNING)
+            {
+                if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
+                {
+                    GameGlobals.roundState = RoundState.END;
+                } else {
+                    runTime += Globals.gameTime.ElapsedGameTime;
+                }
+            }
+        }
+        foreach (Sprite platform in level.platforms)
         {
             platform.Update();
         }
-        foreach (Sprite hazard in hazards)
+        foreach (Sprite hazard in level.hazards)
         {
             hazard.Update();
-        }
-        if (GameGlobals.roundState == RoundState.START)
-        {
-            if (startLine.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
-            {
-                GameGlobals.roundState = RoundState.TIMER_RUNNING;
-            }
-        }
-        if (GameGlobals.roundState == RoundState.TIMER_RUNNING)
-        {
-            if (finishLine.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
-            {
-                GameGlobals.roundState = RoundState.END;
-            } else {
-                runTime += Globals.gameTime.ElapsedGameTime;
-            }
         }
         if (Globals.isNewGame) 
         {
@@ -144,13 +93,19 @@ public class GamePlay
 
     public virtual void Draw()
     {
-        startLine.Draw();
-        finishLine.Draw();
-        foreach (Sprite hazard in hazards)
+        foreach (Sprite start in level.start)
+        {
+            start.Draw();
+        }
+        foreach (Sprite end in level.end)
+        {
+            end.Draw();
+        }
+        foreach (Sprite hazard in level.hazards)
         {
             hazard.Draw();
         }
-        foreach (Sprite platform in platforms)
+        foreach (Sprite platform in level.platforms)
         {
             platform.Draw();
         }

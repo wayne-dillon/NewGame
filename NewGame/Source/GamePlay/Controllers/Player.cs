@@ -23,14 +23,14 @@ public class Player
 
     public TextComponent modeText;
 
-    public Player()
+    public Player(Vector2 POS)
     {
         sprite = new SpriteBuilder().WithPathDict(SpriteDictionary.PlayerSpriteDict())
                             .WithFrameTime(100)
                             .WithRangeMinMax(0, 4)
                             .WithInteractableType(InteractableType.CHARACTER)
                             .WithDims(new Vector2(120, 120))
-                            .WithOffset(new Vector2(-200, 0))
+                            .WithAbsolutePosition(POS)
                             .BuildAnimated();
 
         currentMode = CharacterMode.GECKO;
