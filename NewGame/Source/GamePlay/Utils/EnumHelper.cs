@@ -6,7 +6,7 @@ public class EnumHelper
         "H" => LevelObject.HAZARD,
         "PC" => LevelObject.PLAYER,
         "S" => LevelObject.START,
-        "E" => LevelObject.END,
+        "O" => LevelObject.OBJECTIVE,
         _ => LevelObject.EMPTY
     };
 }

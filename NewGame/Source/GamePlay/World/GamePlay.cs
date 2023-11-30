@@ -8,6 +8,8 @@ public class GamePlay
     private Camera camera;
     private Level level;
     private TextComponent timeDisplay;
+    private readonly List<Sprite> collected = new();
+    private int timeBonus = 30;
 
     private TimeSpan runTime;
     private string TimerText
@@ -31,7 +33,7 @@ public class GamePlay
 
         player = new Player(level.playerStartPos);
         camera = new Camera(player.sprite);
-        runTime = new();
+        runTime = new(0,0,timeBonus);
 
         timeDisplay = new TextComponentBuilder().WithText(TimerText)
                                                 .WithScreenAlignment(Alignment.TOP_RIGHT)
@@ -46,7 +48,7 @@ public class GamePlay
     {
         player.Update();
         camera.Update();
-        foreach (Sprite start in level.start)
+        foreach (Sprite start in level.startBlocks)
         {
             start.Update();
             if (GameGlobals.roundState == RoundState.START)
@@ -57,18 +59,17 @@ public class GamePlay
                 }
             }
         }
-        foreach (Sprite end in level.end)
+        foreach (Sprite objective in level.objectives)
         {
-            end.Update();
+            objective.Update();
             if (GameGlobals.roundState == RoundState.TIMER_RUNNING)
             {
-                if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
-                {
-                    GameGlobals.roundState = RoundState.END;
-                } else {
-                    runTime += Globals.gameTime.ElapsedGameTime;
-                }
+                CollectObjective(objective);
             }
+        }
+        if (GameGlobals.roundState == RoundState.TIMER_RUNNING)
+        {
+            CheckEnd();
         }
         foreach (Sprite platform in level.platforms)
         {
@@ -86,6 +87,33 @@ public class GamePlay
         timeDisplay.Update(TimerText);
     }
 
+    private void CheckEnd()
+    {
+        foreach (Sprite objective in collected)
+        {
+            level.objectives.Remove(objective);
+        }
+        if (level.objectives.Count == 0)
+        {
+            GameGlobals.roundState = RoundState.END;
+        } else {
+            runTime -= Globals.gameTime.ElapsedGameTime;
+            if (runTime.TotalMilliseconds <= 0)
+            {
+                GameGlobals.roundState = RoundState.END;
+            }
+        }
+    }
+
+    private void CollectObjective(Sprite end)
+    {
+        if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
+        {
+            collected.Add(end);
+            runTime += new TimeSpan(0,0,timeBonus);
+        }
+    }
+
     public virtual void ResetWorld(object SENDER, object INFO)
     {
         Init();
@@ -93,11 +121,11 @@ public class GamePlay
 
     public virtual void Draw()
     {
-        foreach (Sprite start in level.start)
+        foreach (Sprite start in level.startBlocks)
         {
             start.Draw();
         }
-        foreach (Sprite end in level.end)
+        foreach (Sprite end in level.objectives)
         {
             end.Draw();
         }

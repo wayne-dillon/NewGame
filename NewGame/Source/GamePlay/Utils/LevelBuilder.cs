@@ -27,8 +27,8 @@ public class LevelBuilder
                     case LevelObject.START:
                         CreateStart(position);
                         break;
-                    case LevelObject.END:
-                        CreateEnd(position);
+                    case LevelObject.OBJECTIVE:
+                        CreateObjective(position);
                         break;
                     case LevelObject.PLAYER:
                         level.playerStartPos = position;
@@ -67,17 +67,16 @@ public class LevelBuilder
 
     private static void CreateStart(Vector2 POS)
     {
-        level.start.Add(new SpriteBuilder().WithInteractableType(InteractableType.START_TIMER)
-                                    .WithPath("rect")
-                                    .WithColor(Colors.ShamrockGreen)
+        level.startBlocks.Add(new SpriteBuilder().WithInteractableType(InteractableType.START_TIMER)
+                                    .WithPath("Symbols//Checker")
                                     .WithAbsolutePosition(POS)
                                     .WithDims(new Vector2(tileSize, tileSize))
                                     .Build());
     }
 
-    private static void CreateEnd(Vector2 POS)
+    private static void CreateObjective(Vector2 POS)
     {
-        level.end.Add(new SpriteBuilder().WithInteractableType(InteractableType.END_ROUND)
+        level.objectives.Add(new SpriteBuilder().WithInteractableType(InteractableType.OBJECTIVE)
                                     .WithPath("rect")
                                     .WithColor(Colors.AmaranthPurple)
                                     .WithAbsolutePosition(POS)

@@ -51,19 +51,24 @@ public struct Hitbox
         bool passFromRight = oldBox.right <= left && newBox.right > left;
         bool passFromTop = oldBox.bottom <= top && newBox.bottom > top;
         bool passFromBottom = oldBox.top >= bottom && newBox.top < bottom;
-        if (passFromLeft)
+        
+        bool onLeft = oldBox.left == right && newBox.left == right;
+        bool onRight = oldBox.right == left && newBox.right == left;
+        bool onTop = oldBox.bottom == top && newBox.bottom == top;
+        bool onBottom = oldBox.top == bottom && newBox.top == bottom;
+        if (passFromLeft && !(onTop || onBottom))
         {
             if (passFromTop) return Direction.UP_LEFT;
             if (passFromBottom) return Direction.DOWN_LEFT;
             return Direction.LEFT;
-        } else if (passFromRight)
+        } else if (passFromRight && !(onTop || onBottom))
         {
             if (passFromTop) return Direction.UP_RIGHT;
             if (passFromBottom) return Direction.DOWN_RIGHT;
             return Direction.RIGHT;
         }
-        if (passFromTop) return Direction.UP;
-        if (passFromBottom) return Direction.DOWN;
+        if (passFromTop && !(onLeft || onRight)) return Direction.UP;
+        if (passFromBottom && !(onLeft || onRight)) return Direction.DOWN;
         return Direction.NONE;
     }
 

@@ -5,5 +5,5 @@ public enum InteractableType
     PLATFORM,
     HAZARD,
     START_TIMER,
-    END_ROUND
+    OBJECTIVE
 }

@@ -5,5 +5,5 @@ public enum LevelObject
     HAZARD,
     PLAYER,
     START,
-    END
+    OBJECTIVE
 }
