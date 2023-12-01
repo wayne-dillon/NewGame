@@ -6,6 +6,17 @@ public class LevelBuilder
     public static readonly int tileSize = 60;
     private static Level level;
 
+    private static Dictionary<int, string> objectiveDict = new()
+    {
+        { 0, "Symbols//airplaneModePhone" },
+        { 1, "Symbols//ringingPhone1" },
+        { 2, "Symbols//ringingPhone2" },
+        { 3, "Symbols//ringingPhone3" },
+        { 4, "Symbols//ringingPhone4" },
+        { 5, "Symbols//ringingPhone3" },
+        { 6, "Symbols//ringingPhone2" }
+    };
+
     public static Level Build(string PATH)
     {
         level = new();
@@ -16,10 +27,26 @@ public class LevelBuilder
         {
             foreach (string obj in row)
             {
-                switch (EnumHelper.GetObject(obj))
+                LevelObject levelObject = EnumHelper.GetObject(obj);
+                switch (levelObject)
                 {
-                    case LevelObject.PLATFORM:
-                        CreatePlatform(position);
+                    case LevelObject.PLATFORM_BOTTOM:
+                    case LevelObject.PLATFORM_BOTTOM_LEFT:
+                    case LevelObject.PLATFORM_BOTTOM_RIGHT:
+                    case LevelObject.PLATFORM_HORIZONTAL:
+                    case LevelObject.PLATFORM_LEFT:
+                    case LevelObject.PLATFORM_OPEN:
+                    case LevelObject.PLATFORM_OPEN_BOTTOM:
+                    case LevelObject.PLATFORM_OPEN_LEFT:
+                    case LevelObject.PLATFORM_OPEN_RIGHT:
+                    case LevelObject.PLATFORM_OPEN_TOP:
+                    case LevelObject.PLATFORM_RIGHT:
+                    case LevelObject.PLATFORM_SINGLE:
+                    case LevelObject.PLATFORM_TOP:
+                    case LevelObject.PLATFORM_TOP_LEFT:
+                    case LevelObject.PLATFORM_TOP_RIGHT:
+                    case LevelObject.PLATFORM_VERTICAL:
+                        CreatePlatform(levelObject, position);
                         break;
                     case LevelObject.HAZARD:
                         CreateHazard(position);
@@ -45,11 +72,10 @@ public class LevelBuilder
         return level;
     }
 
-    private static void CreatePlatform(Vector2 POS)
+    private static void CreatePlatform(LevelObject obj, Vector2 POS)
     {
         level.platforms.Add(new SpriteBuilder().WithInteractableType(InteractableType.PLATFORM)
-                                                        .WithPath("rect")
-                                                        .WithColor(Colors.SealBrown)
+                                                        .WithPath(EnumHelper.GetPlatformPath(obj))
                                                         .WithAbsolutePosition(POS)
                                                         .WithDims(new Vector2(tileSize, tileSize))
                                                         .Build());
@@ -77,10 +103,11 @@ public class LevelBuilder
     private static void CreateObjective(Vector2 POS)
     {
         level.objectives.Add(new SpriteBuilder().WithInteractableType(InteractableType.OBJECTIVE)
-                                    .WithPath("rect")
-                                    .WithColor(Colors.AmaranthPurple)
+                                    .WithPathDict(objectiveDict)
+                                    .WithFrameTime(100)
+                                    .WithRangeMinMax(1,6)
                                     .WithAbsolutePosition(POS)
                                     .WithDims(new Vector2(tileSize, tileSize))
-                                    .Build());
+                                    .BuildAnimated());
     }
 }

@@ -6,8 +6,8 @@ public class SpriteDictionary
     {
         Dictionary<int, string> ret = new()
         {
-            { 0, "Cards//145x210//SPADES_ACE" },
-            { 1, "Cards//145x210//SPADES_TWO" },
+            { 0, "Player//playerIdle1" },
+            { 1, "Player//playerIdle2" },
             { 2, "Cards//145x210//SPADES_THREE" },
             { 3, "Cards//145x210//SPADES_FOUR" },
             { 4, "Cards//145x210//SPADES_FIVE" },

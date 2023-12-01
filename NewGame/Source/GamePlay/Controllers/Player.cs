@@ -26,10 +26,10 @@ public class Player
     public Player(Vector2 POS)
     {
         sprite = new SpriteBuilder().WithPathDict(SpriteDictionary.PlayerSpriteDict())
-                            .WithFrameTime(100)
+                            .WithFrameTime(200)
                             .WithRangeMinMax(0, 4)
                             .WithInteractableType(InteractableType.CHARACTER)
-                            .WithDims(new Vector2(120, 120))
+                            .WithDims(new Vector2(63, 112))
                             .WithAbsolutePosition(POS)
                             .BuildAnimated();
 
@@ -153,9 +153,9 @@ public class Player
 
     private void SetAnimationRange()
     {
-        int num = 10 * (int)currentMode;
-        num += (int)currentState;
-        sprite.SetRange(num, num);
+        // int num = 10 * (int)currentMode;
+        // num += (int)currentState;
+        sprite.SetRange(0, 1);
         animationChanged = false;
     }
 

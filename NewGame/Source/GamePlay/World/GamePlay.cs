@@ -8,7 +8,7 @@ public class GamePlay
     private Camera camera;
     private Level level;
     private TextComponent timeDisplay;
-    private readonly List<Sprite> collected = new();
+    private int collected;
     private int timeBonus = 30;
 
     private TimeSpan runTime;
@@ -41,6 +41,8 @@ public class GamePlay
                                                 .WithOffset(new Vector2(-75,75))
                                                 .Build();
 
+        collected = 0;
+
         GameGlobals.roundState = RoundState.START;
     }
 
@@ -59,7 +61,7 @@ public class GamePlay
                 }
             }
         }
-        foreach (Sprite objective in level.objectives)
+        foreach (AnimatedSprite objective in level.objectives)
         {
             objective.Update();
             if (GameGlobals.roundState == RoundState.TIMER_RUNNING)
@@ -89,11 +91,7 @@ public class GamePlay
 
     private void CheckEnd()
     {
-        foreach (Sprite objective in collected)
-        {
-            level.objectives.Remove(objective);
-        }
-        if (level.objectives.Count == 0)
+        if (level.objectives.Count == collected)
         {
             GameGlobals.roundState = RoundState.END;
         } else {
@@ -105,11 +103,13 @@ public class GamePlay
         }
     }
 
-    private void CollectObjective(Sprite end)
+    private void CollectObjective(AnimatedSprite end)
     {
-        if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE)
+        if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE && end.type == InteractableType.OBJECTIVE)
         {
-            collected.Add(end);
+            collected++;
+            end.SetRange(0,0);
+            end.type = InteractableType.NONE;
             runTime += new TimeSpan(0,0,timeBonus);
         }
     }

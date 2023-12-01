@@ -6,7 +6,7 @@ public struct Level
     public List<Sprite> platforms;
     public List<Sprite> hazards;
     public List<Sprite> startBlocks;
-    public List<Sprite> objectives;
+    public List<AnimatedSprite> objectives;
     public Vector2 playerStartPos;
 
     public Level()
