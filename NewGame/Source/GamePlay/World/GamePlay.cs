@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 public class GamePlay
@@ -11,10 +10,13 @@ public class GamePlay
     private int collected;
     private int timeBonus = 30;
 
+    public TextComponent modeText;
+
     private TimeSpan runTime;
     private string TimerText
     { 
         get {
+            if (runTime.TotalMilliseconds < 0) return "Time: 00:00.000";
             int minutes = (int)Math.Floor(runTime.TotalMinutes);
             int seconds = (int)Math.Floor(runTime.TotalSeconds % 60);
             int millis = (int)Math.Floor(runTime.TotalMilliseconds % 1000);
@@ -40,6 +42,10 @@ public class GamePlay
                                                 .WithTextAlignment(Alignment.CENTER_RIGHT)
                                                 .WithOffset(new Vector2(-75,75))
                                                 .Build();
+
+        modeText = new TextComponentBuilder().WithScreenAlignment(Alignment.TOP)
+                                            .WithOffset(new Vector2(0, 30))
+                                            .Build();
 
         collected = 0;
 
@@ -86,6 +92,7 @@ public class GamePlay
             Globals.isNewGame = false;
             ResetWorld(null, null);
         }
+        modeText.Update(GameGlobals.currentMode.ToString());
         timeDisplay.Update(TimerText);
     }
 
@@ -138,6 +145,7 @@ public class GamePlay
             platform.Draw();
         }
         player.Draw();
+        modeText.Draw();
         timeDisplay.Draw();
     }
 }

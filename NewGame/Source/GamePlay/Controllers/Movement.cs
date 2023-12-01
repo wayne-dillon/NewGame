@@ -14,13 +14,15 @@ public class Movement
     private bool blockedRight;
     private bool blockedTop;
 
-    private CharacterMode currentMode;
+    private bool isCat => GameGlobals.currentMode == CharacterMode.CAT;
+    private bool isFrog => GameGlobals.currentMode == CharacterMode.FROG;
+    private bool isGecko => GameGlobals.currentMode == CharacterMode.GECKO;
 
     public Movement()
     {
         values = new(0.3f, 0.25f, 1.5f, 2, 150, 100, 0.2f, 4);
         jump = new(values);
-        currentMode = CharacterMode.CAT;
+        GameGlobals.currentMode = CharacterMode.CAT;
     }
 
     public void Update(Hitbox SPRITE_BOX)
@@ -40,6 +42,8 @@ public class Movement
                 case Direction.NONE:
                 case Direction.UP_LEFT:
                 case Direction.UP_RIGHT:
+                case Direction.DOWN_LEFT:
+                case Direction.DOWN_RIGHT:
                     break;
                 case Direction.UP:
                     blockedTop = true;
@@ -51,8 +55,6 @@ public class Movement
                     blockedRight = true;
                     break;
                 case Direction.DOWN:
-                case Direction.DOWN_LEFT:
-                case Direction.DOWN_RIGHT:
                     grounded = true;
                     break;
             }
@@ -72,13 +74,10 @@ public class Movement
     public CharacterState GetState()
     {
         if (grounded && horizontalSpeed == 0) return CharacterState.IDLE;
-        if (currentMode != CharacterMode.CAT)
+        if (isGecko)
         {
-            if (currentMode == CharacterMode.GECKO)
-            {
-                if (blockedLeft && horizontalSpeed < 0) return CharacterState.CLIMBING_LEFT;
-                if (blockedRight && horizontalSpeed > 0) return CharacterState.CLIMBING_RIGHT;
-            }
+            if (blockedLeft && horizontalSpeed < 0) return CharacterState.CLIMBING_LEFT;
+            if (blockedRight && horizontalSpeed > 0) return CharacterState.CLIMBING_RIGHT;
             if (blockedLeft) return CharacterState.CLINGING_LEFT;
             if (blockedRight) return CharacterState.CLINGING_RIGHT;
         }
@@ -130,26 +129,35 @@ public class Movement
 
     private void SetVelocity()
     {
-        if (grounded || jump.IsJumping())
+        if (grounded || jump.IsJumping() || (isGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();
         }
-        if (!grounded && !blockedLeft && !blockedRight && !jump.IsJumping())
+        if (WallRun()) return;
+        if (!grounded && !jump.IsJumping())
         {
             Fall();
         }
-        if (horizontalSpeed > 0 && blockedRight)
-        {
-            verticalSpeed = blockedTop ? 0 : -horizontalSpeed;
-            velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
-            return;
-        }
-        if (horizontalSpeed <= 0 && blockedLeft)
-        {
-            verticalSpeed = blockedTop ? 0 : horizontalSpeed;
-            velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
-            return;
-        }
         HorizontalMovement();
+    }
+
+    private bool WallRun()
+    {
+        if (isGecko)
+        {
+            if (horizontalSpeed >= 0 && blockedRight)
+            {
+                verticalSpeed = blockedTop ? 0 : -horizontalSpeed;
+                velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
+                return true;
+            }
+            if (horizontalSpeed <= 0 && blockedLeft)
+            {
+                verticalSpeed = blockedTop ? 0 : horizontalSpeed;
+                velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
+                return true;
+            }
+        }
+        return false;
     }
 }

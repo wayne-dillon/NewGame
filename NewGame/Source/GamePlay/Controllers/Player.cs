@@ -27,6 +27,7 @@ public class Player
     {
         if (GameGlobals.roundState != RoundState.END)
         {
+            SetCharacterMode();
             movement.Update(sprite.hitbox);
             CharacterState newState = movement.GetState();
 
@@ -98,6 +99,20 @@ public class Player
         // num += (int)currentState;
         sprite.SetRange(0, 1);
         animationChanged = false;
+    }
+
+    private void SetCharacterMode()
+    {
+        if (InputController.NextMode())
+        {
+            GameGlobals.currentMode = (int)GameGlobals.currentMode == 2 ? 0 : GameGlobals.currentMode + 1;
+            animationChanged = true;
+        }
+        if (InputController.PrevMode())
+        {
+            GameGlobals.currentMode = GameGlobals.currentMode == 0 ? (CharacterMode)2 : GameGlobals.currentMode - 1;
+            animationChanged = true;
+        }
     }
 
     private void UpdatePosition(Vector2 VELOCITY)

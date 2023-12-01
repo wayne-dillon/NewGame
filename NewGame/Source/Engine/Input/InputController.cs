@@ -9,4 +9,8 @@ public class InputController
     public static bool NextMode() => Globals.keyboard.GetSinglePress("E") || Globals.mouse.RightClick();
 
     public static bool PrevMode() => Globals.keyboard.GetSinglePress("Q") || Globals.mouse.LeftClick();
+
+    public static bool Confirm() => Globals.keyboard.GetSinglePress("Space");
+
+    public static bool Back() => Globals.keyboard.GetSinglePress("Back");
 }
