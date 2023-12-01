@@ -5,26 +5,16 @@ public class Player
 {
     public AnimatedSprite sprite;
 
-    private Dictionary<CharacterMode, Mode> modes = new();
-    private CharacterMode currentMode;
+    private readonly Movement movement;
+
     private CharacterState currentState;
 
     public Hitbox prevHitbox;
-
     private bool animationChanged;
-
-    public float speed;
-    public float fallSpeed;
-    public Vector2 velocity = new();
-    public bool grounded;
-    public bool blockedLeft;
-    public bool blockedRight;
-    public bool blockedTop;
-
-    public TextComponent modeText;
 
     public Player(Vector2 POS)
     {
+        movement = new();
         sprite = new SpriteBuilder().WithPathDict(SpriteDictionary.PlayerSpriteDict())
                             .WithFrameTime(200)
                             .WithRangeMinMax(0, 4)
@@ -32,24 +22,15 @@ public class Player
                             .WithDims(new Vector2(63, 112))
                             .WithAbsolutePosition(POS)
                             .BuildAnimated();
-
-        currentMode = CharacterMode.GECKO;
-        modes.Add(CharacterMode.GECKO, new GeckoMode(this));
-        modes.Add(CharacterMode.FROG, new FrogMode(this));
-        modes.Add(CharacterMode.CAT, new CatMode(this));
-
-        modeText = new TextComponentBuilder().WithScreenAlignment(Alignment.TOP)
-                                            .WithOffset(new Vector2(0, 30))
-                                            .Build();
     }
 
     public void Update()
     {
         if (GameGlobals.roundState != RoundState.END)
         {
-            SetMode();
-            CheckForContact();
-            CharacterState newState = SetState();
+            movement.CheckForContact(sprite.hitbox);
+            CharacterState newState = movement.GetState();
+
             if (newState != currentState)
             {
                 currentState = newState;
@@ -59,9 +40,8 @@ public class Player
             {
                 SetAnimationRange();
             }
-            modes[currentMode].MovementControl();
-            UpdatePosition();
-            modeText.Update(currentMode.ToString());
+            
+            UpdatePosition(movement.GetVelocity());
         }
         sprite.Update();
     }
@@ -102,36 +82,6 @@ public class Player
         }
     }
 
-    public void CheckForContact()
-    {
-        ResetContacts();
-
-        foreach (Hitbox box in Platforms.hitboxes)
-        {
-            switch (sprite.hitbox.GetContactDirection(box))
-            {
-                case Direction.NONE:
-                case Direction.UP_LEFT:
-                case Direction.UP_RIGHT:
-                    break;
-                case Direction.LEFT:
-                    blockedLeft = true;
-                    fallSpeed = 0;
-                    break;
-                case Direction.RIGHT:
-                    blockedRight = true;
-                    fallSpeed = 0;
-                    break;
-                case Direction.DOWN:
-                case Direction.DOWN_LEFT:
-                case Direction.DOWN_RIGHT:
-                    grounded = true;
-                    fallSpeed = 0;
-                    break;
-            }
-        }
-    }
-    
     public void CheckForHazards()
     {
         foreach (Hitbox box in Hazards.hitboxes)
@@ -143,14 +93,6 @@ public class Player
         }
     }
     
-    public void ResetContacts()
-    {
-        grounded = false;
-        blockedLeft = false;
-        blockedRight = false;
-        blockedTop = false;
-    }
-
     private void SetAnimationRange()
     {
         // int num = 10 * (int)currentMode;
@@ -159,53 +101,16 @@ public class Player
         animationChanged = false;
     }
 
-    private void SetMode()
-    {
-        if (InputController.NextMode())
-        {
-            currentMode = (int)currentMode == 2 ? 0 : currentMode + 1;
-            animationChanged = true;
-        }
-        if (InputController.PrevMode())
-        {
-            currentMode = currentMode == 0 ? (CharacterMode)2 : currentMode - 1;
-            animationChanged = true;
-        }
-    }
-
-    private CharacterState SetState()
-    {
-        if (grounded && speed == 0) return CharacterState.IDLE;
-        if (currentMode != CharacterMode.CAT)
-        {
-            if (currentMode == CharacterMode.GECKO)
-            {
-                if (blockedLeft && speed < 0) return CharacterState.CLIMBING_LEFT;
-                if (blockedRight && speed > 0) return CharacterState.CLIMBING_RIGHT;
-            }
-            if (blockedLeft) return CharacterState.CLINGING_LEFT;
-            if (blockedRight) return CharacterState.CLINGING_RIGHT;
-        }
-        if (grounded)
-        {
-            if (speed < 0) return CharacterState.RUNNING_LEFT;
-            if (speed > 0) return CharacterState.RUNNING_RIGHT;
-        }
-        if (velocity.Y < 0) return CharacterState.JUMPING;
-        return CharacterState.FALLING;
-    }
-
-    private void UpdatePosition()
+    private void UpdatePosition(Vector2 VELOCITY)
     {
         prevHitbox = sprite.hitbox.Clone();
-        sprite.Pos += velocity;
+        sprite.Pos += VELOCITY;
         AdjustForPlatforms();
         CheckForHazards();
     }
 
     public void Draw()
     {
-        modeText.Draw();
         sprite.Draw();
     }
 }
