@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 public class Player
@@ -28,7 +27,7 @@ public class Player
     {
         if (GameGlobals.roundState != RoundState.END)
         {
-            movement.CheckForContact(sprite.hitbox);
+            movement.Update(sprite.hitbox);
             CharacterState newState = movement.GetState();
 
             if (newState != currentState)

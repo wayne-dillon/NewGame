@@ -2,48 +2,58 @@ using Microsoft.Xna.Framework;
 
 public class Movement
 {
-    PlayerMovementValues values;
+    private PlayerMovementValues values;
+    private Jump jump;
     
-    private float speed;
-    private float fallSpeed;
+    private float horizontalSpeed;
+    private float verticalSpeed;
     private Vector2 velocity = new();
+    
     private bool grounded;
     private bool blockedLeft;
     private bool blockedRight;
     private bool blockedTop;
+
     private CharacterMode currentMode;
 
     public Movement()
     {
-        values = new(0.3f, 0.25f, 1.5f, 2, 100, 100, 0.2f, 4);
+        values = new(0.3f, 0.25f, 1.5f, 2, 150, 100, 0.2f, 4);
+        jump = new(values);
         currentMode = CharacterMode.CAT;
     }
+
+    public void Update(Hitbox SPRITE_BOX)
+    {
+        CheckForContact(SPRITE_BOX);
+        jump.Update();
+    }
     
-    public void CheckForContact(Hitbox spriteBox)
+    public void CheckForContact(Hitbox SPRITE_BOX)
     {
         ResetContacts();
 
         foreach (Hitbox box in Platforms.hitboxes)
         {
-            switch (spriteBox.GetContactDirection(box))
+            switch (SPRITE_BOX.GetContactDirection(box))
             {
                 case Direction.NONE:
                 case Direction.UP_LEFT:
                 case Direction.UP_RIGHT:
                     break;
+                case Direction.UP:
+                    blockedTop = true;
+                    break;
                 case Direction.LEFT:
                     blockedLeft = true;
-                    fallSpeed = 0;
                     break;
                 case Direction.RIGHT:
                     blockedRight = true;
-                    fallSpeed = 0;
                     break;
                 case Direction.DOWN:
                 case Direction.DOWN_LEFT:
                 case Direction.DOWN_RIGHT:
                     grounded = true;
-                    fallSpeed = 0;
                     break;
             }
         }
@@ -51,32 +61,31 @@ public class Movement
     
     private void Fall()
     {
-        fallSpeed = fallSpeed < values.maxFallSpeed ? fallSpeed + values.gravity : values.maxFallSpeed;
-        velocity = new Vector2(speed, fallSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
+        verticalSpeed = verticalSpeed < values.maxFallSpeed ? verticalSpeed + values.gravity : values.maxFallSpeed;
     }
 
     private void HorizontalMovement()
     {
-        velocity = new Vector2(speed * Globals.gameTime.ElapsedGameTime.Milliseconds, 0);
+        velocity = new Vector2(horizontalSpeed, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
     }
 
     public CharacterState GetState()
     {
-        if (grounded && speed == 0) return CharacterState.IDLE;
+        if (grounded && horizontalSpeed == 0) return CharacterState.IDLE;
         if (currentMode != CharacterMode.CAT)
         {
             if (currentMode == CharacterMode.GECKO)
             {
-                if (blockedLeft && speed < 0) return CharacterState.CLIMBING_LEFT;
-                if (blockedRight && speed > 0) return CharacterState.CLIMBING_RIGHT;
+                if (blockedLeft && horizontalSpeed < 0) return CharacterState.CLIMBING_LEFT;
+                if (blockedRight && horizontalSpeed > 0) return CharacterState.CLIMBING_RIGHT;
             }
             if (blockedLeft) return CharacterState.CLINGING_LEFT;
             if (blockedRight) return CharacterState.CLINGING_RIGHT;
         }
         if (grounded)
         {
-            if (speed < 0) return CharacterState.RUNNING_LEFT;
-            if (speed > 0) return CharacterState.RUNNING_RIGHT;
+            if (horizontalSpeed < 0) return CharacterState.RUNNING_LEFT;
+            if (horizontalSpeed > 0) return CharacterState.RUNNING_RIGHT;
         }
         if (velocity.Y < 0) return CharacterState.JUMPING;
         return CharacterState.FALLING;
@@ -87,11 +96,6 @@ public class Movement
         SetSpeed();
         SetVelocity();
         return velocity;
-    }
-
-    private void Jump()
-    {
-        fallSpeed = -values.jumpSpeed;
     }
 
     public void ResetContacts()
@@ -106,56 +110,46 @@ public class Movement
     {
         if (InputController.Left() && !InputController.Right())
         {
-            speed -= values.horizontalAcceleration;
-            if (speed < -values.maxSpeed)
-                speed = -values.maxSpeed;
+            horizontalSpeed -= values.horizontalAcceleration;
+            if (horizontalSpeed < -values.maxSpeed)
+                horizontalSpeed = -values.maxSpeed;
         } else if (InputController.Right() && !InputController.Left())
         {
-            speed += values.horizontalAcceleration;
-            if (speed > values.maxSpeed)
-                speed = values.maxSpeed;
-        } else if (speed > 0)
+            horizontalSpeed += values.horizontalAcceleration;
+            if (horizontalSpeed > values.maxSpeed)
+                horizontalSpeed = values.maxSpeed;
+        } else if (horizontalSpeed > 0)
         {
-            speed -= values.horizontalDeceleration;
-            if (speed < 0) speed = 0;
+            horizontalSpeed -= values.horizontalDeceleration;
+            if (horizontalSpeed < 0) horizontalSpeed = 0;
         } else {
-            speed += values.horizontalDeceleration;
-            if (speed > 0) speed = 0;
+            horizontalSpeed += values.horizontalDeceleration;
+            if (horizontalSpeed > 0) horizontalSpeed = 0;
         }
     }
 
     private void SetVelocity()
     {
-        if (!grounded && !blockedLeft && !blockedRight)
+        if (grounded || jump.IsJumping())
+        {
+            verticalSpeed = jump.GetFallSpeed();
+        }
+        if (!grounded && !blockedLeft && !blockedRight && !jump.IsJumping())
         {
             Fall();
+        }
+        if (horizontalSpeed > 0 && blockedRight)
+        {
+            verticalSpeed = blockedTop ? 0 : -horizontalSpeed;
+            velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
             return;
         }
-        if (InputController.Jump())
+        if (horizontalSpeed <= 0 && blockedLeft)
         {
-            Jump();
-            Fall();
+            verticalSpeed = blockedTop ? 0 : horizontalSpeed;
+            velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
             return;
         }
-        if (speed > 0)
-        {
-            if (blockedRight)
-            {
-                velocity = blockedTop ? Vector2.Zero : new Vector2(0, -speed * Globals.gameTime.ElapsedGameTime.Milliseconds);
-            } else
-            {
-                HorizontalMovement();
-            }
-        }
-        if (speed <= 0)
-        {
-            if (blockedLeft)
-            {
-                velocity = blockedTop ? Vector2.Zero : new Vector2(0, speed * Globals.gameTime.ElapsedGameTime.Milliseconds);
-            } else
-            {
-                HorizontalMovement();
-            }
-        }
+        HorizontalMovement();
     }
 }
