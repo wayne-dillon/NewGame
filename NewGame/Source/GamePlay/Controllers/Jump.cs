@@ -3,8 +3,17 @@ public class Jump
     private PlayerMovementValues values;
     private MyTimer inputTimer;
     private MyTimer bufferTimer;
-    private bool jumpRequested;
     private bool isJumping;
+    public bool IsJumping
+    {
+        get { return isJumping; }
+    }
+
+    private bool canDoubleJump;
+    public bool CanDoubleJump
+    {
+        get { return canDoubleJump; }
+    }
 
     public Jump(PlayerMovementValues VALUES)
     {
@@ -19,24 +28,21 @@ public class Jump
         bufferTimer.UpdateTimer();
         if (InputController.Jump())
         {
-            jumpRequested = true;
             bufferTimer.ResetToZero();
         }
     }
 
     public float GetFallSpeed()
     {
-        if (InputController.Jump() || (!isJumping && jumpRequested && !bufferTimer.Test()))
+        if (InputController.Jump() || (!isJumping && !bufferTimer.Test()))
         {
             if (!isJumping)
             {
                 isJumping = true;
-                jumpRequested = false;
+                canDoubleJump = true;
                 inputTimer.ResetToZero();
             } else if (inputTimer.Test()) {
                 isJumping = false;
-                jumpRequested = true;
-                bufferTimer.ResetToZero();
                 return 0;
             }
             return -values.jumpSpeed;
@@ -45,8 +51,14 @@ public class Jump
         return 0;
     }
 
-    public bool IsJumping()
+    public float GetDoubleJump()
     {
-        return isJumping;
+        if (InputController.DoubleJump())
+        {
+            canDoubleJump = false;
+            isJumping = true;
+            inputTimer.ResetToZero();
+        }
+        return GetFallSpeed();
     }
 }

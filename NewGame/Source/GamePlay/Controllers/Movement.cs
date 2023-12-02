@@ -20,7 +20,7 @@ public class Movement
 
     public Movement()
     {
-        values = new(0.3f, 0.25f, 1.5f, 2, 150, 100, 0.2f, 4);
+        values = new(0.3f, 0.25f, 1.5f, 1.5f, 350, 50, 0.175f, 3);
         jump = new(values);
         GameGlobals.currentMode = CharacterMode.CAT;
     }
@@ -129,12 +129,15 @@ public class Movement
 
     private void SetVelocity()
     {
-        if (grounded || jump.IsJumping() || (isGecko && (blockedLeft || blockedRight)))
+        if (grounded || jump.IsJumping || (isGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();
+        } else if (jump.CanDoubleJump && isFrog)
+        {
+            verticalSpeed = jump.GetDoubleJump();
         }
         if (WallRun()) return;
-        if (!grounded && !jump.IsJumping())
+        if (!grounded && !jump.IsJumping)
         {
             Fall();
         }
