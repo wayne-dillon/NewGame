@@ -5,6 +5,7 @@ public class Player
     public AnimatedSprite sprite;
 
     private readonly Movement movement;
+    private static readonly int mantleDist = 5;
 
     private CharacterState currentState;
 
@@ -55,10 +56,22 @@ public class Player
                 case Direction.NONE:
                     break;
                 case Direction.LEFT:
-                    sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, sprite.Pos.Y);
+                    if (sprite.hitbox.top - box.bottom <= mantleDist) {
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
+                    } else if (box.top - sprite.hitbox.bottom <= mantleDist) {
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
+                    } else {
+                        sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, sprite.Pos.Y);
+                    }
                     break;
                 case Direction.RIGHT:
-                    sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, sprite.Pos.Y);
+                    if (box.bottom - sprite.hitbox.top <= mantleDist) {
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
+                    } else if (sprite.hitbox.bottom - box.top <= mantleDist) {
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
+                    } else {
+                        sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, sprite.Pos.Y);
+                    }
                     break;
                 case Direction.UP:
                     sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);

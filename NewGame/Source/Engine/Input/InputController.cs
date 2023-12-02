@@ -7,7 +7,7 @@ public class InputController
     public static bool Jump() => Globals.keyboard.GetPress("W") || Globals.keyboard.GetPress("Up");
     public static bool DoubleJump() => Globals.keyboard.GetSinglePress("W") || Globals.keyboard.GetSinglePress("Up");
 
-    public static bool Dash() => Globals.keyboard.GetPress("Space");
+    public static bool Dash() => Globals.keyboard.GetSinglePress("Space");
 
     public static bool NextMode() => Globals.keyboard.GetSinglePress("E") || Globals.mouse.RightClick();
 

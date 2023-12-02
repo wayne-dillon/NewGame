@@ -14,13 +14,15 @@ public class Movement
     private bool blockedRight;
     private bool blockedTop;
 
-    private bool isCat => GameGlobals.currentMode == CharacterMode.CAT;
-    private bool isFrog => GameGlobals.currentMode == CharacterMode.FROG;
-    private bool isGecko => GameGlobals.currentMode == CharacterMode.GECKO;
+    private bool canDash;
+
+    private static bool IsCat => GameGlobals.currentMode == CharacterMode.CAT;
+    private static bool IsFrog => GameGlobals.currentMode == CharacterMode.FROG;
+    private static bool IsGecko => GameGlobals.currentMode == CharacterMode.GECKO;
 
     public Movement()
     {
-        values = new(0.3f, 0.25f, 1.5f, 1.5f, 350, 50, 0.175f, 3);
+        values = new(0.1f, 0.075f, 1.5f, 4, 0.3f, 1.5f, 350, 50, 0.075f, 3);
         jump = new(values);
         GameGlobals.currentMode = CharacterMode.CAT;
     }
@@ -56,8 +58,18 @@ public class Movement
                     break;
                 case Direction.DOWN:
                     grounded = true;
+                    canDash = true;
                     break;
             }
+        }
+    }
+
+    private void Dash()
+    {
+        if (InputController.Dash() && IsCat && canDash)
+        {
+            horizontalSpeed += InputController.Left() || horizontalSpeed < 0 ? -values.dashSpeed : values.dashSpeed;
+            canDash = false;
         }
     }
     
@@ -74,7 +86,7 @@ public class Movement
     public CharacterState GetState()
     {
         if (grounded && horizontalSpeed == 0) return CharacterState.IDLE;
-        if (isGecko)
+        if (IsGecko)
         {
             if (blockedLeft && horizontalSpeed < 0) return CharacterState.CLIMBING_LEFT;
             if (blockedRight && horizontalSpeed > 0) return CharacterState.CLIMBING_RIGHT;
@@ -92,7 +104,7 @@ public class Movement
 
     public Vector2 GetVelocity()
     {
-        SetSpeed();
+        SetHorizontalSpeed();
         SetVelocity();
         return velocity;
     }
@@ -105,34 +117,50 @@ public class Movement
         blockedTop = false;
     }
 
-    private void SetSpeed()
+    private void SetHorizontalSpeed()
     {
         if (InputController.Left() && !InputController.Right())
         {
-            horizontalSpeed -= values.horizontalAcceleration;
-            if (horizontalSpeed < -values.maxSpeed)
-                horizontalSpeed = -values.maxSpeed;
+            if (horizontalSpeed > -values.maxSpeed)
+            {
+                horizontalSpeed -= values.horizontalAcceleration * 2;
+            }
+            else if (horizontalSpeed < -values.maxSpeed)
+            {
+                horizontalSpeed += values.horizontalDeceleration * 2;
+                
+                if (horizontalSpeed > -values.maxSpeed)
+                    horizontalSpeed = -values.maxSpeed;
+            }
         } else if (InputController.Right() && !InputController.Left())
         {
-            horizontalSpeed += values.horizontalAcceleration;
-            if (horizontalSpeed > values.maxSpeed)
-                horizontalSpeed = values.maxSpeed;
+            if (horizontalSpeed < values.maxSpeed)
+            {
+                horizontalSpeed += values.horizontalAcceleration;
+            }
+            else if (horizontalSpeed > values.maxSpeed)
+            {
+                horizontalSpeed -= values.horizontalDeceleration;
+
+                if (horizontalSpeed < values.maxSpeed)
+                    horizontalSpeed = values.maxSpeed;
+            }
         } else if (horizontalSpeed > 0)
         {
-            horizontalSpeed -= values.horizontalDeceleration;
+            horizontalSpeed -= horizontalSpeed > values.maxSpeed ? values.dashDeceleration : values.horizontalDeceleration;
             if (horizontalSpeed < 0) horizontalSpeed = 0;
         } else {
-            horizontalSpeed += values.horizontalDeceleration;
+            horizontalSpeed += horizontalSpeed < -values.maxSpeed ? values.dashDeceleration : values.horizontalDeceleration;
             if (horizontalSpeed > 0) horizontalSpeed = 0;
         }
     }
 
     private void SetVelocity()
     {
-        if (grounded || jump.IsJumping || (isGecko && (blockedLeft || blockedRight)))
+        if (grounded || jump.IsJumping || (IsGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();
-        } else if (jump.CanDoubleJump && isFrog)
+        } else if (jump.CanDoubleJump && IsFrog)
         {
             verticalSpeed = jump.GetDoubleJump();
         }
@@ -141,12 +169,13 @@ public class Movement
         {
             Fall();
         }
+        Dash();
         HorizontalMovement();
     }
 
     private bool WallRun()
     {
-        if (isGecko)
+        if (IsGecko)
         {
             if (horizontalSpeed >= 0 && blockedRight)
             {
