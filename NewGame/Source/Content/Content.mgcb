@@ -649,6 +649,13 @@
 /processorParam:TextureFormat=Color
 /build:DraftPokerLogo.png
 
+#begin Fonts/GirlNextDoor.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/GirlNextDoor.spritefont
+
 #begin Fonts/PressStart.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

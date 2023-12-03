@@ -8,7 +8,7 @@ public class Fonts
 
     public static void Init()
     {
-        defaultFont = Globals.content.Load<SpriteFont>("Fonts//Ubuntu");
+        defaultFont = Globals.content.Load<SpriteFont>("Fonts//GirlNextDoor");
         titleFont = Globals.content.Load<SpriteFont>("Fonts//UbuntuBold");
         numberFont = Globals.content.Load<SpriteFont>("Fonts//PressStart");
     }

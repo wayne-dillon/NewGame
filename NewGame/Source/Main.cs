@@ -10,6 +10,7 @@ public class Main : Game
     private OptionsMenu optionsMenu;
     private AboutMenu aboutMenu;
     private GamePlay gamePlay;
+    private DevConsole devConsole;
     public UI ui;
 
     Cursor cursor;
@@ -51,6 +52,7 @@ public class Main : Game
         optionsMenu = new OptionsMenu();
         aboutMenu = new AboutMenu();
         gamePlay = new GamePlay();
+        devConsole = new DevConsole();
         ui = new UI(gamePlay.ResetWorld);
     }
 
@@ -84,6 +86,9 @@ public class Main : Game
                 break;
             case GameState.GAME_PLAY:
                 gamePlay.Update();
+                break;
+            case GameState.DEV_CONSOLE:
+                devConsole.Update();
                 break;
         }
 
@@ -123,6 +128,9 @@ public class Main : Game
                     break;
                 case GameState.GAME_PLAY:
                     gamePlay.Draw();
+                    break;
+                case GameState.DEV_CONSOLE:
+                    devConsole.Draw();
                     break;
             }
         }

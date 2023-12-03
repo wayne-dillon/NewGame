@@ -1,6 +1,5 @@
 public class Jump
 {
-    private PlayerMovementValues values;
     private MyTimer inputTimer;
     private MyTimer bufferTimer;
     private bool isJumping;
@@ -15,11 +14,10 @@ public class Jump
         get { return canDoubleJump; }
     }
 
-    public Jump(PlayerMovementValues VALUES)
+    public Jump()
     {
-        values = VALUES;
-        inputTimer = new(values.jumpHoldTime);
-        bufferTimer = new(values.jumpBufferTime);
+        inputTimer = new(PlayerMovementValues.jumpHoldTime);
+        bufferTimer = new(PlayerMovementValues.jumpBufferTime);
     }
 
     public void Update()
@@ -45,7 +43,7 @@ public class Jump
                 isJumping = false;
                 return 0;
             }
-            return -values.jumpSpeed;
+            return -PlayerMovementValues.jumpSpeed;
         }
         isJumping = false;
         return 0;

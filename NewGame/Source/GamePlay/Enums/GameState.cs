@@ -3,5 +3,6 @@
     MAIN_MENU,
     OPTIONS,
     ABOUT,
-    GAME_PLAY
+    GAME_PLAY,
+    DEV_CONSOLE
 }

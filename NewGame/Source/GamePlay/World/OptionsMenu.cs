@@ -7,6 +7,7 @@ public class OptionsMenu
     private readonly TextComponent fullscreenText, resolutionText;
     private readonly Checkbox fullscreenCheckbox;
     private readonly List<LinkedCheckbox> resolutionCheckboxs = new();
+    private readonly Button devMode;
 
     public OptionsMenu()
     {
@@ -46,6 +47,16 @@ public class OptionsMenu
         {
             box.SetLinkedList(resolutionCheckboxs);
         }
+
+        devMode = new SpriteBuilder().WithPath("UI//Button96x32")
+                                    .WithColor(Colors.Buttons)
+                                    .WithDims(new Vector2(110,32))
+                                    .WithScreenAlignment(Alignment.BOTTOM_RIGHT)
+                                    .WithOffset(new Vector2(-180,-150))
+                                    .WithText("Dev Mode")
+                                    .WithButtonAction(TransitionManager.ChangeGameState)
+                                    .WithButtonInfo(GameState.DEV_CONSOLE)
+                                    .BuildButton();
     }
 
     public void Update()
@@ -54,6 +65,7 @@ public class OptionsMenu
         fullscreenText.Update();
         fullscreenCheckbox.Update();
         resolutionText.Update();
+        devMode.Update();
         foreach (LinkedCheckbox box in resolutionCheckboxs)
         {
             box.Update();
@@ -84,5 +96,6 @@ public class OptionsMenu
         {
             box.Draw();
         }
+        devMode.Draw();
     }
 }

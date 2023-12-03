@@ -1,34 +1,33 @@
 public struct PlayerMovementValues
 {
-    public float horizontalAcceleration;
-    public float horizontalDeceleration;
-    public float maxSpeed;
+    public static float horizontalAcceleration = 0.1f;
+    public static float horizontalDeceleration = 0.075f;
+    public static float maxSpeed = 1.5f;
 
-    public float dashSpeed;
-    public float dashDeceleration;
+    public static float dashSpeed = 4;
+    public static float dashDeceleration = 0.3f;
 
-    public float jumpSpeed;
-    public int jumpHoldTime;
-    public int jumpBufferTime;
+    public static float jumpSpeed = 1.5f;
+    public static int jumpHoldTime = 350;
+    public static int jumpBufferTime = 50;
 
-    public float gravity;
-    public float maxFallSpeed;
+    public static float gravity = 0.75f;
+    public static float maxFallSpeed = 3;
 
-    public PlayerMovementValues(float H_ACC, float H_DEC, float MAX_SPEED, float DASH_SPEED, float DASH_DECELERATION, 
-                                float JUMP_SPEED, int JUMP_HOLD_TIME, int JUMP_BUFFER_TIME,float GRAVITY, float MAX_FALL_SPEED)
+    public static void ResetValues(object SENDER, object INFO)
     {
-        horizontalAcceleration = H_ACC;
-        horizontalDeceleration = H_DEC;
-        maxSpeed = MAX_SPEED;
+        horizontalAcceleration = 0.1f;
+        horizontalDeceleration = 0.075f;
+        maxSpeed = 1.5f;
 
-        dashSpeed = DASH_SPEED;
-        dashDeceleration = DASH_DECELERATION;
+        dashSpeed = 4;
+        dashDeceleration = 0.3f;
+        
+        jumpSpeed = 1.5f;
+        jumpHoldTime = 350;
+        jumpBufferTime = 50;
 
-        jumpSpeed = JUMP_SPEED;
-        jumpHoldTime = JUMP_HOLD_TIME;
-        jumpBufferTime = JUMP_BUFFER_TIME;
-
-        gravity = GRAVITY;
-        maxFallSpeed = MAX_FALL_SPEED;
+        gravity = 0.75f;
+        maxFallSpeed = 3;
     }
 }
