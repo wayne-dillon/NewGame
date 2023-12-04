@@ -47,6 +47,8 @@ public class Main : Game
         Globals.keyboard = new MyKeyboard();
         Globals.mouse = new MyMouseControl();
 
+        GameGlobals.currentLevel = LevelSelection.TUTORIAL;
+
         // backdrop = new Backdrop();
         mainMenu = new MainMenu();
         optionsMenu = new OptionsMenu();

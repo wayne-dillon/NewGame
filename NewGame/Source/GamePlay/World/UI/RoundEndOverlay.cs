@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 public class RoundEndOverlay
 {
+    private readonly Button nextBtn;
     private readonly Button resetBtn;
     private readonly Button backBtn;
     private readonly EventHandler<object> changeGameState;
@@ -18,6 +18,11 @@ public class RoundEndOverlay
                                                         .WithDims(new Vector2(220, 32))
                                                         .WithColor(Colors.Buttons)
                                                         .WithUI(true);
+        nextBtn = buttonBuilder.WithOffset(new Vector2(0, 150))
+                            .WithText("Next Level")
+                            .WithButtonAction(reset)
+                            .WithButtonInfo(true)
+                            .BuildButton();
         resetBtn = buttonBuilder.WithOffset(new Vector2(-120, 200))
                             .WithText("Play Again")
                             .WithButtonAction(reset)
@@ -31,6 +36,10 @@ public class RoundEndOverlay
 
     public void Update() 
     {
+        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_4)
+        {
+            nextBtn.Update();
+        }
         resetBtn.Update();
         backBtn.Update();
         if (InputController.Confirm()) reset(null, null);
@@ -39,6 +48,10 @@ public class RoundEndOverlay
 
     public void Draw()
     {
+        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_4)
+        {
+            nextBtn.Draw();
+        }
         resetBtn.Draw();
         backBtn.Draw();
     }

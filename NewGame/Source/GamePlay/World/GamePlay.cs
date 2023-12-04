@@ -31,7 +31,7 @@ public class GamePlay
 
     private void Init()
     {
-        level = LevelBuilder.Build("Source//Content//Levels//Level1.csv");
+        level = LevelBuilder.Build();
 
         player = new Player(level.playerStartPos);
         camera = new Camera(player.sprite);
@@ -50,6 +50,7 @@ public class GamePlay
         collected = 0;
 
         GameGlobals.roundState = RoundState.START;
+        GameGlobals.beatLevel = false;
     }
 
     public virtual void Update()
@@ -101,6 +102,7 @@ public class GamePlay
         if (level.objectives.Count == collected)
         {
             GameGlobals.roundState = RoundState.END;
+            GameGlobals.beatLevel = true;
         } else {
             runTime -= Globals.gameTime.ElapsedGameTime;
             if (runTime.TotalMilliseconds <= 0)
@@ -123,6 +125,10 @@ public class GamePlay
 
     public virtual void ResetWorld(object SENDER, object INFO)
     {
+        if (INFO is bool won)
+        {
+            if (won && GameGlobals.currentLevel != LevelSelection.LEVEL_4) GameGlobals.currentLevel++;
+        }
         Init();
     }
 

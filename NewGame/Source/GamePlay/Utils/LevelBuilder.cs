@@ -17,10 +17,11 @@ public class LevelBuilder
         { 6, "Symbols//ringingPhone2" }
     };
 
-    public static Level Build(string PATH)
+    public static Level Build()
     {
         level = new();
-        List<string[]> input = CSVReader.ReadFile(PATH);
+        string path = EnumHelper.GetLevelPath(GameGlobals.currentLevel);
+        List<string[]> input = CSVReader.ReadFile(path);
 
         Vector2 position = Vector2.Zero;
         foreach (string[] row in input)
