@@ -12,12 +12,12 @@ public class DevConsole
                                         .WithDims(new Vector2(96,32))
                                         .WithText("Reset")
                                         .WithScreenAlignment(Alignment.TOP)
-                                        .WithOffset(new Vector2(0, 100))
+                                        .WithOffset(new Vector2(0, 50))
                                         .WithButtonAction(PlayerMovementValues.ResetValues)
                                         .BuildButton();
 
-        int height = -360;
-        for (int i = 0; i < 10 ; i++)
+        int height = -400;
+        for (int i = 0; i <= 10 ; i++)
         {
             valueSelectors.Add(new((ValueSelector.Variable)i, new Vector2(0, height)));
             height += 80;

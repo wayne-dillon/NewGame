@@ -14,6 +14,7 @@ public class Movement
     private bool blockedTop;
 
     private bool canDash;
+    private MyTimer dashTimer;
 
     private static bool IsCat => GameGlobals.currentMode == CharacterMode.CAT;
     private static bool IsFrog => GameGlobals.currentMode == CharacterMode.FROG;
@@ -22,6 +23,7 @@ public class Movement
     public Movement()
     {
         jump = new();
+        dashTimer = new(PlayerMovementValues.dashTime, true);
         GameGlobals.currentMode = CharacterMode.CAT;
     }
 
@@ -29,6 +31,7 @@ public class Movement
     {
         CheckForContact(SPRITE_BOX);
         jump.Update();
+        dashTimer.UpdateTimer();
     }
     
     public void CheckForContact(Hitbox SPRITE_BOX)
@@ -66,8 +69,9 @@ public class Movement
     {
         if (InputController.Dash() && IsCat && canDash)
         {
-            horizontalSpeed += InputController.Left() || horizontalSpeed < 0 ? -PlayerMovementValues.dashSpeed : PlayerMovementValues.dashSpeed;
+            horizontalSpeed = InputController.Left() || horizontalSpeed < 0 ? -PlayerMovementValues.dashSpeed : PlayerMovementValues.dashSpeed;
             canDash = false;
+            dashTimer.ResetToZero();
         }
     }
     
@@ -117,6 +121,7 @@ public class Movement
 
     private void SetHorizontalSpeed()
     {
+        if (!dashTimer.Test()) return;
         if (InputController.Left() && !InputController.Right())
         {
             if (horizontalSpeed > -PlayerMovementValues.maxSpeed)
@@ -155,6 +160,11 @@ public class Movement
 
     private void SetVelocity()
     {
+        if (!dashTimer.Test())
+        {
+            velocity = new Vector2(horizontalSpeed, 0) * Globals.gameTime.ElapsedGameTime.Milliseconds;
+            return;
+        }
         if (grounded || jump.IsJumping || (IsGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();

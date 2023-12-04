@@ -14,6 +14,7 @@ public class ValueSelector
         H_DECEL,
         MAX_SPEED,
         DASH_SPEED,
+        DASH_TIME,
         DASH_DECEL,
         JUMP_SPEED,
         JUMP_HOLD_TIME,
@@ -80,6 +81,7 @@ public class ValueSelector
         Variable.H_DECEL => "Horizontal Deceleration",
         Variable.MAX_SPEED => "Max Horizontal Speed",
         Variable.DASH_SPEED => "Dash Speed",
+        Variable.DASH_TIME => "Dash Time",
         Variable.DASH_DECEL => "Dash Deceleration",
         Variable.JUMP_SPEED => "Jump Speed",
         Variable.JUMP_HOLD_TIME => "Jump Hold Time",
@@ -95,6 +97,7 @@ public class ValueSelector
         Variable.H_DECEL => (int)(PlayerMovementValues.horizontalDeceleration * 1000),
         Variable.MAX_SPEED => (int)(PlayerMovementValues.maxSpeed * 1000),
         Variable.DASH_SPEED => (int)(PlayerMovementValues.dashSpeed * 1000),
+        Variable.DASH_TIME => PlayerMovementValues.dashTime,
         Variable.DASH_DECEL => (int)(PlayerMovementValues.dashDeceleration * 1000),
         Variable.JUMP_SPEED => (int)(PlayerMovementValues.jumpSpeed * 1000),
         Variable.JUMP_HOLD_TIME => PlayerMovementValues.jumpHoldTime,
@@ -121,6 +124,9 @@ public class ValueSelector
                     break;
                 case Variable.DASH_SPEED:
                     PlayerMovementValues.dashSpeed += value;
+                    break;
+                case Variable.DASH_TIME:
+                    PlayerMovementValues.dashTime += (int)(value * 1000);
                     break;
                 case Variable.DASH_DECEL:
                     PlayerMovementValues.dashDeceleration += value;
