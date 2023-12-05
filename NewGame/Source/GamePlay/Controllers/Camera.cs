@@ -25,9 +25,9 @@ public class Camera
         {
             return level.left;
         }
-        if (playerCamX > level.right - Globals.screenWidth)
+        if (playerCamX > level.right - Coordinates.screenWidth)
         {
-            return level.right - Globals.screenWidth;
+            return level.right - Coordinates.screenWidth;
         }
         return playerCamX;
     }
@@ -39,9 +39,9 @@ public class Camera
         {
             return level.top;
         }
-        if (playerCamY > level.bottom - Globals.screenHeight)
+        if (playerCamY > level.bottom - Coordinates.screenHeight)
         {
-            return level.bottom - Globals.screenHeight;
+            return level.bottom - Coordinates.screenHeight;
         }
         return playerCamY;
     }

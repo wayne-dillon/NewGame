@@ -56,9 +56,9 @@ public class Player
                 case Direction.NONE:
                     break;
                 case Direction.LEFT:
-                    if (sprite.hitbox.top - box.bottom <= mantleDist) {
+                    if (box.bottom - sprite.hitbox.top <= mantleDist) {
                         sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
-                    } else if (box.top - sprite.hitbox.bottom <= mantleDist) {
+                    } else if (sprite.hitbox.bottom - box.top <= mantleDist) {
                         sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
                     } else {
                         sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, sprite.Pos.Y);

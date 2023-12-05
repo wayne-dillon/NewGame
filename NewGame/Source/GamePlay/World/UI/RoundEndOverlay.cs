@@ -18,14 +18,13 @@ public class RoundEndOverlay
                                                         .WithDims(new Vector2(220, 32))
                                                         .WithColor(Colors.Buttons)
                                                         .WithUI(true);
-        nextBtn = buttonBuilder.WithOffset(new Vector2(0, 150))
-                            .WithText("Next Level")
-                            .WithButtonAction(reset)
-                            .WithButtonInfo(true)
-                            .BuildButton();
         resetBtn = buttonBuilder.WithOffset(new Vector2(-120, 200))
                             .WithText("Play Again")
                             .WithButtonAction(reset)
+                            .BuildButton();
+        nextBtn = buttonBuilder.WithOffset(new Vector2(0, 150))
+                            .WithText("Next Level")
+                            .WithButtonInfo(true)
                             .BuildButton();
         backBtn = buttonBuilder.WithOffset(new Vector2(120, 200))
                             .WithText("Main Menu")

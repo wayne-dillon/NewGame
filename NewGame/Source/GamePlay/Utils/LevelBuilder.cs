@@ -119,12 +119,12 @@ public class LevelBuilder
     private static void SetBounds(Vector2 position)
     {
         level.top = level.left = -tileSize / 2;
-        level.bottom = (int)position.Y + tileSize / 2;
-        level.right = (int)position.X + tileSize / 2;
+        level.bottom = (int)position.Y + (tileSize / 2);
+        level.right = (int)position.X + (tileSize / 2);
 
-        Platforms.hitboxes.Add(new(level.left, level.right, level.top - tileSize, level.top));
-        Platforms.hitboxes.Add(new(level.left, level.right, level.bottom, level.bottom + tileSize));
-        Platforms.hitboxes.Add(new(level.left - tileSize, level.left, level.top, level.bottom));
-        Platforms.hitboxes.Add(new(level.right, level.right + tileSize, level.top, level.bottom));
+        Platforms.hitboxes.Add(new(level.left, level.right, level.top - tileSize, level.top));          // top
+        Platforms.hitboxes.Add(new(level.left, level.right, level.bottom, level.bottom + tileSize));    // bottom
+        Platforms.hitboxes.Add(new(level.left - tileSize, level.left, level.top, level.bottom));        // left
+        Platforms.hitboxes.Add(new(level.right, level.right + tileSize, level.top, level.bottom));      // right
     }
 }
