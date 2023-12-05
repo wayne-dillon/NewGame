@@ -9,6 +9,7 @@ public abstract class Animatable
     public IAnimate animation;
     public InteractableType type;
     public Hitbox hitbox;
+    public Hitbox hboxOffsets = new(0,0,0,0);
     public bool isTransitionable;
 
     public Vector2 Pos 
@@ -60,10 +61,10 @@ public abstract class Animatable
 
     private void UpdateHitbox()
     {
-        hitbox.left = Pos.X - dims.X / 2;
-        hitbox.right = Pos.X + dims.X / 2;
-        hitbox.top = Pos.Y - dims.Y / 2;
-        hitbox.bottom = Pos.Y + dims.Y / 2;
+        hitbox.left = Pos.X + hboxOffsets.left - dims.X / 2;
+        hitbox.right = Pos.X - hboxOffsets.right + dims.X / 2;
+        hitbox.top = Pos.Y + hboxOffsets.top - dims.Y / 2;
+        hitbox.bottom = Pos.Y - hboxOffsets.bottom + dims.Y / 2;
     }
 
 }

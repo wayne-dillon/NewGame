@@ -22,6 +22,7 @@ public class Player
                             .WithDims(new Vector2(63, 112))
                             .WithAbsolutePosition(POS)
                             .BuildAnimated();
+        sprite.hboxOffsets = new(4,4,25,0);
     }
 
     public void Update()
@@ -130,6 +131,13 @@ public class Player
 
     private void UpdatePosition(Vector2 VELOCITY)
     {
+        if (VELOCITY.X > 0)
+        {
+            sprite.hFlipped = false;
+        } else if (VELOCITY.X < 0)
+        {
+            sprite.hFlipped = true;
+        }
         prevHitbox = sprite.hitbox.Clone();
         sprite.Pos += VELOCITY;
         AdjustForPlatforms();

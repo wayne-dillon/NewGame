@@ -5,6 +5,7 @@ public class Sprite : Animatable
 {
     public float rot;
     public bool ui;
+    public bool hFlipped;
     public Texture2D myModel;
     public Sprite(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE, bool ISUI)
         : base(COLOR, Coordinates.Get(ALIGNMENT) + OFFSET, DIMS, ALIGNMENT, ANIMATION, TYPE, ISTRANSITIONABLE)
@@ -65,7 +66,7 @@ public class Sprite : Animatable
         {
             Globals.spriteBatch.Draw(myModel, new Rectangle((int)(POS.X * Globals.ScalingFactor().X), (int)(POS.Y * Globals.ScalingFactor().Y), 
                 (int)(dims.X * Globals.ScalingFactor().X), (int)(dims.Y * Globals.ScalingFactor().Y)), null, COLOR, rot, 
-                new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), new SpriteEffects(), 0);
+                new Vector2(myModel.Bounds.Width / 2, myModel.Bounds.Height / 2), hFlipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     }
 }
