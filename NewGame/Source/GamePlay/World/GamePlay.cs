@@ -34,7 +34,7 @@ public class GamePlay
         level = LevelBuilder.Build();
 
         player = new Player(level.playerStartPos);
-        camera = new Camera(player.sprite);
+        camera = new Camera(player.sprite, level);
         runTime = new(0,0,timeBonus);
 
         timeDisplay = new TextComponentBuilder().WithText(TimerText)
