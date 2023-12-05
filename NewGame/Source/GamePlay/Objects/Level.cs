@@ -8,6 +8,7 @@ public struct Level
     public List<Sprite> startBlocks;
     public List<AnimatedSprite> objectives;
     public Vector2 playerStartPos;
+    public int top, bottom, left, right;
 
     public Level()
     {
@@ -16,5 +17,6 @@ public struct Level
         startBlocks = new();
         objectives = new();
         playerStartPos = Vector2.Zero;
+        top = bottom = left = right = 0;
     }
 }

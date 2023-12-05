@@ -19,15 +19,19 @@ public class LevelBuilder
 
     public static Level Build()
     {
+        Platforms.Reset();
+        Hazards.Reset();
         level = new();
         string path = EnumHelper.GetLevelPath(GameGlobals.currentLevel);
         List<string[]> input = CSVReader.ReadFile(path);
 
-        Vector2 position = Vector2.Zero;
+        Vector2 position = new Vector2(-tileSize, -tileSize);
         foreach (string[] row in input)
         {
+            position = new Vector2(0, position.Y + tileSize);
             foreach (string obj in row)
             {
+                position.X += tileSize;
                 LevelObject levelObject = EnumHelper.GetObject(obj);
                 switch (levelObject)
                 {
@@ -65,10 +69,10 @@ public class LevelBuilder
                     default:
                         break;
                 }
-                position.X += tileSize;
             }
-            position = new Vector2(0, position.Y + tileSize);
         }
+
+        SetBounds(position);
 
         return level;
     }
@@ -110,5 +114,17 @@ public class LevelBuilder
                                     .WithAbsolutePosition(POS)
                                     .WithDims(new Vector2(tileSize, tileSize))
                                     .BuildAnimated());
+    }
+
+    private static void SetBounds(Vector2 position)
+    {
+        level.top = level.left = -tileSize / 2;
+        level.bottom = (int)position.Y + tileSize / 2;
+        level.right = (int)position.X + tileSize / 2;
+
+        Platforms.hitboxes.Add(new(level.left, level.right, level.top - tileSize, level.top));
+        Platforms.hitboxes.Add(new(level.left, level.right, level.bottom, level.bottom + tileSize));
+        Platforms.hitboxes.Add(new(level.left - tileSize, level.left, level.top, level.bottom));
+        Platforms.hitboxes.Add(new(level.right, level.right + tileSize, level.top, level.bottom));
     }
 }

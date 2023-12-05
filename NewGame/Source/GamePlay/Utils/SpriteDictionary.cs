@@ -6,12 +6,12 @@ public class SpriteDictionary
     {
         Dictionary<int, string> ret = new()
         {
-            { 0, "Player//playerIdle1" },
-            { 1, "Player//playerIdle2" },
-            { 2, "Cards//145x210//SPADES_THREE" },
-            { 3, "Cards//145x210//SPADES_FOUR" },
-            { 4, "Cards//145x210//SPADES_FIVE" },
-            { 5, "Cards//145x210//SPADES_SIX" },
+            { 0, "Player//catIdle1" },
+            { 1, "Player//catIdle2" },
+            { 2, "Player//catIdle3" },
+            { 3, "Player//catIdle4" },
+            { 4, "Player//catIdle5" },
+            { 5, "Player//catIdle6" },
             { 6, "Cards//145x210//SPADES_SEVEN" },
             { 7, "Cards//145x210//SPADES_EIGHT" },
             { 8, "Cards//145x210//SPADES_NINE" },

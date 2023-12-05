@@ -110,7 +110,7 @@ public class Player
     {
         // int num = 10 * (int)currentMode;
         // num += (int)currentState;
-        sprite.SetRange(0, 1);
+        sprite.SetRange(0, 5);
         animationChanged = false;
     }
 
