@@ -69,7 +69,7 @@ public class Movement
     {
         if (InputController.Dash() && IsCat && canDash)
         {
-            horizontalSpeed = InputController.Left() || horizontalSpeed < 0 ? -PlayerMovementValues.dashSpeed : PlayerMovementValues.dashSpeed;
+            horizontalSpeed = GameGlobals.facingLeft ? -PlayerMovementValues.dashSpeed : PlayerMovementValues.dashSpeed;
             canDash = false;
             dashTimer.ResetToZero();
         }

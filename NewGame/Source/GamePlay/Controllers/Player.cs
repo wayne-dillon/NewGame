@@ -146,11 +146,12 @@ public class Player
     {
         if (VELOCITY.X > 0)
         {
-            sprite.hFlipped = false;
+            GameGlobals.facingLeft = false;
         } else if (VELOCITY.X < 0)
         {
-            sprite.hFlipped = true;
+            GameGlobals.facingLeft = true;
         }
+        sprite.hFlipped = GameGlobals.facingLeft;
         prevHitbox = sprite.hitbox.Clone();
         sprite.Pos += VELOCITY;
         AdjustForPlatforms();
