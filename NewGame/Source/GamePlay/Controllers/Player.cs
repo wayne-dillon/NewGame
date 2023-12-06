@@ -109,20 +109,22 @@ public class Player
     
     private void SetAnimationRange()
     {
+        int baseNum = 0;
+        if (GameGlobals.currentMode == CharacterMode.FROG) baseNum = 100;
         switch (currentState)
         {
             case CharacterState.JUMPING:
-                sprite.SetAnimationValues(21, 30, 100);
+                sprite.SetAnimationValues(baseNum + 21, baseNum + 30, 100);
                 break;
             case CharacterState.FALLING:
-                sprite.SetAnimationValues(4, 5, 75);
+                sprite.SetAnimationValues(baseNum + 4, baseNum + 5, 75);
                 break;
             case CharacterState.RUNNING:
-                sprite.SetAnimationValues(11, 20, 75);
+                sprite.SetAnimationValues(baseNum + 11, baseNum + 20, 75);
                 break;
             case CharacterState.IDLE:
             default:
-                sprite.SetAnimationValues(0, 3, 150);
+                sprite.SetAnimationValues(baseNum + 0, baseNum + 3, 150);
                 break;
         }
         animationChanged = false;

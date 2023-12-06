@@ -167,7 +167,7 @@ public class Movement
         if (grounded || jump.IsJumping || (IsGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();
-        } else if (jump.CanDoubleJump && IsFrog)
+        } else if (jump.CanDoubleJump && IsFrog && InputController.Jump())
         {
             verticalSpeed = jump.GetDoubleJump();
         }
