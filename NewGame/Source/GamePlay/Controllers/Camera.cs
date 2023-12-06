@@ -4,7 +4,7 @@ public class Camera
 {
     private Sprite playerSprite;
     private Level level;
-    private Vector2 offset = new(860, 800);
+    private Vector2 offset = new(860, 540);
 
     public Camera(Sprite PLAYER, Level LEVEL)
     {

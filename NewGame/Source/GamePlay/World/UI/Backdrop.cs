@@ -3,29 +3,33 @@ using Microsoft.Xna.Framework;
 
 public class Backdrop
 {
-    public readonly List<Sprite> symbols = new();
-    public IAnimate animation = new ScrollDiagonal(0.03f);
+    public readonly List<Sprite> windowViews = new();
+    private readonly Sprite staticBackground;
+    public IAnimate animation = new ScrollHorizontal(-0.03f);
 
-    public Backdrop()
+    public Backdrop(string VIEW_PATH)
     {
-        int suit = 0;
-        for (int i = -10; i < 30; i++)
-        {
-            for (int j = -1; j < 10; j++)
-            {
-                symbols.Add(new SpriteBuilder().WithDims(new Vector2(29, 29))
-                                        .WithPath("Symbols//Spades") 
-                                        .WithAbsolutePosition(new Vector2(i*100, j*100))
-                                        .WithTransitionable(false)
-                                        .Build());
-                suit++;
-            }
-        }
+        SpriteBuilder spriteBuilder = new SpriteBuilder().WithTransitionable(false).WithUI(true);
+
+        staticBackground = spriteBuilder.WithPath("Background//staticBackdrop")
+                                        .WithDims(new Vector2(1920, 1080))
+                                        .Build();
+
+        windowViews.Add(spriteBuilder.WithOffset(new Vector2(0, 250))
+                                    .WithPath(VIEW_PATH)
+                                    .WithDims(new Vector2(3840, 582))
+                                    .WithScreenAlignment(Alignment.TOP)
+                                    .Build());
+        windowViews.Add(spriteBuilder.WithOffset(new Vector2(-3840, 250))
+                                    .WithDims(new Vector2(3840, 582))
+                                    .WithScreenAlignment(Alignment.TOP)
+                                    .Build());
+
     }
 
     public void Update()
     {
-        foreach (Sprite symbol in symbols)
+        foreach (Sprite symbol in windowViews)
         {
             animation.Animate(symbol);
         }
@@ -33,12 +37,10 @@ public class Backdrop
 
     public void Draw()
     {
-        foreach (Sprite symbol in symbols)
+        foreach (Sprite symbol in windowViews)
         {
-            if (symbol.IsOnScreen())
-            {
-                symbol.Draw();
-            }
+            symbol.Draw();
         }
+        staticBackground.Draw();
     }
 }

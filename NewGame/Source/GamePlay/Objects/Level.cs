@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 
 public struct Level
 {
+    public Backdrop backdrop;
     public List<Sprite> platforms;
     public List<Sprite> hazards;
     public List<Sprite> startBlocks;
@@ -12,6 +13,7 @@ public struct Level
 
     public Level()
     {
+        backdrop = new(EnumHelper.GetLevelBackdropPath(GameGlobals.currentLevel));
         platforms = new();
         hazards = new();
         startBlocks = new();

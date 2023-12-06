@@ -54,4 +54,13 @@ public class EnumHelper
         LevelSelection.LEVEL_3 => "Source//Content//Levels//Level3.csv",
         _ => "Source//Content//Levels//Level4.csv",
     };
+
+    public static string GetLevelBackdropPath(LevelSelection selection) => selection switch
+    {
+        LevelSelection.TUTORIAL => "Background//clouds",
+        LevelSelection.LEVEL_1 => "Background//rain",
+        LevelSelection.LEVEL_2 => "Background//storm",
+        LevelSelection.LEVEL_3 => "Background//night",
+        _ => "Background//night",
+    };
 }

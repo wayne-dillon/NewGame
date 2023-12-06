@@ -57,6 +57,7 @@ public class GamePlay
     {
         player.Update();
         camera.Update();
+        level.backdrop.Update();
         foreach (Sprite start in level.startBlocks)
         {
             start.Update();
@@ -134,6 +135,7 @@ public class GamePlay
 
     public virtual void Draw()
     {
+        level.backdrop.Draw();
         foreach (Sprite start in level.startBlocks)
         {
             start.Draw();
