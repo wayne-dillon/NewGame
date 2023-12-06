@@ -117,7 +117,7 @@ public class GamePlay
         if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE && end.type == InteractableType.OBJECTIVE)
         {
             collected++;
-            end.SetRange(0,0);
+            end.SetAnimationValues(0,0,20);
             end.type = InteractableType.NONE;
             runTime += new TimeSpan(0,0,timeBonus);
         }

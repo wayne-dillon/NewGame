@@ -1,8 +1,7 @@
 public enum CharacterState
 {
     IDLE,
-    RUNNING_LEFT,
-    RUNNING_RIGHT,
+    RUNNING,
     JUMPING,
     FALLING,
     CLINGING_LEFT,

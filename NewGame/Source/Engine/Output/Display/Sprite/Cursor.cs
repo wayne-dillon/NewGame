@@ -15,6 +15,6 @@ public class Cursor : Sprite
 
     public override void Draw()
     {
-        base.Draw();
+        base.Draw(Pos / Globals.ScalingFactor());
     }
 }

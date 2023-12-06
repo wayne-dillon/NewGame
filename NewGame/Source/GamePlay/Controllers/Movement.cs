@@ -97,8 +97,7 @@ public class Movement
         }
         if (grounded)
         {
-            if (horizontalSpeed < 0) return CharacterState.RUNNING_LEFT;
-            if (horizontalSpeed > 0) return CharacterState.RUNNING_RIGHT;
+            if (horizontalSpeed != 0) return CharacterState.RUNNING;
         }
         if (velocity.Y < 0) return CharacterState.JUMPING;
         return CharacterState.FALLING;

@@ -16,8 +16,8 @@ public class Player
     {
         movement = new();
         sprite = new SpriteBuilder().WithPathDict(SpriteDictionary.PlayerSpriteDict())
-                            .WithFrameTime(200)
-                            .WithRangeMinMax(0, 4)
+                            .WithFrameTime(150)
+                            .WithRangeMinMax(0, 3)
                             .WithInteractableType(InteractableType.CHARACTER)
                             .WithDims(new Vector2(63, 112))
                             .WithAbsolutePosition(POS)
@@ -109,9 +109,22 @@ public class Player
     
     private void SetAnimationRange()
     {
-        // int num = 10 * (int)currentMode;
-        // num += (int)currentState;
-        sprite.SetRange(0, 5);
+        switch (currentState)
+        {
+            case CharacterState.JUMPING:
+                sprite.SetAnimationValues(21, 30, 100);
+                break;
+            case CharacterState.FALLING:
+                sprite.SetAnimationValues(4, 5, 75);
+                break;
+            case CharacterState.RUNNING:
+                sprite.SetAnimationValues(11, 20, 75);
+                break;
+            case CharacterState.IDLE:
+            default:
+                sprite.SetAnimationValues(0, 3, 150);
+                break;
+        }
         animationChanged = false;
     }
 

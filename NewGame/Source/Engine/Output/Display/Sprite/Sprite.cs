@@ -24,7 +24,7 @@ public class Sprite : Animatable
     }
 
     public virtual bool HoverImg() { 
-        Vector2 mousePos = Globals.mouse.newMousePos;
+        Vector2 mousePos = Globals.mouse.newMousePos / Globals.ScalingFactor();
 
         if (mousePos.X >= Pos.X - dims.X / 2 && mousePos.X <= Pos.X + dims.X / 2
                 && mousePos.Y >= Pos.Y - dims.Y / 2 && mousePos.Y <= Pos.Y  + dims.Y / 2)

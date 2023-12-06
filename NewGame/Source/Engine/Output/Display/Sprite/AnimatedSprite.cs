@@ -39,12 +39,13 @@ public class AnimatedSprite : Sprite
         base.Update();
     }
 
-    public void SetRange(int MIN, int MAX)
+    public void SetAnimationValues(int MIN, int MAX, int FRAMETIME)
     {
         rangeMin = MIN;
         rangeMax = MAX;
         currentFrame = rangeMin;
         frameTimer.ResetToZero();
+        frameTimer.MSec = FRAMETIME;
     }
 
     public override void Draw()

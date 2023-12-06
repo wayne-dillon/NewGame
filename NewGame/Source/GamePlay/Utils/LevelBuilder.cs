@@ -109,7 +109,7 @@ public class LevelBuilder
     {
         level.objectives.Add(new SpriteBuilder().WithInteractableType(InteractableType.OBJECTIVE)
                                     .WithPathDict(objectiveDict)
-                                    .WithFrameTime(100)
+                                    .WithFrameTime(75)
                                     .WithRangeMinMax(1,6)
                                     .WithAbsolutePosition(POS)
                                     .WithDims(new Vector2(tileSize, tileSize))
