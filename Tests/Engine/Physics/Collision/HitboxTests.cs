@@ -7,26 +7,42 @@ public class HitboxTests
     {
         Hitbox primary = new(0, 10, 0, 10);
         Hitbox target = new(100, 110, 100, 110);
-
-        Assert.That(primary.GetContactDirection(target), Is.EqualTo(Direction.NONE));
+        Assert.Multiple(() =>
+        {
+            Assert.That(primary.IsAbove(target), Is.False);
+            Assert.That(primary.IsBelow(target), Is.False);
+            Assert.That(primary.IsLeft(target), Is.False);
+            Assert.That(primary.IsRight(target), Is.False);
+        });
     }
-    
+
     [Test]
     public void TestInside()
     {
         Hitbox primary = new(10, 20, 10, 20);
         Hitbox target = new(0, 100, 0, 100);
-
-        Assert.That(primary.GetContactDirection(target), Is.EqualTo(Direction.NONE));
+        Assert.Multiple(() =>
+        {
+            Assert.That(primary.IsAbove(target), Is.False);
+            Assert.That(primary.IsBelow(target), Is.False);
+            Assert.That(primary.IsLeft(target), Is.False);
+            Assert.That(primary.IsRight(target), Is.False);
+        });
     }
-    
+
     [Test]
     public void TestTouchLeft()
     {
         Hitbox primary = new(0, 10, 10, 30);
         Hitbox target = new(10, 100, 0, 100);
 
-        Assert.That(primary.GetContactDirection(target), Is.EqualTo(Direction.RIGHT));
+        Assert.Multiple(() =>
+        {
+            Assert.That(primary.IsAbove(target), Is.False);
+            Assert.That(primary.IsBelow(target), Is.False);
+            Assert.That(primary.IsLeft(target), Is.True);
+            Assert.That(primary.IsRight(target), Is.False);
+        });
     }
     
     [Test]
@@ -35,7 +51,13 @@ public class HitboxTests
         Hitbox primary = new(100, 110, 10, 30);
         Hitbox target = new(10, 100, 0, 100);
 
-        Assert.That(primary.GetContactDirection(target), Is.EqualTo(Direction.LEFT));
+        Assert.Multiple(() =>
+        {
+            Assert.That(primary.IsAbove(target), Is.False);
+            Assert.That(primary.IsBelow(target), Is.False);
+            Assert.That(primary.IsLeft(target), Is.False);
+            Assert.That(primary.IsRight(target), Is.True);
+        });
     }
     
     [Test]
@@ -44,7 +66,13 @@ public class HitboxTests
         Hitbox primary = new(10, 30, 0, 10);
         Hitbox target = new(0, 100, 10, 100);
 
-        Assert.That(primary.GetContactDirection(target), Is.EqualTo(Direction.DOWN));
+        Assert.Multiple(() =>
+        {
+            Assert.That(primary.IsAbove(target), Is.True);
+            Assert.That(primary.IsBelow(target), Is.False);
+            Assert.That(primary.IsLeft(target), Is.False);
+            Assert.That(primary.IsRight(target), Is.False);
+        });
     }
     
     [Test]
@@ -53,7 +81,13 @@ public class HitboxTests
         Hitbox primary = new(10, 30, 100, 110);
         Hitbox target = new(0, 100, 10, 100);
 
-        Assert.That(primary.GetContactDirection(target), Is.EqualTo(Direction.UP));
+        Assert.Multiple(() =>
+        {
+            Assert.That(primary.IsAbove(target), Is.False);
+            Assert.That(primary.IsBelow(target), Is.True);
+            Assert.That(primary.IsLeft(target), Is.False);
+            Assert.That(primary.IsRight(target), Is.False);
+        });
     }
     
     [Test]

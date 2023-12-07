@@ -40,27 +40,13 @@ public class Movement
 
         foreach (Hitbox box in Platforms.hitboxes)
         {
-            switch (SPRITE_BOX.GetContactDirection(box))
+            if (box.IsLeft(SPRITE_BOX)) blockedLeft = true;
+            if (box.IsRight(SPRITE_BOX)) blockedRight = true;
+            if (box.IsAbove(SPRITE_BOX)) blockedTop = true;
+            if (box.IsBelow(SPRITE_BOX)) 
             {
-                case Direction.NONE:
-                case Direction.UP_LEFT:
-                case Direction.UP_RIGHT:
-                case Direction.DOWN_LEFT:
-                case Direction.DOWN_RIGHT:
-                    break;
-                case Direction.UP:
-                    blockedTop = true;
-                    break;
-                case Direction.LEFT:
-                    blockedLeft = true;
-                    break;
-                case Direction.RIGHT:
-                    blockedRight = true;
-                    break;
-                case Direction.DOWN:
-                    grounded = true;
-                    canDash = true;
-                    break;
+                grounded = true;
+                canDash = true;
             }
         }
     }

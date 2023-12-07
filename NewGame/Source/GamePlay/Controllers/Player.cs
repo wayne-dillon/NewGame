@@ -22,7 +22,6 @@ public class Player
                             .WithDims(new Vector2(63, 112))
                             .WithAbsolutePosition(POS)
                             .BuildAnimated();
-        sprite.hboxOffsets = new(4,4,25,0);
     }
 
     public void Update()

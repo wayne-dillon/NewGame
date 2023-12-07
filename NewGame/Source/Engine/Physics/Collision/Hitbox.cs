@@ -13,31 +13,52 @@ public struct Hitbox
         bottom = BOTTOM;
     }
 
-    public Direction GetContactDirection(Hitbox TARGET)
+    public bool IsBelow(Hitbox TARGET)
     {
-        if (left > TARGET.right || right < TARGET.left || top > TARGET.bottom || bottom < TARGET.top)
-        {
-            return Direction.NONE;
-        }
+        if (top != TARGET.bottom) return false;
 
-        bool fromLeft = left == TARGET.right;
-        bool fromRight = right == TARGET.left;
-        bool fromTop = top == TARGET.bottom;
-        bool fromBottom = bottom == TARGET.top;
+        bool onLeft = left < TARGET.left && right > TARGET.left;
+        bool onRight = left < TARGET.right && right > TARGET.right;
+        bool within = left > TARGET.right && right < TARGET.left;
+        bool without = right > TARGET.left && left < TARGET.right;
 
-        if (fromLeft) {
-            if (fromTop) return Direction.UP_LEFT;
-            if (fromBottom) return Direction.DOWN_LEFT;
-            return Direction.LEFT;
-        }
-        if (fromRight) {
-            if (fromTop) return Direction.UP_RIGHT;
-            if (fromBottom) return Direction.DOWN_RIGHT;
-            return Direction.RIGHT;
-        }
-        if (fromTop) return Direction.UP;
-        if (fromBottom) return Direction.DOWN;
-        return Direction.NONE;
+        return onLeft || onRight || within || without;
+    }
+
+    public bool IsAbove(Hitbox TARGET)
+    {
+        if (bottom != TARGET.top) return false;
+
+        bool onLeft = left < TARGET.left && right > TARGET.left;
+        bool onRight = left < TARGET.right && right > TARGET.right;
+        bool within = left > TARGET.right && right < TARGET.left;
+        bool without = right > TARGET.left && left < TARGET.right;
+
+        return onLeft || onRight || within || without;
+    }
+
+    public bool IsLeft(Hitbox TARGET)
+    {
+        if (right != TARGET.left) return false;
+
+        bool above = top < TARGET.top && bottom > TARGET.top;
+        bool below = top < TARGET.bottom && bottom > TARGET.bottom;
+        bool within = top > TARGET.bottom && bottom < TARGET.top;
+        bool without = bottom > TARGET.top && top < TARGET.bottom;
+
+        return above || below || within || without;
+    }
+
+    public bool IsRight(Hitbox TARGET)
+    {
+        if (left != TARGET.right) return false;
+
+        bool above = top < TARGET.top && bottom > TARGET.top;
+        bool below = top < TARGET.bottom && bottom > TARGET.bottom;
+        bool within = top > TARGET.bottom && bottom < TARGET.top;
+        bool without = bottom > TARGET.top && top < TARGET.bottom;
+
+        return above || below || within || without;
     }
 
     public Direction PassesThrough(Hitbox oldBox, Hitbox newBox)
