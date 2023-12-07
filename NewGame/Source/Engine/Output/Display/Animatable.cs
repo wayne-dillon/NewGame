@@ -11,6 +11,7 @@ public abstract class Animatable
     public Hitbox hitbox;
     public Hitbox hboxOffsets = new(0,0,0,0);
     public bool isTransitionable;
+    public bool isUI;
 
     public Vector2 Pos 
     { 
@@ -21,7 +22,7 @@ public abstract class Animatable
         }
     }
 
-    public Animatable(Color COLOR, Vector2 POS, Vector2 DIMS, Alignment ALIGNMENT, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE)
+    public Animatable(Color COLOR, Vector2 POS, Vector2 DIMS, Alignment ALIGNMENT, IAnimate ANIMATION, InteractableType TYPE, bool ISTRANSITIONABLE, bool ISUI)
     {
         color = ISTRANSITIONABLE ? new Color(COLOR, 0) : COLOR;
         Pos = POS;
@@ -31,6 +32,7 @@ public abstract class Animatable
         animation = ANIMATION;
         type = TYPE;
         isTransitionable = ISTRANSITIONABLE;
+        isUI = ISUI;
         hitbox = new(Pos.X - dims.X / 2, Pos.X + dims.X / 2, Pos.Y - dims.Y / 2, Pos.Y + dims.Y / 2);
         if (type == InteractableType.PLATFORM) Platforms.hitboxes.Add(hitbox);
         if (type == InteractableType.HAZARD) Hazards.hitboxes.Add(hitbox);

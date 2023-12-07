@@ -1,6 +1,8 @@
 public enum LevelObject
 {
     EMPTY,
+    HAZARD,
+    OBJECTIVE,
     PLATFORM_BOTTOM,
     PLATFORM_BOTTOM_LEFT,
     PLATFORM_BOTTOM_RIGHT,
@@ -17,8 +19,7 @@ public enum LevelObject
     PLATFORM_TOP_LEFT,
     PLATFORM_TOP_RIGHT,
     PLATFORM_VERTICAL,
-    HAZARD,
     PLAYER,
     START,
-    OBJECTIVE
+    TEXT
 }

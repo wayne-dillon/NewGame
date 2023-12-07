@@ -15,14 +15,12 @@ public class Backdrop
                                         .WithDims(new Vector2(1920, 1080))
                                         .Build();
 
-        windowViews.Add(spriteBuilder.WithOffset(new Vector2(0, 250))
+        windowViews.Add(spriteBuilder.WithAbsolutePosition(new Vector2(0, 250))
                                     .WithPath(VIEW_PATH)
                                     .WithDims(new Vector2(3840, 582))
-                                    .WithScreenAlignment(Alignment.TOP)
                                     .Build());
-        windowViews.Add(spriteBuilder.WithOffset(new Vector2(-3840, 250))
+        windowViews.Add(spriteBuilder.WithAbsolutePosition(new Vector2(3840, 250))
                                     .WithDims(new Vector2(3840, 582))
-                                    .WithScreenAlignment(Alignment.TOP)
                                     .Build());
 
     }

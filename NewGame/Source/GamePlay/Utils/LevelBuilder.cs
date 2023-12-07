@@ -24,6 +24,7 @@ public class LevelBuilder
         level = new();
         string path = EnumHelper.GetLevelPath(GameGlobals.currentLevel);
         List<string[]> input = CSVReader.ReadFile(path);
+        int textNum = 0;
 
         Vector2 position = new Vector2(-tileSize, -tileSize);
         foreach (string[] row in input)
@@ -64,6 +65,10 @@ public class LevelBuilder
                         break;
                     case LevelObject.PLAYER:
                         level.playerStartPos = position;
+                        break;
+                    case LevelObject.TEXT:
+                        CreateText(position, textNum);
+                        textNum++;
                         break;
                     case LevelObject.EMPTY:
                     default:
@@ -116,11 +121,21 @@ public class LevelBuilder
                                     .BuildAnimated());
     }
 
+    private static void CreateText(Vector2 POS, int NUM)
+    {
+        level.text.Add(new TextComponentBuilder().WithText(EnumHelper.GetLevelText(NUM))
+                                                .WithAbsolutePosition(POS)
+                                                .WithTextAlignment(Alignment.CENTER)
+                                                .WithUI(false)
+                                                .Build());
+    }
+
     private static void SetBounds(Vector2 position)
     {
-        level.top = level.left = -tileSize / 2;
+        level.top = -tileSize / 2;
+        level.left = tileSize / 2;
         level.bottom = (int)position.Y + (tileSize / 2);
-        level.right = (int)position.X + (tileSize / 2);
+        level.right = (int)position.X - (tileSize / 2);
 
         Platforms.hitboxes.Add(new(level.left, level.right, level.top - tileSize, level.top));          // top
         Platforms.hitboxes.Add(new(level.left, level.right, level.bottom, level.bottom + tileSize));    // bottom

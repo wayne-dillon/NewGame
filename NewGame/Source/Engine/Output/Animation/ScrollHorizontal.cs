@@ -16,9 +16,11 @@ public class ScrollHorizontal : IAnimate
     public void Animate(Animatable TARGET)
     {
         float shift = Globals.gameTime.ElapsedGameTime.Milliseconds * speed;
-        if (TARGET.Pos.X >= Coordinates.screenWidth)
+        if (speed > 0 && TARGET.Pos.X - TARGET.dims.X/2 >= Coordinates.screenWidth)
         {
             TARGET.Pos -= new Vector2(Coordinates.screenWidth * 2, 0);
+        } else if (speed < 0 && TARGET.Pos.X + TARGET.dims.X/2 <= -Coordinates.screenWidth) {
+            TARGET.Pos += new Vector2(Coordinates.screenWidth * 2, 0);
         } else {
             TARGET.Pos += new Vector2(shift, 0);
         }

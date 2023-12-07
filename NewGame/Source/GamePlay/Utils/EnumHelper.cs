@@ -2,26 +2,27 @@ public class EnumHelper
 {
     public static LevelObject GetObject(string INPUT) => INPUT switch
     {
-        "PB" => LevelObject.PLATFORM_BOTTOM,
+        "PB-" => LevelObject.PLATFORM_BOTTOM,
         "PBL" => LevelObject.PLATFORM_BOTTOM_LEFT,
         "PBR" => LevelObject.PLATFORM_BOTTOM_RIGHT,
-        "PH" => LevelObject.PLATFORM_HORIZONTAL,
-        "PL" => LevelObject.PLATFORM_LEFT,
-        "PO" => LevelObject.PLATFORM_OPEN,
+        "PH-" => LevelObject.PLATFORM_HORIZONTAL,
+        "PL-" => LevelObject.PLATFORM_LEFT,
+        "PO-" => LevelObject.PLATFORM_OPEN,
         "POB" => LevelObject.PLATFORM_OPEN_BOTTOM,
         "POL" => LevelObject.PLATFORM_OPEN_LEFT,
         "POR" => LevelObject.PLATFORM_OPEN_RIGHT,
         "POT" => LevelObject.PLATFORM_OPEN_TOP,
-        "PR" => LevelObject.PLATFORM_RIGHT,
-        "PS" => LevelObject.PLATFORM_SINGLE,
-        "PT" => LevelObject.PLATFORM_TOP,
+        "PR-" => LevelObject.PLATFORM_RIGHT,
+        "PS-" => LevelObject.PLATFORM_SINGLE,
+        "PT-" => LevelObject.PLATFORM_TOP,
         "PTL" => LevelObject.PLATFORM_TOP_LEFT,
         "PTR" => LevelObject.PLATFORM_TOP_RIGHT,
-        "PV" => LevelObject.PLATFORM_VERTICAL,
-        "H" => LevelObject.HAZARD,
-        "PC" => LevelObject.PLAYER,
-        "S" => LevelObject.START,
-        "O" => LevelObject.OBJECTIVE,
+        "PV-" => LevelObject.PLATFORM_VERTICAL,
+        "-H-" => LevelObject.HAZARD,
+        "PC-" => LevelObject.PLAYER,
+        "-S-" => LevelObject.START,
+        "-O-" => LevelObject.OBJECTIVE,
+        "-T-" => LevelObject.TEXT,
         _ => LevelObject.EMPTY
     };
 
@@ -62,5 +63,20 @@ public class EnumHelper
         LevelSelection.LEVEL_2 => "Background//storm",
         LevelSelection.LEVEL_3 => "Background//night",
         _ => "Background//night",
+    };
+
+    public static string GetLevelText(int NUM) => NUM switch
+    {
+        0 => "Use Left and Right keys\nor 'A' and 'D' to move",
+        1 => "Press Up or 'W' to Jump",
+        2 => "In Cat mode, press\nSpace to dash",
+        3 => "Left mouse click or\npress 'Q' to switch\nto Frog mode",
+        4 => "Frog mode allows you\nto perform a double jump",
+        5 => "Left click or 'Q' again\nto switch to Monkey mode",
+        6 => "In Monkey mode you can\nclimb up and jump off walls",
+        7 => "Right mouse and 'E'\ncycle through modes in\nin the opposite direction",
+        8 => "The countdown begins when\nyou pass the start line",
+        9 => "Turn all phones to airplane\nmode to finish the level",
+        _ => ""
     };
 }

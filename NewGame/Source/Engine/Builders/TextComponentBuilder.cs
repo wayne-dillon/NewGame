@@ -11,8 +11,9 @@ public class TextComponentBuilder
     private Color Color = Color.Black;
     private IAnimate Animation;
     private bool IsTransitionable = true;
+    private bool IsUI = true;
 
-    public TextComponent Build() => new(Text, Font, TextAlignment, ScreenAlignment, Offset, Color, Animation, IsTransitionable);
+    public TextComponent Build() => new(Text, Font, TextAlignment, ScreenAlignment, Offset, Color, Animation, IsTransitionable, IsUI);
 
     public TextComponentBuilder WithText(string TEXT)
     {
@@ -66,6 +67,12 @@ public class TextComponentBuilder
     public TextComponentBuilder WithTransitionable(bool ISTRANSITIONABLE)
     {
         IsTransitionable = ISTRANSITIONABLE;
+        return this;
+    }
+
+    public TextComponentBuilder WithUI(bool ISUI)
+    {
+        IsUI = ISUI;
         return this;
     }
 }

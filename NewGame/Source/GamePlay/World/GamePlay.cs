@@ -89,6 +89,10 @@ public class GamePlay
         {
             hazard.Update();
         }
+        foreach (TextComponent text in level.text)
+        {
+            text.Update();
+        }
         if (Globals.isNewGame) 
         {
             Globals.isNewGame = false;
@@ -151,6 +155,10 @@ public class GamePlay
         foreach (Sprite platform in level.platforms)
         {
             platform.Draw();
+        }
+        foreach (TextComponent text in level.text)
+        {
+            text.Draw();
         }
         player.Draw();
         modeText.Draw();

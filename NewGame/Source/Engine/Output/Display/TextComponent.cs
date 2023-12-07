@@ -8,8 +8,8 @@ public class TextComponent : Animatable
     private Vector2 absolutePos;
     private readonly Alignment textAlignment;
 
-    public TextComponent(string TEXT, SpriteFont FONT, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, IAnimate ANIMATION, bool ISTRANSITIONABLE)
-        : base(COLOR, Coordinates.Get(SCREENALIGNMENT) + OFFSET, Vector2.Zero, SCREENALIGNMENT, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE)
+    public TextComponent(string TEXT, SpriteFont FONT, Alignment TEXTALIGNMENT, Alignment SCREENALIGNMENT, Vector2 OFFSET, Color COLOR, IAnimate ANIMATION, bool ISTRANSITIONABLE, bool ISUI)
+        : base(COLOR, Coordinates.Get(SCREENALIGNMENT) + OFFSET, Vector2.Zero, SCREENALIGNMENT, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE, ISUI)
     {
         text = TEXT;
         font = FONT ?? Fonts.defaultFont;
@@ -56,11 +56,22 @@ public class TextComponent : Animatable
 
     public void Draw() 
     {
-        Globals.spriteBatch.DrawString(font, text, absolutePos * Globals.ScalingFactor(), color);
+        Vector2 POS = absolutePos;
+        if (Globals.gameState == GameState.GAME_PLAY && !isUI)
+        {
+            POS -= Globals.screenPosition;
+        }
+
+        Globals.spriteBatch.DrawString(font, text, POS * Globals.ScalingFactor(), color);
     }
 
     public void Draw(string TEXT, Vector2 POS, Color COLOR) 
     {
+        if (Globals.gameState == GameState.GAME_PLAY && !isUI)
+        {
+            POS -= Globals.screenPosition;
+        }
+
         text = TEXT;
         SetPosition(POS); 
         Globals.spriteBatch.DrawString(font, text, absolutePos * Globals.ScalingFactor(), new Color(COLOR, color.A));
