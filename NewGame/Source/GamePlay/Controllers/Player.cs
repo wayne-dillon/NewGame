@@ -49,8 +49,17 @@ public class Player
 
     private void AdjustForPlatforms()
     {
+        bool topOfClimb = false;
+        if (currentState == CharacterState.CLIMBING_LEFT || currentState == CharacterState.CLIMBING_RIGHT) topOfClimb = true;
+
         foreach (Hitbox box in Platforms.hitboxes)
         {
+            if ((currentState == CharacterState.CLIMBING_LEFT && box.IsLeft(sprite.hitbox))
+                    || (currentState == CharacterState.CLIMBING_RIGHT && box.IsRight(sprite.hitbox)))
+            {
+                topOfClimb = false;
+            }
+
             switch (box.PassesThrough(prevHitbox, sprite.hitbox))
             {
                 case Direction.NONE:
@@ -92,6 +101,11 @@ public class Player
                     sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, box.bottom + sprite.dims.Y / 2);
                     break;
             }
+        }
+
+        if (topOfClimb)
+        {
+            sprite.Pos += currentState == CharacterState.CLIMBING_LEFT ? new Vector2(-1, 0) : new Vector2(1, 0);
         }
     }
 

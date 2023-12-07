@@ -15,6 +15,7 @@ public class Movement
 
     private bool canDash;
     private MyTimer dashTimer;
+    private MyTimer cayoteTimer;
 
     private static bool IsCat => GameGlobals.currentMode == CharacterMode.CAT;
     private static bool IsFrog => GameGlobals.currentMode == CharacterMode.FROG;
@@ -24,6 +25,7 @@ public class Movement
     {
         jump = new();
         dashTimer = new(PlayerMovementValues.dashTime, true);
+        cayoteTimer = new(PlayerMovementValues.jumpBufferTime, true);
         GameGlobals.currentMode = CharacterMode.CAT;
     }
 
@@ -32,6 +34,7 @@ public class Movement
         CheckForContact(SPRITE_BOX);
         jump.Update();
         dashTimer.UpdateTimer();
+        cayoteTimer.UpdateTimer();
     }
     
     public void CheckForContact(Hitbox SPRITE_BOX)
@@ -40,12 +43,21 @@ public class Movement
 
         foreach (Hitbox box in Platforms.hitboxes)
         {
-            if (box.IsLeft(SPRITE_BOX)) blockedLeft = true;
-            if (box.IsRight(SPRITE_BOX)) blockedRight = true;
             if (box.IsAbove(SPRITE_BOX)) blockedTop = true;
+            if (box.IsLeft(SPRITE_BOX)) 
+            {
+                blockedLeft = true;
+                if (IsGecko) cayoteTimer.ResetToZero();
+            }
+            if (box.IsRight(SPRITE_BOX)) 
+            {
+                blockedRight = true;
+                if (IsGecko) cayoteTimer.ResetToZero();
+            }
             if (box.IsBelow(SPRITE_BOX)) 
             {
                 grounded = true;
+                cayoteTimer.ResetToZero();
                 canDash = true;
             }
         }
@@ -68,6 +80,7 @@ public class Movement
 
     private void HorizontalMovement()
     {
+        if ((blockedLeft && horizontalSpeed < 0) || (blockedRight && horizontalSpeed > 0)) horizontalSpeed = 0;
         velocity = new Vector2(horizontalSpeed, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
     }
 
@@ -150,7 +163,7 @@ public class Movement
             velocity = new Vector2(horizontalSpeed, 0) * Globals.gameTime.ElapsedGameTime.Milliseconds;
             return;
         }
-        if (grounded || jump.IsJumping || (IsGecko && (blockedLeft || blockedRight)))
+        if (!cayoteTimer.Test() || jump.IsJumping || (IsGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();
         } else if (jump.CanDoubleJump && IsFrog && InputController.Jump())

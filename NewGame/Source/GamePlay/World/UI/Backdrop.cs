@@ -5,7 +5,7 @@ public class Backdrop
 {
     public readonly List<Sprite> windowViews = new();
     private readonly Sprite staticBackground;
-    public IAnimate animation = new ScrollHorizontal(-0.03f);
+    public IAnimate animation = new ScrollHorizontal(-0.2f);
 
     public Backdrop(string VIEW_PATH)
     {
@@ -19,7 +19,10 @@ public class Backdrop
                                     .WithPath(VIEW_PATH)
                                     .WithDims(new Vector2(3840, 582))
                                     .Build());
-        windowViews.Add(spriteBuilder.WithAbsolutePosition(new Vector2(3840, 250))
+        windowViews.Add(spriteBuilder.WithAbsolutePosition(new Vector2(Coordinates.screenWidth * 2, 250))
+                                    .WithDims(new Vector2(3840, 582))
+                                    .Build());
+        windowViews.Add(spriteBuilder.WithAbsolutePosition(new Vector2(Coordinates.screenWidth * 4, 250))
                                     .WithDims(new Vector2(3840, 582))
                                     .Build());
 
