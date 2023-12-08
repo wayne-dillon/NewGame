@@ -4,41 +4,48 @@ using Microsoft.Xna.Framework;
 public class OptionsMenu
 {
     private readonly Sprite background;
-    private readonly TextComponent fullscreenText, resolutionText;
+    private readonly TextComponent fullscreenText, resolutionText, musicVolumeText;
     private readonly Checkbox fullscreenCheckbox;
     private readonly List<LinkedCheckbox> resolutionCheckboxs = new();
+    private readonly Slider musicVolumeSlider;
     private readonly Button devMode;
 
     public OptionsMenu()
     {
         background = new SpriteBuilder().WithPath("rect").WithDims(new Vector2(600, 500)).WithColor(Colors.Background).Build();
 
+        musicVolumeText = new TextComponentBuilder().WithText("Music Volume")
+                                                .WithTextAlignment(Alignment.CENTER_LEFT)
+                                                .WithOffset(new Vector2(-200, -40))
+                                                .Build();
         fullscreenText = new TextComponentBuilder().WithText("Fullscreen")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
-                                                .WithOffset(new Vector2(-200, -75))
+                                                .WithOffset(new Vector2(-200, 40))
                                                 .Build();
         resolutionText = new TextComponentBuilder().WithText("Resolution")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
-                                                .WithOffset(new Vector2(-200, 25))
+                                                .WithOffset(new Vector2(-200, 120))
                                                 .Build();
 
-        fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, -75))
+        musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -40), Music.GetVolume(), Music.SetVolume);
+
+        fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, 40))
                                                 .WithButtonAction((sender, args) => { Globals.graphics.ToggleFullScreen(); })
                                                 .BuildCheckbox();
 
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1920 x 1080")
-                                                    .WithOffset(new Vector2(100, 50))
+                                                    .WithOffset(new Vector2(100, 150))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(new Vector2(1920, 1080))
                                                     .WithChecked(true)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1600 x 900")
-                                                    .WithOffset(new Vector2(100, 75))
+                                                    .WithOffset(new Vector2(100, 175))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(new Vector2(1600, 900))
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1280 x 720")
-                                                    .WithOffset(new Vector2(100, 100))
+                                                    .WithOffset(new Vector2(100, 200))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(new Vector2(1280, 720))
                                                     .BuildLinkedCheckbox());
@@ -62,6 +69,8 @@ public class OptionsMenu
     public void Update()
     {
         background.Update();
+        musicVolumeText.Update();
+        musicVolumeSlider.Update();
         fullscreenText.Update();
         fullscreenCheckbox.Update();
         resolutionText.Update();
@@ -89,6 +98,8 @@ public class OptionsMenu
     public void Draw()
     {
         background.Draw();
+        musicVolumeText.Draw();
+        musicVolumeSlider.Draw();
         fullscreenText.Draw();
         fullscreenCheckbox.Draw();
         resolutionText.Draw();

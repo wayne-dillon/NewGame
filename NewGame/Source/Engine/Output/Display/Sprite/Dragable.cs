@@ -1,14 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 
 public class Dragable : Sprite
 {
     public bool isHeld;
+    public EventHandler<object> action;
     public object info;
     public Vector2 cursorOffset;
 
-    public Dragable(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, object INFO, bool ISTRANSITIONABLE, bool ISUI) 
+    public Dragable(string PATH, Alignment ALIGNMENT, Vector2 OFFSET, Vector2 DIMS, Color COLOR, IAnimate ANIMATION, EventHandler<object> ACTION, object INFO, bool ISTRANSITIONABLE, bool ISUI) 
         : base(PATH, ALIGNMENT, OFFSET, DIMS, COLOR, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE, ISUI) 
     {
+        action = ACTION;
         info = INFO;
 
         isHeld = false;

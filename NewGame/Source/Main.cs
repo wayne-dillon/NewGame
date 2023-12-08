@@ -1,16 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
+using Microsoft.Xna.Framework.Media;
 
 public class Main : Game
 {
-    // private Backdrop backdrop;
     private MainMenu mainMenu;
     private OptionsMenu optionsMenu;
     private AboutMenu aboutMenu;
     private GamePlay gamePlay;
     private DevConsole devConsole;
+    private Music music;
     public UI ui;
 
     Cursor cursor;
@@ -49,7 +49,7 @@ public class Main : Game
 
         GameGlobals.currentLevel = LevelSelection.TUTORIAL;
 
-        // backdrop = new Backdrop();
+        music = new Music();
         mainMenu = new MainMenu();
         optionsMenu = new OptionsMenu();
         aboutMenu = new AboutMenu();

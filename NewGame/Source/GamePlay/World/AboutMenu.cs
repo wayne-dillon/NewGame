@@ -9,8 +9,12 @@ public class AboutMenu
     private readonly TextComponent howToText;
     private readonly TextComponent creditsText;
 
-    private readonly string howTo = "The aim of the game, like life under capitalism, is to accumulate wealth.\n\n\nIn order to accomplish this you'll be drafting poker hands.\n\nEach round you'll be dealt 2* flop cards, then pick 5* more cards from packs of 5*.\n\nYou'll score based on the best possible hand of 5 cards that can be made from these 7* cards.\n\n\n*These numbers will vary based on the table you are playing at.\n\n\nTo join a table you'll need to pay an ante, the bigger the ante the bigger the payouts\n\nThe Free Roller table has no ante, it's financed with the change we find between the cushions\nat The High Roller table.\n\nIn House Game you'll earn coins based on the rank of the hand\n\nIn Bot Game the winner profits, second place gets the ante back and everyone else leaves\nwith nothing."; 
-    private readonly string credits = "Created By\n\nWayne Dillon"; 
+    private readonly string howTo = "Charlie is off on a well earned holiday, but some rude kittens on the flight\n"
+                                  + "haven't switched their phones to airplane mode. In order to avoid CATastrophy\n"
+                                  + "he'll have to tap into his many (more specifically, three) animalistic modes\n"
+                                  + "in order to dash, hop, and climb his way around the cabin, righting these\n"
+                                  + "egregious wrongs!"; 
+    private readonly string credits = "Programming, Gameplay and Level Design By\n\nWayne Dillon"; 
 
     private enum Tab
     {

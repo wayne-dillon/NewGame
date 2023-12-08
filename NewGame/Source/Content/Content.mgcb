@@ -740,6 +740,12 @@
 /processorParam:TextureFormat=Color
 /build:rect.png
 
+#begin Sound/Run-Amok(chosic.com).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/Run-Amok(chosic.com).mp3;Sound/runAmok.mp3
+
 #begin Symbols/airplaneModePhone.png
 /importer:TextureImporter
 /processor:TextureProcessor

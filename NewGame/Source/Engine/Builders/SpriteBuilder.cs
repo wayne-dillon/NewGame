@@ -46,7 +46,7 @@ public class SpriteBuilder
     public Clickable BuildClickable() => new(Path, ScreenAlignment, Offset, Dims, Color, HoverColor, UnavailableColor, Animation, HoverScale, IsAvailable, 
             ButtonAction, ButtonInfo, IsTransitionable, IsUI);
 
-    public Dragable BuildDragable() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, ButtonInfo, IsTransitionable, IsUI);
+    public Dragable BuildDragable() => new(Path, ScreenAlignment, Offset, Dims, Color, Animation, ButtonAction, ButtonInfo, IsTransitionable, IsUI);
 
     public SpriteBuilder WithPath(string PATH)
     {
