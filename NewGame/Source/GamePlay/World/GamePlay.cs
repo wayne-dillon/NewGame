@@ -8,7 +8,8 @@ public class GamePlay
     private Level level;
     private TextComponent timeDisplay;
     private int collected;
-    private int timeBonus = 30;
+    private readonly int startTime = 10;
+    private readonly int timeBonus = 5;
 
     public TextComponent modeText;
 
@@ -16,11 +17,10 @@ public class GamePlay
     private string TimerText
     { 
         get {
-            if (runTime.TotalMilliseconds < 0) return "Time: 00:00.000";
-            int minutes = (int)Math.Floor(runTime.TotalMinutes);
+            if (runTime.TotalMilliseconds < 0) return "Time: 00.000";
             int seconds = (int)Math.Floor(runTime.TotalSeconds % 60);
             int millis = (int)Math.Floor(runTime.TotalMilliseconds % 1000);
-            return $"Time: {minutes}:{seconds:D2}.{millis:D3}"; 
+            return $"Time: {seconds:D2}.{millis:D3}"; 
         }
     }
 
@@ -35,12 +35,13 @@ public class GamePlay
 
         player = new Player(level.playerStartPos);
         camera = new Camera(player.sprite, level);
-        runTime = new(0,0,timeBonus);
+        runTime = new(0,0,startTime);
 
         timeDisplay = new TextComponentBuilder().WithText(TimerText)
                                                 .WithScreenAlignment(Alignment.TOP_RIGHT)
                                                 .WithTextAlignment(Alignment.CENTER_RIGHT)
                                                 .WithOffset(new Vector2(-75,75))
+                                                .WithFont(Fonts.numberFont)
                                                 .Build();
 
         modeText = new TextComponentBuilder().WithScreenAlignment(Alignment.TOP)

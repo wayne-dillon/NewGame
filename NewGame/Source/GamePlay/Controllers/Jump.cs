@@ -11,7 +11,7 @@ public class Jump
     private bool canDoubleJump;
     public bool CanDoubleJump
     {
-        get { return canDoubleJump; }
+        get { return canDoubleJump; } set { canDoubleJump = value; }
     }
 
     public Jump()
@@ -37,7 +37,6 @@ public class Jump
             if (!isJumping)
             {
                 isJumping = true;
-                canDoubleJump = true;
                 inputTimer.ResetToZero();
             } else if (inputTimer.Test()) {
                 isJumping = false;
@@ -51,12 +50,9 @@ public class Jump
 
     public float GetDoubleJump()
     {
-        if (InputController.DoubleJump())
-        {
-            canDoubleJump = false;
-            isJumping = true;
-            inputTimer.ResetToZero();
-        }
+        canDoubleJump = false;
+        isJumping = true;
+        inputTimer.ResetToZero();
         return GetFallSpeed();
     }
 }

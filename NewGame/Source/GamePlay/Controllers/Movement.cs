@@ -59,6 +59,7 @@ public class Movement
                 grounded = true;
                 cayoteTimer.ResetToZero();
                 canDash = true;
+                jump.CanDoubleJump = true;
             }
         }
     }
@@ -166,7 +167,7 @@ public class Movement
         if (!cayoteTimer.Test() || jump.IsJumping || (IsGecko && (blockedLeft || blockedRight)))
         {
             verticalSpeed = jump.GetFallSpeed();
-        } else if (jump.CanDoubleJump && IsFrog && InputController.Jump())
+        } else if (jump.CanDoubleJump && IsFrog && InputController.DoubleJump())
         {
             verticalSpeed = jump.GetDoubleJump();
         }
