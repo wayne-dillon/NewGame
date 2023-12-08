@@ -186,13 +186,13 @@ public class Movement
         {
             if (horizontalSpeed >= 0 && blockedRight)
             {
-                verticalSpeed = blockedTop ? 0 : -horizontalSpeed;
+                verticalSpeed = blockedTop ? 0 : -horizontalSpeed * PlayerMovementValues.climbSpeedRatio;
                 velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
                 return true;
             }
             if (horizontalSpeed <= 0 && blockedLeft)
             {
-                verticalSpeed = blockedTop ? 0 : horizontalSpeed;
+                verticalSpeed = blockedTop ? 0 : horizontalSpeed * PlayerMovementValues.climbSpeedRatio;
                 velocity = new Vector2(0, verticalSpeed) * Globals.gameTime.ElapsedGameTime.Milliseconds;
                 return true;
             }

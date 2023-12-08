@@ -4,6 +4,8 @@ public struct PlayerMovementValues
     public static float horizontalDeceleration = 0.05f;
     public static float maxSpeed = 0.9f;
 
+    public static float climbSpeedRatio = 2f/3f;
+
     public static float dashSpeed = 2;
     public static int dashTime = 220;
     public static float dashDeceleration = 0.5f;
