@@ -10,6 +10,10 @@ public class OptionsMenu
     private readonly Slider musicVolumeSlider;
     private readonly Button devMode;
 
+    private static readonly Vector2 res1920x1080 = new(1920, 1080);
+    private static readonly Vector2 res1600x900 = new(1600, 900);
+    private static readonly Vector2 res1280x720 = new(1280, 720);
+
     public OptionsMenu()
     {
         background = new SpriteBuilder().WithPath("rect").WithDims(new Vector2(600, 500)).WithColor(Colors.Background).Build();
@@ -36,18 +40,18 @@ public class OptionsMenu
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1920 x 1080")
                                                     .WithOffset(new Vector2(100, 150))
                                                     .WithButtonAction(UpdateResolution)
-                                                    .WithButtonInfo(new Vector2(1920, 1080))
+                                                    .WithButtonInfo(res1920x1080)
                                                     .WithChecked(true)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1600 x 900")
                                                     .WithOffset(new Vector2(100, 175))
                                                     .WithButtonAction(UpdateResolution)
-                                                    .WithButtonInfo(new Vector2(1600, 900))
+                                                    .WithButtonInfo(res1600x900)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1280 x 720")
                                                     .WithOffset(new Vector2(100, 200))
                                                     .WithButtonAction(UpdateResolution)
-                                                    .WithButtonInfo(new Vector2(1280, 720))
+                                                    .WithButtonInfo(res1280x720)
                                                     .BuildLinkedCheckbox());
 
         foreach (LinkedCheckbox box in resolutionCheckboxs)
@@ -85,6 +89,10 @@ public class OptionsMenu
     {
         if (INFO is Vector2 ratio)
         {
+            if (ratio == res1920x1080) Globals.defaultFont = Fonts.defaultFont24;
+            if (ratio == res1600x900) Globals.defaultFont = Fonts.defaultFont18;
+            if (ratio == res1280x720) Globals.defaultFont = Fonts.defaultFont12;
+
             Globals.screenWidth = (int)ratio.X;
             Globals.screenHeight = (int)ratio.Y;
 

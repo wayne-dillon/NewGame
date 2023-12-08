@@ -14,7 +14,9 @@ public class AboutMenu
                                   + "he'll have to tap into his many (more specifically, three) animalistic modes\n"
                                   + "in order to dash, hop, and climb his way around the cabin, righting these\n"
                                   + "egregious wrongs!"; 
-    private readonly string credits = "Programming, Gameplay and Level Design By\n\nWayne Dillon"; 
+    private readonly string credits = "Programming, Gameplay and Level Design By\nWayne Dillon\n\n"
+                                    + "Illustations and Animations By\nFairy Elina\n\n"
+                                    + "Music and Sound Effects By\nAbraham Putnam"; 
 
     private enum Tab
     {

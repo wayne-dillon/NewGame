@@ -40,6 +40,7 @@ public class Main : Game
         Globals.content = Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
         Fonts.Init();
+        Globals.defaultFont = Fonts.defaultFont24;
 
         // TODO: use this.Content to load your game content here
         cursor = new Cursor();

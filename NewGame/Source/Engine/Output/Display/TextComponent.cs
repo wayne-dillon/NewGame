@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 public class TextComponent : Animatable
 {
     private string text;
-    private readonly SpriteFont font;
+    private SpriteFont font = Globals.defaultFont;
+    private bool variableFontSize;
     private Vector2 absolutePos;
     private readonly Alignment textAlignment;
 
@@ -12,7 +13,12 @@ public class TextComponent : Animatable
         : base(COLOR, Coordinates.Get(SCREENALIGNMENT) + OFFSET, Vector2.Zero, SCREENALIGNMENT, ANIMATION, InteractableType.NONE, ISTRANSITIONABLE, ISUI)
     {
         text = TEXT;
-        font = FONT ?? Fonts.defaultFont;
+        if (FONT == null)
+        {
+            variableFontSize = true;
+        } else {
+            font = FONT;
+        }
         textAlignment = TEXTALIGNMENT;
 
         SetAnchor(Pos);
@@ -20,12 +26,20 @@ public class TextComponent : Animatable
 
     public override void Update() 
     {
+        if (variableFontSize && font != Globals.defaultFont)
+        {
+            font = Globals.defaultFont;
+        }
         base.Update();
     }
 
     public void Update(string TEXT) 
     {
         text = TEXT;
+        if (variableFontSize && font != Globals.defaultFont)
+        {
+            font = Globals.defaultFont;
+        }
         absolutePos = Pos + GetTextAlignmentOffset();
         base.Update();
     }

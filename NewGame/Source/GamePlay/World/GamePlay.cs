@@ -7,6 +7,7 @@ public class GamePlay
     private Camera camera;
     private Level level;
     private TextComponent timeDisplay;
+    private TextComponent addedTimeDisplay;
     private int collected;
     private readonly int startTime = 10;
     private readonly int timeBonus = 5;
@@ -17,10 +18,10 @@ public class GamePlay
     private string TimerText
     { 
         get {
-            if (runTime.TotalMilliseconds < 0) return "Time: 00.000";
+            if (runTime.TotalMilliseconds < 0) return "00.000";
             int seconds = (int)Math.Floor(runTime.TotalSeconds % 60);
             int millis = (int)Math.Floor(runTime.TotalMilliseconds % 1000);
-            return $"Time: {seconds:D2}.{millis:D3}"; 
+            return $"{seconds:D2}.{millis:D3}"; 
         }
     }
 
@@ -41,6 +42,13 @@ public class GamePlay
                                                 .WithScreenAlignment(Alignment.TOP_RIGHT)
                                                 .WithTextAlignment(Alignment.CENTER_RIGHT)
                                                 .WithOffset(new Vector2(-75,75))
+                                                .WithFont(Fonts.numberFont)
+                                                .Build();
+
+        addedTimeDisplay = new TextComponentBuilder().WithText($"+{timeBonus}.000")
+                                                .WithScreenAlignment(Alignment.TOP_RIGHT)
+                                                .WithTextAlignment(Alignment.CENTER_RIGHT)
+                                                .WithOffset(new Vector2(-75,100))
                                                 .WithFont(Fonts.numberFont)
                                                 .Build();
 
@@ -101,6 +109,7 @@ public class GamePlay
         }
         modeText.Update(GameGlobals.currentMode.ToString());
         timeDisplay.Update(TimerText);
+        addedTimeDisplay.Update();
     }
 
     private void CheckEnd()
@@ -126,6 +135,9 @@ public class GamePlay
             end.SetAnimationValues(0,0,20);
             end.type = InteractableType.NONE;
             runTime += new TimeSpan(0,0,timeBonus);
+
+            addedTimeDisplay.color.A = 255;
+            addedTimeDisplay.animation = new FadeOut(750);
         }
     }
 
@@ -164,5 +176,7 @@ public class GamePlay
         player.Draw();
         modeText.Draw();
         timeDisplay.Draw();
+        if (addedTimeDisplay.animation != null)
+            addedTimeDisplay.Draw();
     }
 }

@@ -92,6 +92,27 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/GirlNextDoor.spritefont
 
+#begin Fonts/IndieFlower12.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/IndieFlower12.spritefont
+
+#begin Fonts/IndieFlower18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/IndieFlower18.spritefont
+
+#begin Fonts/IndieFlower24.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/IndieFlower24.spritefont
+
 #begin Fonts/PressStart.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

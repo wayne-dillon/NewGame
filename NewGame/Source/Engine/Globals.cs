@@ -13,6 +13,7 @@ public class Globals
 
     public static GameState gameState = GameState.MAIN_MENU;
     public static Random random = new();
+    public static SpriteFont defaultFont;
 
     public static CultureInfo culture = new("en-UK");
 
