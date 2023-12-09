@@ -53,7 +53,7 @@ public class EnumHelper
         LevelSelection.LEVEL_1 => "Source//Content//Levels//Level1.csv",
         LevelSelection.LEVEL_2 => "Source//Content//Levels//Level2.csv",
         LevelSelection.LEVEL_3 => "Source//Content//Levels//Level3.csv",
-        _ => "Source//Content//Levels//Level4.csv",
+        _ => "Source//Content//Levels//Level3.csv",
     };
 
     public static string GetLevelBackdropPath(LevelSelection selection) => selection switch

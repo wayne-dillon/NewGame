@@ -9,7 +9,6 @@ public abstract class Animatable
     public IAnimate animation;
     public InteractableType type;
     public Hitbox hitbox;
-    public Hitbox hboxOffsets = new(0,0,0,0);
     public bool isTransitionable;
     public bool isUI;
 
@@ -34,9 +33,13 @@ public abstract class Animatable
         isTransitionable = ISTRANSITIONABLE;
         isUI = ISUI;
         hitbox = new(Pos.X - dims.X / 2, Pos.X + dims.X / 2, Pos.Y - dims.Y / 2, Pos.Y + dims.Y / 2);
-        if (type == InteractableType.CHARACTER) ShrinkHitbox();
+        if (type == InteractableType.CHARACTER) ShrinkHitbox(25, 4, 4);
         if (type == InteractableType.PLATFORM) Platforms.hitboxes.Add(hitbox);
-        if (type == InteractableType.HAZARD) Hazards.hitboxes.Add(hitbox);
+        if (type == InteractableType.HAZARD)
+        {
+            ShrinkHitbox(40, 3, 3);
+            Hazards.hitboxes.Add(hitbox);
+        }
     }
 
     public virtual void Update()
@@ -64,16 +67,16 @@ public abstract class Animatable
 
     private void UpdateHitbox()
     {
-        hitbox.left = Pos.X + hboxOffsets.left - dims.X / 2;
-        hitbox.right = Pos.X - hboxOffsets.right + dims.X / 2;
-        hitbox.top = Pos.Y + hboxOffsets.top - dims.Y / 2;
-        hitbox.bottom = Pos.Y - hboxOffsets.bottom + dims.Y / 2;
+        hitbox.left = Pos.X - dims.X / 2;
+        hitbox.right = Pos.X + dims.X / 2;
+        hitbox.top = Pos.Y - dims.Y / 2;
+        hitbox.bottom = Pos.Y + dims.Y / 2;
     }
 
-    private void ShrinkHitbox()
+    private void ShrinkHitbox(int TOP, int LEFT, int RIGHT)
     {
-        hitbox.left += 4;
-        hitbox.right -= 4;
-        hitbox.top += 25;
+        hitbox.top += TOP;
+        hitbox.left += LEFT;
+        hitbox.right -= RIGHT;
     }
 }

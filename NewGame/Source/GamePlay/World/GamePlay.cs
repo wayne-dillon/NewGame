@@ -145,7 +145,7 @@ public class GamePlay
     {
         if (INFO is bool won)
         {
-            if (won && GameGlobals.currentLevel != LevelSelection.LEVEL_4) GameGlobals.currentLevel++;
+            if (won && GameGlobals.currentLevel != LevelSelection.LEVEL_3) GameGlobals.currentLevel++;
         }
         Init();
     }

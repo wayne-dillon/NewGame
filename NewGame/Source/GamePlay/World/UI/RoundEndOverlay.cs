@@ -35,7 +35,7 @@ public class RoundEndOverlay
 
     public void Update() 
     {
-        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_4)
+        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_3)
         {
             nextBtn.Update();
         }
@@ -47,7 +47,7 @@ public class RoundEndOverlay
 
     public void Draw()
     {
-        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_4)
+        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_3)
         {
             nextBtn.Draw();
         }
