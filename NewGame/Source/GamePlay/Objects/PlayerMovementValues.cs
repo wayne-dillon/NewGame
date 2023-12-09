@@ -10,12 +10,12 @@ public struct PlayerMovementValues
     public static int dashTime = 220;
     public static float dashDeceleration = 0.5f;
 
-    public static float jumpSpeed = 1.2f;
+    public static float jumpSpeed = 0.95f;
     public static int jumpHoldTime = 250;
     public static int jumpBufferTime = 50;
 
-    public static float gravity = 0.3f;
-    public static float maxFallSpeed = 1.2f;
+    public static float gravity = 0.2f;
+    public static float maxFallSpeed = 1.0f;
 
     public static void ResetValues(object SENDER, object INFO)
     {
@@ -27,11 +27,11 @@ public struct PlayerMovementValues
         dashTime = 220;
         dashDeceleration = 0.5f;
         
-        jumpSpeed = 1.2f;
+        jumpSpeed = 0.95f;
         jumpHoldTime = 250;
         jumpBufferTime = 50;
 
-        gravity = 0.3f;
-        maxFallSpeed = 1.2f;
+        gravity = 0.2f;
+        maxFallSpeed = 1.0f;
     }
 }

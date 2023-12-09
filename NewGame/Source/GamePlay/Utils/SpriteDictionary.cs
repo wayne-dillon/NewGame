@@ -65,6 +65,36 @@ public class SpriteDictionary
             { 128, "Player//Frog//Jump2" },
             { 129, "Player//Frog//Jump3" },
             { 130, "Player//Frog//Jump2" },
+            
+            { 200, "Player//Monkey//Idle1" },
+            { 201, "Player//Monkey//Idle1" },
+            { 202, "Player//Monkey//Idle1" },
+            { 203, "Player//Monkey//Idle2" },
+
+            { 204, "Player//Monkey//Fall1" },
+            { 205, "Player//Monkey//Fall2" },
+            
+            { 211, "Player//Monkey//Walk1" },
+            { 212, "Player//Monkey//Walk2" },
+            { 213, "Player//Monkey//Walk3" },
+            { 214, "Player//Monkey//Walk4" },
+            { 215, "Player//Monkey//Walk5" },
+            { 216, "Player//Monkey//Walk6" },
+            { 217, "Player//Monkey//Walk7" },
+            { 218, "Player//Monkey//Walk8" },
+            { 219, "Player//Monkey//Walk9" },
+            { 220, "Player//Monkey//Walk10" },
+
+            { 221, "Player//Monkey//Jump1" },
+            { 222, "Player//Monkey//Jump2" },
+            { 223, "Player//Monkey//Jump3" },
+            { 224, "Player//Monkey//Jump2" },
+            { 225, "Player//Monkey//Jump2" },
+            { 226, "Player//Monkey//Jump3" },
+            { 227, "Player//Monkey//Jump2" },
+            { 228, "Player//Monkey//Jump2" },
+            { 229, "Player//Monkey//Jump3" },
+            { 230, "Player//Monkey//Jump2" },
         };
 
         return ret;

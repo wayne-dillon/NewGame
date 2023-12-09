@@ -1,6 +1,6 @@
 public enum CharacterMode
 {
-    GECKO,
+    MONKEY,
     FROG,
     CAT
 }

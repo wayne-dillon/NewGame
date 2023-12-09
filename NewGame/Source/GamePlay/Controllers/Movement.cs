@@ -19,7 +19,7 @@ public class Movement
 
     private static bool IsCat => GameGlobals.currentMode == CharacterMode.CAT;
     private static bool IsFrog => GameGlobals.currentMode == CharacterMode.FROG;
-    private static bool IsGecko => GameGlobals.currentMode == CharacterMode.GECKO;
+    private static bool IsGecko => GameGlobals.currentMode == CharacterMode.MONKEY;
 
     public Movement()
     {

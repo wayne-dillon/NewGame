@@ -124,6 +124,7 @@ public class Player
     {
         int baseNum = 0;
         if (GameGlobals.currentMode == CharacterMode.FROG) baseNum = 100;
+        if (GameGlobals.currentMode == CharacterMode.MONKEY) baseNum = 200;
         switch (currentState)
         {
             case CharacterState.JUMPING:
