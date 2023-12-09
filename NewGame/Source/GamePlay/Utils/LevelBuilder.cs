@@ -135,7 +135,7 @@ public class LevelBuilder
         level.top = -tileSize / 2;
         level.left = tileSize / 2;
         level.bottom = (int)position.Y + (tileSize / 2);
-        level.right = (int)position.X - (tileSize / 2);
+        level.right = (int)position.X + (tileSize / 2);
 
         Platforms.hitboxes.Add(new(level.left, level.right, level.top - tileSize, level.top));          // top
         Platforms.hitboxes.Add(new(level.left, level.right, level.bottom, level.bottom + tileSize));    // bottom
