@@ -118,6 +118,7 @@ public class GamePlay
         {
             GameGlobals.roundState = RoundState.END;
             GameGlobals.beatLevel = true;
+            Scores.LevelScores.Add(new RunDetails((int)runTime.TotalMilliseconds, "You", GameGlobals.currentLevel, DateTime.Now));
         } else {
             runTime -= Globals.gameTime.ElapsedGameTime;
             if (runTime.TotalMilliseconds <= 0)
@@ -127,13 +128,13 @@ public class GamePlay
         }
     }
 
-    private void CollectObjective(AnimatedSprite end)
+    private void CollectObjective(AnimatedSprite OBJ)
     {
-        if (end.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE && end.type == InteractableType.OBJECTIVE)
+        if (OBJ.hitbox.PassesThrough(player.prevHitbox, player.sprite.hitbox) != Direction.NONE && OBJ.type == InteractableType.OBJECTIVE)
         {
             collected++;
-            end.SetAnimationValues(0,0,20);
-            end.type = InteractableType.NONE;
+            OBJ.SetAnimationValues(0,0,20);
+            OBJ.type = InteractableType.NONE;
             runTime += new TimeSpan(0,0,timeBonus);
 
             addedTimeDisplay.color.A = 255;

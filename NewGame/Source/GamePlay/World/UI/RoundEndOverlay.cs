@@ -8,6 +8,7 @@ public class RoundEndOverlay
     private readonly Button backBtn;
     private readonly EventHandler<object> changeGameState;
     private readonly EventHandler<object> reset;
+    private HighScoreDisplay highScoreDisplay;
 
     public RoundEndOverlay(EventHandler<object> RESET, EventHandler<object> CHANGEGAMESTATE) 
     {
@@ -31,6 +32,11 @@ public class RoundEndOverlay
                             .WithButtonAction(changeGameState)
                             .WithButtonInfo(GameState.MAIN_MENU)
                             .BuildButton();
+        
+        if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
+        {
+            highScoreDisplay = Scores.GetHighScores(GameGlobals.currentLevel, Alignment.CENTER, Vector2.Zero);
+        }
     }
 
     public void Update() 
@@ -38,6 +44,10 @@ public class RoundEndOverlay
         if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_3)
         {
             nextBtn.Update();
+        }
+        if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
+        {
+            highScoreDisplay?.Update();
         }
         resetBtn.Update();
         backBtn.Update();
@@ -50,6 +60,10 @@ public class RoundEndOverlay
         if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_3)
         {
             nextBtn.Draw();
+        }
+        if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
+        {
+            highScoreDisplay?.Draw();
         }
         resetBtn.Draw();
         backBtn.Draw();
