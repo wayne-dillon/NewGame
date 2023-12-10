@@ -6,7 +6,7 @@ public class LevelBuilder
     public static readonly int tileSize = 60;
     private static Level level;
 
-    private static Dictionary<int, string> objectiveDict = new()
+    private static readonly Dictionary<int, string> objectiveDict = new()
     {
         { 0, "Symbols//airplaneModePhone" },
         { 1, "Symbols//ringingPhone1" },
