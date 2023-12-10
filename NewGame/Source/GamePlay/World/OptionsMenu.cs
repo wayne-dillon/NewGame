@@ -31,7 +31,7 @@ public class OptionsMenu
                                                 .WithOffset(new Vector2(-200, 120))
                                                 .Build();
 
-        musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -40), Music.GetVolume(), Music.SetVolume);
+        musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -40), Music.GetVolume(), Music.SetPreferredVolume);
 
         fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, 40))
                                                 .WithButtonAction((sender, args) => { Globals.graphics.ToggleFullScreen(); })

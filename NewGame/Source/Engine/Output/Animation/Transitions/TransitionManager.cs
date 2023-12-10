@@ -3,6 +3,7 @@ using System;
 public class TransitionManager
 {
     private static GameState transitionToState;
+    private static GameState transitionFromState;
     public static TransitionState transState = TransitionState.BEGIN_IN;
 
     public static readonly int transTime = 250;
@@ -19,10 +20,13 @@ public class TransitionManager
         {
             case TransitionState.BEGIN_OUT:
                 transState = TransitionState.PLAYING_OUT;
-                animation = new FadeOut(250);
+                animation = new FadeOut(transTime);
                 animate = animation.Animate;
+                Music.SetFadeTime(transTime);
                 return;
             case TransitionState.PLAYING_OUT:
+                if (transitionToState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY) 
+                    Music.FadeDown();
                 if (animation.IsComplete())
                 {
                     waitTime = transTime;
@@ -36,6 +40,7 @@ public class TransitionManager
                     waitTime -= Globals.gameTime.ElapsedGameTime.Milliseconds;
                 } else 
                 {
+                    transitionFromState = Globals.gameState;
                     Globals.gameState = transitionToState;
                     Globals.isNewGame = true;
                     transState = TransitionState.BEGIN_IN;
@@ -43,10 +48,13 @@ public class TransitionManager
                 return;
             case TransitionState.BEGIN_IN:
                 transState = TransitionState.PLAYING_IN;
-                animation = new FadeIn(250);
+                animation = new FadeIn(transTime);
                 animate = animation.Animate;
+                Music.SetFadeTime(transTime);
                 return;
             case TransitionState.PLAYING_IN:
+                if (transitionFromState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY) 
+                    Music.FadeUp();
                 if (animation.IsComplete())
                 {
                     transState = TransitionState.SET;
