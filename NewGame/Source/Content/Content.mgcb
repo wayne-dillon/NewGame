@@ -965,6 +965,12 @@
 /processorParam:TextureFormat=Color
 /build:rect.png
 
+#begin Sound/MenuLoop.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/MenuLoop.wav
+
 #begin Sound/Run-Amok(chosic.com).mp3
 /importer:Mp3Importer
 /processor:SongProcessor

@@ -2,14 +2,39 @@ using Microsoft.Xna.Framework.Media;
 
 public class Music
 {
-    private static Song mainTheme;
+    private static Song menuTheme;
+    private static Song gameTheme;
     private static MyTimer fadeTime;
+    private static Song currentSong;
 
     public Music()
     {
-        mainTheme = Globals.content.Load<Song>("Sound//runAmok");
-        MediaPlayer.Play(mainTheme);
+        menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
+        gameTheme = Globals.content.Load<Song>("Sound//runAmok");
+        PlayOnRepeat(menuTheme);
         MediaPlayer.Volume = Globals.musicVolume = 0.25f;
+    }
+
+    public static void SetTrack()
+    {
+        switch (Globals.gameState)
+        {
+            case GameState.GAME_PLAY:
+                PlayOnRepeat(gameTheme);
+                break;
+            default:
+                PlayOnRepeat(menuTheme);
+                break;
+        }
+    }
+
+    private static void PlayOnRepeat(Song SONG)
+    {
+        MediaPlayer.MediaStateChanged -= (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
+
+        currentSong = SONG;
+        MediaPlayer.Play(currentSong);
+        MediaPlayer.MediaStateChanged += (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
     }
 
     public static void SetPreferredVolume(object SENDER, object INFO)

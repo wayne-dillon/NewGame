@@ -44,6 +44,8 @@ public class TransitionManager
                     Globals.gameState = transitionToState;
                     Globals.isNewGame = true;
                     transState = TransitionState.BEGIN_IN;
+                    if (transitionFromState == GameState.GAME_PLAY || Globals.gameState == GameState.GAME_PLAY)
+                        Music.SetTrack();
                 }
                 return;
             case TransitionState.BEGIN_IN:
