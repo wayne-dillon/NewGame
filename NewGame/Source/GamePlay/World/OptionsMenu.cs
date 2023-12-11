@@ -34,7 +34,8 @@ public class OptionsMenu
         musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -40), Music.GetVolume(), Music.SetPreferredVolume);
 
         fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, 40))
-                                                .WithButtonAction((sender, args) => { Globals.graphics.ToggleFullScreen(); })
+                                                .WithButtonAction(UpdateFullscreen)
+                                                .WithChecked(Persistence.preferences.fullScreen)
                                                 .BuildCheckbox();
 
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1920 x 1080")
@@ -68,6 +69,18 @@ public class OptionsMenu
                                     .WithButtonAction(TransitionManager.ChangeGameState)
                                     .WithButtonInfo(GameState.DEV_CONSOLE)
                                     .BuildButton();
+
+        switch (Persistence.preferences.resolution)
+        {
+            case 720:
+                UpdateResolution(null, res1280x720);
+                break;
+            case 900:
+                UpdateResolution(null, res1600x900);
+                break;
+            default:
+                break;
+        }
     }
 
     public void Update()
@@ -100,7 +113,15 @@ public class OptionsMenu
             Globals.graphics.PreferredBackBufferHeight = Globals.screenHeight;
 
             Globals.graphics.ApplyChanges();
+
+            Persistence.preferences.resolution = (int)ratio.Y;
         }
+    }
+
+    public void UpdateFullscreen(object SENDER, object INFO)
+    {
+        Globals.graphics.ToggleFullScreen();
+        Persistence.preferences.fullScreen = !Persistence.preferences.fullScreen;
     }
 
     public void Draw()

@@ -85,13 +85,6 @@
 /processorParam:TextureFormat=Color
 /build:DraftPokerLogo.png
 
-#begin Fonts/GirlNextDoor.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/GirlNextDoor.spritefont
-
 #begin Fonts/IndieFlower12.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -119,23 +112,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/PressStart.spritefont
-
-#begin Fonts/Ubuntu.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/Ubuntu.spritefont
-
-#begin Fonts/UbuntuBold.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/UbuntuBold.spritefont
-
-#begin Levels/Level1.csv
-/copy:Levels/Level1.csv
 
 #begin Platforms/platformBottom.png
 /importer:TextureImporter

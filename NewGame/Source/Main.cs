@@ -39,6 +39,9 @@ public class Main : Game
     {
         Globals.content = Content;
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        Persistence.LoadPreferences();
+
         Fonts.Init();
         Globals.defaultFont = Fonts.defaultFont24;
 
@@ -48,7 +51,8 @@ public class Main : Game
         Globals.keyboard = new MyKeyboard();
         Globals.mouse = new MyMouseControl();
 
-        GameGlobals.currentLevel = LevelSelection.TUTORIAL;
+        GameGlobals.currentLevel = Persistence.preferences.levelsComplete == 4 ? 
+                LevelSelection.LEVEL_3 : (LevelSelection)Persistence.preferences.levelsComplete;
 
         music = new Music();
         mainMenu = new MainMenu();

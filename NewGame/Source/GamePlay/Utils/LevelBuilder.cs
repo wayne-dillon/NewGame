@@ -106,7 +106,7 @@ public class LevelBuilder
         level.startBlocks.Add(new SpriteBuilder().WithInteractableType(InteractableType.START_TIMER)
                                     .WithPath("Symbols//Checker")
                                     .WithAbsolutePosition(POS)
-                                    .WithDims(new Vector2(tileSize, tileSize))
+                                                                        .WithDims(new Vector2(tileSize, tileSize))
                                     .Build());
     }
 

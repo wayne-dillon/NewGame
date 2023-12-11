@@ -118,6 +118,12 @@ public class GamePlay
         {
             GameGlobals.roundState = RoundState.END;
             GameGlobals.beatLevel = true;
+            if (Persistence.preferences.levelsComplete == (int)GameGlobals.currentLevel)
+            {
+                Persistence.preferences.levelsComplete++;
+                Persistence.SavePreferences();
+            }
+
             Scores.LevelScores.Add(new RunDetails((int)runTime.TotalMilliseconds, "You", GameGlobals.currentLevel, DateTime.Now));
         } else {
             runTime -= Globals.gameTime.ElapsedGameTime;

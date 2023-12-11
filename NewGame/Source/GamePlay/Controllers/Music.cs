@@ -12,7 +12,7 @@ public class Music
         menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
         gameTheme = Globals.content.Load<Song>("Sound//runAmok");
         PlayOnRepeat(menuTheme);
-        MediaPlayer.Volume = Globals.musicVolume = 0.25f;
+        MediaPlayer.Volume = Persistence.preferences.musicVolume;
     }
 
     public static void SetTrack()
@@ -41,7 +41,7 @@ public class Music
     {
         if (INFO is float value)
         {
-            MediaPlayer.Volume = Globals.musicVolume = value;
+            MediaPlayer.Volume = Persistence.preferences.musicVolume = value;
         }
     }
 
@@ -67,13 +67,13 @@ public class Music
     {
         fadeTime.UpdateTimer();
         float percentage = fadeTime.RemainingTime <= 0 ? 0 : (float)fadeTime.RemainingTime / (float)fadeTime.MSec;
-        SetCurrentVolume(null, Globals.musicVolume * percentage);
+        SetCurrentVolume(null, Persistence.preferences.musicVolume * percentage);
     }
 
     public static void FadeUp()
     {
         fadeTime.UpdateTimer();
         float percentage = fadeTime.RemainingTime <= 0 ? 1 : (float)fadeTime.Timer / (float)fadeTime.MSec;
-        SetCurrentVolume(null, Globals.musicVolume * percentage);
+        SetCurrentVolume(null, Persistence.preferences.musicVolume * percentage);
     }
 }
