@@ -16,7 +16,7 @@ public class Scores
 
     public static HighScoreDisplay GetHighScores(LevelSelection LEVEL, Alignment ALIGNMENT, Vector2 OFFSET)
     {
-        List<RunDetails> orderedList = levelScores.FindAll(o => o.level == LEVEL).OrderByDescending(o => o.score).ToList();
+        List<RunDetails> orderedList = LevelScores.FindAll(o => o.level == LEVEL).OrderByDescending(o => o.score).ToList();
 
         return new HighScoreDisplay(orderedList, ALIGNMENT, OFFSET);
     }
