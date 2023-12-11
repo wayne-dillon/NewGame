@@ -51,7 +51,7 @@ public class Main : Game
         Globals.keyboard = new MyKeyboard();
         Globals.mouse = new MyMouseControl();
 
-        GameGlobals.currentLevel = Persistence.preferences.levelsComplete == 4 ? 
+        GameGlobals.currentLevel = Persistence.preferences.levelsComplete > 3 ? 
                 LevelSelection.LEVEL_3 : (LevelSelection)Persistence.preferences.levelsComplete;
 
         music = new Music();
