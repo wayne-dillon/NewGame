@@ -5,8 +5,6 @@ public class UI
 {
     private RoundEndOverlay endOverlay;
 
-    private readonly FPSDisplay fpsDisplay;
-    
     private readonly Clickable homeBtn;
 
     public EventHandler<object> reset, changeGameState;
@@ -23,8 +21,6 @@ public class UI
                                     .WithButtonInfo(GameState.MAIN_MENU)
                                     .WithUI(true)
                                     .BuildClickable();
-
-        fpsDisplay = new FPSDisplay();
     }
 
     public void Update() 
@@ -38,7 +34,6 @@ public class UI
         }
 
         homeBtn.Update();
-        fpsDisplay.Update();
     }
 
     public void Draw()
@@ -47,7 +42,6 @@ public class UI
         {
             homeBtn.Draw();
         }
-        fpsDisplay.Draw();
 
         if (GameGlobals.roundState == RoundState.END && endOverlay != null 
                 && (Globals.gameState == GameState.GAME_PLAY))

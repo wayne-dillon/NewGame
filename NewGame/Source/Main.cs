@@ -13,6 +13,8 @@ public class Main : Game
     private Music music;
     public UI ui;
 
+    public Sprite background;
+
     Cursor cursor;
 
     public Main()
@@ -61,6 +63,11 @@ public class Main : Game
         gamePlay = new GamePlay();
         devConsole = new DevConsole();
         ui = new UI(gamePlay.ResetWorld);
+
+        background = new SpriteBuilder().WithPath("Background//background")
+                                        .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))
+                                        .WithTransitionable(false)
+                                        .Build();
     }
 
     protected override void Update(GameTime gameTime)
@@ -78,7 +85,7 @@ public class Main : Game
         Globals.keyboard.Update();
         Globals.mouse.Update();
 
-        // backdrop.Update();
+        background.Update();
 
         switch (Globals.gameState)
         {
@@ -118,7 +125,7 @@ public class Main : Game
         Globals.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
 
         // TODO: Add your drawing code here
-        // backdrop.Draw();
+        background.Draw();
 
         if (TransitionManager.transState != TransitionState.PAUSE)
         {
