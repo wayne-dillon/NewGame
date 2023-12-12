@@ -125,6 +125,7 @@ public class GamePlay
             }
 
             Scores.LevelScores.Add(new RunDetails((int)runTime.TotalMilliseconds, "You", GameGlobals.currentLevel, DateTime.Now));
+            Scores.WriteToXML();
         } else {
             runTime -= Globals.gameTime.ElapsedGameTime;
             if (runTime.TotalMilliseconds <= 0)

@@ -1,7 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <scores>
   <runDetails>
-    <score>10000</score>
+    <score>32799</score>
+    <player>Wayne</player>
+    <level>2</level>
+    <dateTime>
+      <day>12</day>
+      <month>12</month>
+      <year>2023</year>
+    </dateTime>
+  </runDetails>
+  <runDetails>
+    <score>36166</score>
+    <player>Wayne</player>
+    <level>3</level>
+    <dateTime>
+      <day>12</day>
+      <month>12</month>
+      <year>2023</year>
+    </dateTime>
+  </runDetails>
+  <runDetails>
+    <score>22349</score>
     <player>Wayne</player>
     <level>1</level>
     <dateTime>

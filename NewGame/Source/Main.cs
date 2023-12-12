@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 public class Main : Game
 {
     private MainMenu mainMenu;
-    // private OptionsMenu optionsMenu;
     private AboutMenu aboutMenu;
     private GamePlay gamePlay;
-    // private DevConsole devConsole;
     private Music music;
     public UI ui;
 
@@ -43,6 +40,7 @@ public class Main : Game
         Globals.spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Persistence.LoadPreferences();
+        Scores.ReadFromXML();
 
         Fonts.Init();
         Globals.defaultFont = Fonts.defaultFont24;
@@ -58,10 +56,8 @@ public class Main : Game
 
         music = new Music();
         mainMenu = new MainMenu();
-        // optionsMenu = new OptionsMenu();
         aboutMenu = new AboutMenu();
         gamePlay = new GamePlay();
-        // devConsole = new DevConsole();
         ui = new UI(gamePlay.ResetWorld);
 
         background = new SpriteBuilder().WithPath("Background//background")
@@ -92,17 +88,11 @@ public class Main : Game
             case GameState.MAIN_MENU:
                 mainMenu.Update();
                 break;
-            case GameState.OPTIONS:
-                // optionsMenu.Update();
-                break;
             case GameState.ABOUT:
                 aboutMenu.Update();
                 break;
             case GameState.GAME_PLAY:
                 gamePlay.Update();
-                break;
-            case GameState.DEV_CONSOLE:
-                // devConsole.Update();
                 break;
         }
 
@@ -134,17 +124,11 @@ public class Main : Game
                 case GameState.MAIN_MENU:
                     mainMenu.Draw();
                     break;
-                case GameState.OPTIONS:
-                    // optionsMenu.Draw();
-                    break;
                 case GameState.ABOUT:
                     aboutMenu.Draw();
                     break;
                 case GameState.GAME_PLAY:
                     gamePlay.Draw();
-                    break;
-                case GameState.DEV_CONSOLE:
-                    // devConsole.Draw();
                     break;
             }
         }

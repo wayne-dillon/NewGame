@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 
 public struct RunDetails
 {
@@ -14,4 +15,14 @@ public struct RunDetails
         level = LEVEL;
         dateTime = DATETIME;
     }
+
+    public XElement ReturnXML() => new("runDetails",
+            new XElement("score", score),
+            new XElement("player", player),
+            new XElement("level", (int)level),
+            new XElement("dateTime",
+                new XElement("day", dateTime.Day),
+                new XElement("month", dateTime.Month),
+                new XElement("year", dateTime.Year))
+            );
 }
