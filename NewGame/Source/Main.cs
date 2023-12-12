@@ -6,10 +6,10 @@ using Microsoft.Xna.Framework.Media;
 public class Main : Game
 {
     private MainMenu mainMenu;
-    private OptionsMenu optionsMenu;
+    // private OptionsMenu optionsMenu;
     private AboutMenu aboutMenu;
     private GamePlay gamePlay;
-    private DevConsole devConsole;
+    // private DevConsole devConsole;
     private Music music;
     public UI ui;
 
@@ -58,10 +58,10 @@ public class Main : Game
 
         music = new Music();
         mainMenu = new MainMenu();
-        optionsMenu = new OptionsMenu();
+        // optionsMenu = new OptionsMenu();
         aboutMenu = new AboutMenu();
         gamePlay = new GamePlay();
-        devConsole = new DevConsole();
+        // devConsole = new DevConsole();
         ui = new UI(gamePlay.ResetWorld);
 
         background = new SpriteBuilder().WithPath("Background//background")
@@ -93,7 +93,7 @@ public class Main : Game
                 mainMenu.Update();
                 break;
             case GameState.OPTIONS:
-                optionsMenu.Update();
+                // optionsMenu.Update();
                 break;
             case GameState.ABOUT:
                 aboutMenu.Update();
@@ -102,7 +102,7 @@ public class Main : Game
                 gamePlay.Update();
                 break;
             case GameState.DEV_CONSOLE:
-                devConsole.Update();
+                // devConsole.Update();
                 break;
         }
 
@@ -135,7 +135,7 @@ public class Main : Game
                     mainMenu.Draw();
                     break;
                 case GameState.OPTIONS:
-                    optionsMenu.Draw();
+                    // optionsMenu.Draw();
                     break;
                 case GameState.ABOUT:
                     aboutMenu.Draw();
@@ -144,7 +144,7 @@ public class Main : Game
                     gamePlay.Draw();
                     break;
                 case GameState.DEV_CONSOLE:
-                    devConsole.Draw();
+                    // devConsole.Draw();
                     break;
             }
         }

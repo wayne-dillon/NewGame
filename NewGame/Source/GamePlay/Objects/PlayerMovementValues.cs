@@ -1,7 +1,7 @@
 public struct PlayerMovementValues
 {
     public static float horizontalAcceleration = 0.1f;
-    public static float horizontalDeceleration = 0.9f;
+    public static float horizontalDeceleration = 0.15f;
     public static float maxSpeed = 0.6f;
 
     public static float climbSpeedRatio = 2f/3f;
@@ -19,8 +19,8 @@ public struct PlayerMovementValues
 
     public static void ResetValues(object SENDER, object INFO)
     {
-        horizontalAcceleration = 0.06f;
-        horizontalDeceleration = 0.05f;
+        horizontalAcceleration = 0.1f;
+        horizontalDeceleration = 0.15f;
         maxSpeed = 0.6f;
 
         dashSpeed = 2;
@@ -29,7 +29,6 @@ public struct PlayerMovementValues
         
         jumpSpeed = 0.9f;
         jumpHoldTime = 250;
-        jumpBufferTime = 50;
 
         gravity = 0.06f;
         maxFallSpeed = 0.9f;

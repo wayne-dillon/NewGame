@@ -4,9 +4,8 @@ using System.Collections.Generic;
 public class AboutMenu
 {
     private readonly List<LinkedButton> buttons = new();
-    private readonly List<HighScoreDisplay> scoreDisplays = new(); 
-    private readonly Sprite background;
-    private Tab currentTab = Tab.STORY;
+    private readonly List<HighScoreDisplay> scoreDisplays = new();
+    private Tab currentTab = Tab.OPTIONS;
     private readonly TextComponent storyText;
     private readonly TextComponent controlsDescText;
     private readonly TextComponent controlsText;
@@ -35,21 +34,21 @@ public class AboutMenu
                                     + "Illustations and Animations By\nFairy Elina\n\n"
                                     + "Music and Sound Effects By\nAbraham Putnam"; 
 
+    private OptionsMenu options;
+    private DevConsole devConsole;
+
     private enum Tab
     {
+        OPTIONS,
         STORY,
         CONTROLS,
         SCORES,
-        CREDITS
+        CREDITS,
+        DEV_CONSOLE
     }
 
     public AboutMenu()
     {
-        background = new SpriteBuilder().WithPath("rect")
-                                        .WithColor(Colors.AirForceBlue)
-                                        .WithDims(new Vector2(1400, 700))
-                                        .Build();
-
         storyText = new TextComponentBuilder().WithText(story).Build();
         creditsText = new TextComponentBuilder().WithText(credits).Build();
         controlsDescText = new TextComponentBuilder().WithText(controlsDesc)
@@ -83,15 +82,20 @@ public class AboutMenu
                                                         .WithHoverScale(new Vector2(1.01f, 1.01f))
                                                         .WithButtonAction(SwitchTabs);
 
-        buttons.Add(buttonBuilder.WithText("Controls").WithOffset(new Vector2(480,82)).WithButtonInfo(Tab.CONTROLS).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("High Scores").WithOffset(new Vector2(735,82)).WithButtonInfo(Tab.SCORES).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Credits").WithOffset(new Vector2(990,82)).WithButtonInfo(Tab.CREDITS).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("How to Play").WithOffset(new Vector2(225,82)).WithButtonInfo(Tab.STORY).WithAvailable(false).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("How to Play").WithOffset(new Vector2(480,82)).WithButtonInfo(Tab.STORY).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Controls").WithOffset(new Vector2(735,82)).WithButtonInfo(Tab.CONTROLS).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("High Scores").WithOffset(new Vector2(990,82)).WithButtonInfo(Tab.SCORES).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Credits").WithOffset(new Vector2(1245,82)).WithButtonInfo(Tab.CREDITS).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Dev Console").WithOffset(new Vector2(1500,82)).WithButtonInfo(Tab.DEV_CONSOLE).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Options").WithOffset(new Vector2(225,82)).WithButtonInfo(Tab.OPTIONS).WithAvailable(false).BuildLinkedButton());
 
         foreach (LinkedButton button in buttons)
         {
             button.SetLinkedList(buttons);
         }
+
+        options = new();
+        devConsole = new();
 
         PopulateHighScores();
     }
@@ -103,7 +107,6 @@ public class AboutMenu
             PopulateHighScores();
         }
 
-        background.Update();
         foreach (LinkedButton button in buttons)
         {
             button.Update();
@@ -111,6 +114,9 @@ public class AboutMenu
 
         switch (currentTab)
         {
+            case Tab.OPTIONS:
+                options.Update();
+                break;
             case Tab.STORY:
                 storyText.Update();
                 break;
@@ -129,6 +135,9 @@ public class AboutMenu
                 break;
             case Tab.CREDITS:
                 creditsText.Update();
+                break;
+            case Tab.DEV_CONSOLE:
+                devConsole.Update();
                 break;
         }
     }
@@ -151,7 +160,6 @@ public class AboutMenu
 
     public void Draw()
     {
-        background.Draw();
         foreach (LinkedButton button in buttons)
         {
             button.Draw();
@@ -159,6 +167,9 @@ public class AboutMenu
 
         switch (currentTab)
         {
+            case Tab.OPTIONS:
+                options.Draw();
+                break;
             case Tab.STORY:
                 storyText.Draw();
                 break;
@@ -177,6 +188,9 @@ public class AboutMenu
                 break;
             case Tab.CREDITS:
                 creditsText.Draw();
+                break;
+            case Tab.DEV_CONSOLE:
+                devConsole.Draw();
                 break;
         }
     }

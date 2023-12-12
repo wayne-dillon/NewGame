@@ -3,12 +3,10 @@ using Microsoft.Xna.Framework;
 
 public class OptionsMenu
 {
-    private readonly Sprite background;
     private readonly TextComponent fullscreenText, resolutionText, musicVolumeText;
     private readonly Checkbox fullscreenCheckbox;
     private readonly List<LinkedCheckbox> resolutionCheckboxs = new();
     private readonly Slider musicVolumeSlider;
-    private readonly Button devMode;
 
     private static readonly Vector2 res1920x1080 = new(1920, 1080);
     private static readonly Vector2 res1600x900 = new(1600, 900);
@@ -16,8 +14,6 @@ public class OptionsMenu
 
     public OptionsMenu()
     {
-        background = new SpriteBuilder().WithPath("rect").WithDims(new Vector2(600, 500)).WithColor(Colors.Background).Build();
-
         musicVolumeText = new TextComponentBuilder().WithText("Music Volume")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
                                                 .WithOffset(new Vector2(-200, -40))
@@ -60,16 +56,6 @@ public class OptionsMenu
             box.SetLinkedList(resolutionCheckboxs);
         }
 
-        devMode = new SpriteBuilder().WithPath("UI//Button96x32")
-                                    .WithColor(Colors.Buttons)
-                                    .WithDims(new Vector2(110,32))
-                                    .WithScreenAlignment(Alignment.BOTTOM_RIGHT)
-                                    .WithOffset(new Vector2(-180,-150))
-                                    .WithText("Dev Mode")
-                                    .WithButtonAction(TransitionManager.ChangeGameState)
-                                    .WithButtonInfo(GameState.DEV_CONSOLE)
-                                    .BuildButton();
-
         switch (Persistence.preferences.resolution)
         {
             case 720:
@@ -85,13 +71,11 @@ public class OptionsMenu
 
     public void Update()
     {
-        background.Update();
         musicVolumeText.Update();
         musicVolumeSlider.Update();
         fullscreenText.Update();
         fullscreenCheckbox.Update();
         resolutionText.Update();
-        devMode.Update();
         foreach (LinkedCheckbox box in resolutionCheckboxs)
         {
             box.Update();
@@ -126,7 +110,6 @@ public class OptionsMenu
 
     public void Draw()
     {
-        background.Draw();
         musicVolumeText.Draw();
         musicVolumeSlider.Draw();
         fullscreenText.Draw();
@@ -136,6 +119,5 @@ public class OptionsMenu
         {
             box.Draw();
         }
-        devMode.Draw();
     }
 }

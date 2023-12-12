@@ -3,8 +3,8 @@
   <musicVolume>0.25</musicVolume>
   <sfxVolume>0.25</sfxVolume>
   <fullScreen>false</fullScreen>
-  <resolution>900</resolution>
-  <levelsComplete>3</levelsComplete>
+  <resolution>1080</resolution>
+  <levelsComplete>0</levelsComplete>
   <hAcc>0.1</hAcc>
   <hDec>0.15</hDec>
   <maxSpeed>0.6</maxSpeed>

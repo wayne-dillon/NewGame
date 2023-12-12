@@ -18,7 +18,6 @@ public class ValueSelector
         DASH_DECEL,
         JUMP_SPEED,
         JUMP_HOLD_TIME,
-        JUMP_BUFFER_TIME,
         GRAVITY,
         MAX_FALL_SPEED
     }
@@ -36,7 +35,7 @@ public class ValueSelector
                                         .Build();
 
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
-                                                        .WithDims(new Vector2(32, 32))
+                                                        .WithDims(new Vector2(55, 32))
                                                         .WithButtonAction(UpdateVariable);
         
         buttons.Add(buttonBuilder.WithText("-100")
@@ -45,19 +44,19 @@ public class ValueSelector
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("-10")
                                 .WithButtonInfo(-0.01f)
-                                .WithOffset(OFFSET + new Vector2(50, 0))
+                                .WithOffset(OFFSET + new Vector2(75, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("-1")
                                 .WithButtonInfo(-0.001f)
-                                .WithOffset(OFFSET + new Vector2(100, 0))
+                                .WithOffset(OFFSET + new Vector2(150, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("+1")
                                 .WithButtonInfo(0.001f)
-                                .WithOffset(OFFSET + new Vector2(400, 0))
+                                .WithOffset(OFFSET + new Vector2(350, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("+10")
                                 .WithButtonInfo(0.01f)
-                                .WithOffset(OFFSET + new Vector2(450, 0))
+                                .WithOffset(OFFSET + new Vector2(425, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("+100")
                                 .WithButtonInfo(0.1f)
@@ -85,7 +84,6 @@ public class ValueSelector
         Variable.DASH_DECEL => "Dash Deceleration",
         Variable.JUMP_SPEED => "Jump Speed",
         Variable.JUMP_HOLD_TIME => "Jump Hold Time",
-        Variable.JUMP_BUFFER_TIME => "Jump Input Buffer Time",
         Variable.GRAVITY => "Fall Speed",
         Variable.MAX_FALL_SPEED => "Max Fall Speed",
         _ => ""
@@ -101,7 +99,6 @@ public class ValueSelector
         Variable.DASH_DECEL => (int)(PlayerMovementValues.dashDeceleration * 1000),
         Variable.JUMP_SPEED => (int)(PlayerMovementValues.jumpSpeed * 1000),
         Variable.JUMP_HOLD_TIME => PlayerMovementValues.jumpHoldTime,
-        Variable.JUMP_BUFFER_TIME => PlayerMovementValues.jumpBufferTime,
         Variable.GRAVITY => (int)(PlayerMovementValues.gravity * 1000),
         Variable.MAX_FALL_SPEED => (int)(PlayerMovementValues.maxFallSpeed * 1000),
         _ => 0
@@ -133,9 +130,6 @@ public class ValueSelector
                     break;
                 case Variable.JUMP_SPEED:
                     PlayerMovementValues.jumpSpeed += value;
-                    break;
-                case Variable.JUMP_BUFFER_TIME:
-                    PlayerMovementValues.jumpBufferTime += (int)(value * 1000);
                     break;
                 case Variable.JUMP_HOLD_TIME:
                     PlayerMovementValues.jumpHoldTime += (int)(value * 1000);

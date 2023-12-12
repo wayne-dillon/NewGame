@@ -13,7 +13,6 @@ public class MainMenu
 
     public List<Button> buttons = new();
     public List<Button> levels = new();
-    public Button levelSelectButton;
 
     public MainMenu() {
         for (int i = 0; i < 4; i++)
@@ -38,12 +37,6 @@ public class MainMenu
 
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithScreenAlignment(Alignment.CENTER_RIGHT);
 
-        levelSelectButton = buttonBuilder
-                                .WithPath("UI//menuButton3").WithText("Levels")
-                                        .WithButtonAction((sender, info) => { levelSelect = true; })
-                                        .WithOffset(new Vector2(180, -470))
-                                        .BuildButton();
-
         buttons.Add(buttonBuilder.WithOffset(new Vector2(-189,400))
                                 .WithPath("UI//menuButton3")
                                 .WithDims(new Vector2(398,86))
@@ -55,7 +48,7 @@ public class MainMenu
                                 .WithPath("UI//menuButton1")
                                 .WithDims(new Vector2(624,128))
                                 .WithText("Play")
-                                .WithButtonAction(Continue)
+                                .WithButtonAction(Play)
                                 .BuildButton());
 
         buttons.Add(buttonBuilder.WithOffset(new Vector2(-257,250))
@@ -63,18 +56,18 @@ public class MainMenu
                                 .WithDims(new Vector2(514,119))
                                 .WithText("Options")
                                 .WithButtonAction(TransitionManager.ChangeGameState)
-                                .WithButtonInfo(GameState.OPTIONS)
+                                .WithButtonInfo(GameState.ABOUT)
                                 .BuildButton());
-        
-        // buttons.Add(buttonBuilder.WithOffset(new Vector2(180,-230)).WithText("About").WithButtonInfo(GameState.ABOUT).BuildButton());
 
-        // levels.Add(buttonBuilder.WithOffset(new Vector2(350, -470)).WithText("Tutorial").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.TUTORIAL).BuildButton());
+        levels.Add(buttonBuilder.WithOffset(new Vector2(-257,-50)).WithText("Tutorial").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.TUTORIAL).BuildButton());
 
-        // levels.Add(buttonBuilder.WithOffset(new Vector2(350, -390)).WithText("Level 1").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.LEVEL_1).BuildButton());
+        levels.Add(buttonBuilder.WithOffset(new Vector2(-257,80)).WithText("Level 1").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.LEVEL_1).BuildButton());
 
-        // levels.Add(buttonBuilder.WithOffset(new Vector2(350, -310)).WithText("Level 2").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.LEVEL_2).BuildButton());
+        levels.Add(buttonBuilder.WithOffset(new Vector2(-257,210)).WithText("Level 2").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.LEVEL_2).BuildButton());
 
-        // levels.Add(buttonBuilder.WithOffset(new Vector2(350, -230)).WithText("Level 3").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.LEVEL_3).BuildButton());
+        levels.Add(buttonBuilder.WithOffset(new Vector2(-257,340)).WithText("Level 3").WithButtonAction(SelectLevel).WithButtonInfo(LevelSelection.LEVEL_3).BuildButton());
+
+        levels.Add(buttonBuilder.WithOffset(new Vector2(-257,470)).WithText("Back").WithButtonAction((sender, info) => { levelSelect = false; }).WithButtonInfo(null).BuildButton());
     }
 
     public virtual void Update()
@@ -88,28 +81,31 @@ public class MainMenu
         title.Update();
         versionNo.Update();
 
-        foreach (Button button in buttons)
-        {
-            button.Update();
-        }
-        if (Persistence.preferences.levelsComplete > 0)
-        {
-            levelSelectButton.Update();
-        }
         if (levelSelect)
         {
             for (int i = 0; i <= Persistence.preferences.levelsComplete; i++)
             {
                 levels[i].Update();
             }
+            levels[4].Update();
+        } else {
+            foreach (Button button in buttons)
+            {
+                button.Update();
+            }
         }
     }
 
-    private void Continue(object SENDER, object INFO)
+    private void Play(object SENDER, object INFO)
     {
-        GameGlobals.currentLevel = Persistence.preferences.levelsComplete > 3 ? 
-                LevelSelection.LEVEL_3 : (LevelSelection)Persistence.preferences.levelsComplete;
-        TransitionManager.ChangeGameState(null, GameState.GAME_PLAY);
+        if (Persistence.preferences.levelsComplete == 0)
+        {
+            GameGlobals.currentLevel = LevelSelection.TUTORIAL;
+            TransitionManager.ChangeGameState(null, GameState.GAME_PLAY);
+            return;
+        }
+
+        levelSelect = true;
     }
 
     private void SelectLevel(object SENDER, object INFO)
@@ -133,19 +129,17 @@ public class MainMenu
         title.Draw();
         versionNo.Draw();
 
-        foreach (Button button in buttons)
-        {
-            button.Draw();
-        }
-        if (Persistence.preferences.levelsComplete > 0)
-        {
-            levelSelectButton.Draw();
-        }
         if (levelSelect)
         {
             for (int i = 0; i <= Persistence.preferences.levelsComplete; i++)
             {
                 levels[i].Draw();
+            }
+            levels[4].Draw();
+        } else {
+            foreach (Button button in buttons)
+            {
+                button.Draw();
             }
         }
     }
