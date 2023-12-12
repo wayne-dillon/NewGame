@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 public class GamePlay
 {
     private Player player;
-    private Camera camera;
+    private PlayerCamera camera;
     private Level level;
     private TextComponent timeDisplay;
     private TextComponent addedTimeDisplay;
@@ -35,7 +35,7 @@ public class GamePlay
         level = LevelBuilder.Build();
 
         player = new Player(level.playerStartPos);
-        camera = new Camera(player.sprite, level);
+        camera = new PlayerCamera(player.sprite, level);
         runTime = new(0,0,startTime);
 
         timeDisplay = new TextComponentBuilder().WithText(TimerText)

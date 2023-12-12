@@ -85,7 +85,7 @@ public class LevelBuilder
     private static void CreatePlatform(LevelObject obj, Vector2 POS)
     {
         level.platforms.Add(new SpriteBuilder().WithInteractableType(InteractableType.PLATFORM)
-                                                        .WithPath(EnumHelper.GetPlatformPath(obj))
+                                                        .WithPath(EnumHelper.GetObjectPath(obj))
                                                         .WithAbsolutePosition(POS)
                                                         .WithDims(new Vector2(tileSize, tileSize))
                                                         .Build());

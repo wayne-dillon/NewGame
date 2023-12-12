@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework.Graphics;
+
 public class EnumHelper
 {
     public static LevelObject GetObject(string INPUT) => INPUT switch
@@ -25,27 +27,63 @@ public class EnumHelper
         "-T-" => LevelObject.TEXT,
         _ => LevelObject.EMPTY
     };
-
-    public static string GetPlatformPath(LevelObject obj) => "Platforms//" + obj switch
+    
+    public static string GetObjectString(LevelObject INPUT) => INPUT switch
     {
-        LevelObject.PLATFORM_BOTTOM => "platformBottom",
-        LevelObject.PLATFORM_BOTTOM_LEFT => "platformBottomLeft",
-        LevelObject.PLATFORM_BOTTOM_RIGHT => "platformBottomRight",
-        LevelObject.PLATFORM_HORIZONTAL => "platformHorizontal",
-        LevelObject.PLATFORM_LEFT => "platformLeft",
-        LevelObject.PLATFORM_OPEN => "platformOpen",
-        LevelObject.PLATFORM_OPEN_BOTTOM => "platformOpenBottom",
-        LevelObject.PLATFORM_OPEN_LEFT => "platformOpenLeft",
-        LevelObject.PLATFORM_OPEN_RIGHT => "platformOpenRight",
-        LevelObject.PLATFORM_OPEN_TOP => "platformOpenTop",
-        LevelObject.PLATFORM_RIGHT => "platformRight",
-        LevelObject.PLATFORM_SINGLE => "platformSingle",
-        LevelObject.PLATFORM_TOP => "platformTop",
-        LevelObject.PLATFORM_TOP_LEFT => "platformTopLeft",
-        LevelObject.PLATFORM_TOP_RIGHT => "platformTopRight",
-        LevelObject.PLATFORM_VERTICAL => "platformVertical",
-        _ => "platformBunting"
+        LevelObject.PLATFORM_BOTTOM => "PB-",
+        LevelObject.PLATFORM_BOTTOM_LEFT => "PBL",
+        LevelObject.PLATFORM_BOTTOM_RIGHT => "PBR",
+        LevelObject.PLATFORM_HORIZONTAL => "PH-",
+        LevelObject.PLATFORM_LEFT => "PL-",
+        LevelObject.PLATFORM_OPEN => "PO-",
+        LevelObject.PLATFORM_OPEN_BOTTOM => "POB",
+        LevelObject.PLATFORM_OPEN_LEFT => "POL",
+        LevelObject.PLATFORM_OPEN_RIGHT => "POR",
+        LevelObject.PLATFORM_OPEN_TOP => "POT",
+        LevelObject.PLATFORM_RIGHT => "PR-",
+        LevelObject.PLATFORM_SINGLE => "PS-",
+        LevelObject.PLATFORM_TOP => "PT-",
+        LevelObject.PLATFORM_TOP_LEFT => "PTL",
+        LevelObject.PLATFORM_TOP_RIGHT => "PTR",
+        LevelObject.PLATFORM_VERTICAL => "PV-",
+        LevelObject.HAZARD => "-H-",
+        LevelObject.PLAYER => "PC-",
+        LevelObject.START => "-S-",
+        LevelObject.OBJECTIVE => "-O-",
+        LevelObject.TEXT => "-T-",
+        _ => "---"
     };
+
+    public static string GetObjectPath(LevelObject obj) => obj switch
+    {
+        LevelObject.PLATFORM_BOTTOM => "Platforms//platformBottom",
+        LevelObject.PLATFORM_BOTTOM_LEFT => "Platforms//platformBottomLeft",
+        LevelObject.PLATFORM_BOTTOM_RIGHT => "Platforms//platformBottomRight",
+        LevelObject.PLATFORM_HORIZONTAL => "Platforms//platformHorizontal",
+        LevelObject.PLATFORM_LEFT => "Platforms//platformLeft",
+        LevelObject.PLATFORM_OPEN => "Platforms//platformOpen",
+        LevelObject.PLATFORM_OPEN_BOTTOM => "Platforms//platformOpenBottom",
+        LevelObject.PLATFORM_OPEN_LEFT => "Platforms//platformOpenLeft",
+        LevelObject.PLATFORM_OPEN_RIGHT => "Platforms//platformOpenRight",
+        LevelObject.PLATFORM_OPEN_TOP => "Platforms//platformOpenTop",
+        LevelObject.PLATFORM_RIGHT => "Platforms//platformRight",
+        LevelObject.PLATFORM_SINGLE => "Platforms//platformSingle",
+        LevelObject.PLATFORM_TOP => "Platforms//platformTop",
+        LevelObject.PLATFORM_TOP_LEFT => "Platforms//platformTopLeft",
+        LevelObject.PLATFORM_TOP_RIGHT => "Platforms//platformTopRight",
+        LevelObject.PLATFORM_VERTICAL => "Platforms//platformVertical",
+        LevelObject.EMPTY => "UI//Oval20x20",
+        LevelObject.HAZARD => "Symbols//Diamonds",
+        LevelObject.OBJECTIVE => "Symbols//ringingPhone1",
+        LevelObject.PLAYER => "Player//Cat//Idle1",
+        LevelObject.START => "Symbols//Checker",
+        _ => "Platforms//platformBunting"
+    };
+
+    public static Texture2D GetObjectTexture(LevelObject obj)
+    {
+        return Globals.content.Load<Texture2D>(GetObjectPath(obj));
+    }
 
     public static string GetLevelPath(LevelSelection selection) => selection switch
     {

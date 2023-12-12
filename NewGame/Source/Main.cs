@@ -7,6 +7,7 @@ public class Main : Game
     private MainMenu mainMenu;
     private AboutMenu aboutMenu;
     private GamePlay gamePlay;
+    private LevelEditor levelEditor;
     private Music music;
     public UI ui;
 
@@ -54,9 +55,10 @@ public class Main : Game
         GameGlobals.currentLevel = Persistence.preferences.levelsComplete > 3 ? 
                 LevelSelection.LEVEL_3 : (LevelSelection)Persistence.preferences.levelsComplete;
 
+        levelEditor = new LevelEditor();
         music = new Music();
         mainMenu = new MainMenu();
-        aboutMenu = new AboutMenu();
+        aboutMenu = new AboutMenu(levelEditor.Init);
         gamePlay = new GamePlay();
         ui = new UI(gamePlay.ResetWorld);
 
@@ -94,6 +96,9 @@ public class Main : Game
             case GameState.GAME_PLAY:
                 gamePlay.Update();
                 break;
+            case GameState.LEVEL_EDITOR:
+                levelEditor.Update();
+                break;
         }
 
         ui.Update();
@@ -129,6 +134,9 @@ public class Main : Game
                     break;
                 case GameState.GAME_PLAY:
                     gamePlay.Draw();
+                    break;
+                case GameState.LEVEL_EDITOR:
+                    levelEditor.Draw();
                     break;
             }
         }

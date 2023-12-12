@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 public class AboutMenu
 {
     private readonly List<LinkedButton> buttons = new();
+    private readonly List<Button> levelEditorButtons = new();
     private readonly List<HighScoreDisplay> scoreDisplays = new();
     private Tab currentTab = Tab.OPTIONS;
     private readonly TextComponent storyText;
@@ -36,6 +38,7 @@ public class AboutMenu
 
     private OptionsMenu options;
     private DevConsole devConsole;
+    private EventHandler<object> resetEditor;
 
     private enum Tab
     {
@@ -44,11 +47,13 @@ public class AboutMenu
         CONTROLS,
         SCORES,
         CREDITS,
+        LEVEL_EDITOR,
         DEV_CONSOLE
     }
 
-    public AboutMenu()
+    public AboutMenu(EventHandler<object> RESETEDITOR)
     {
+        resetEditor = RESETEDITOR;
         storyText = new TextComponentBuilder().WithText(story).Build();
         creditsText = new TextComponentBuilder().WithText(credits).Build();
         controlsDescText = new TextComponentBuilder().WithText(controlsDesc)
@@ -74,7 +79,7 @@ public class AboutMenu
                                             .Build();
 
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
-                                                        .WithDims(new Vector2(250,40))
+                                                        .WithDims(new Vector2(220,40))
                                                         .WithScreenAlignment(Alignment.TOP_LEFT)
                                                         .WithColor(Colors.Buttons)
                                                         .WithHoverColor(Colors.Hover)
@@ -82,12 +87,19 @@ public class AboutMenu
                                                         .WithHoverScale(new Vector2(1.01f, 1.01f))
                                                         .WithButtonAction(SwitchTabs);
 
-        buttons.Add(buttonBuilder.WithText("How to Play").WithOffset(new Vector2(480,82)).WithButtonInfo(Tab.STORY).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Controls").WithOffset(new Vector2(735,82)).WithButtonInfo(Tab.CONTROLS).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("High Scores").WithOffset(new Vector2(990,82)).WithButtonInfo(Tab.SCORES).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Credits").WithOffset(new Vector2(1245,82)).WithButtonInfo(Tab.CREDITS).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Dev Console").WithOffset(new Vector2(1500,82)).WithButtonInfo(Tab.DEV_CONSOLE).BuildLinkedButton());
-        buttons.Add(buttonBuilder.WithText("Options").WithOffset(new Vector2(225,82)).WithButtonInfo(Tab.OPTIONS).WithAvailable(false).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("How to Play").WithOffset(new Vector2(450,82)).WithButtonInfo(Tab.STORY).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Controls").WithOffset(new Vector2(680,82)).WithButtonInfo(Tab.CONTROLS).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("High Scores").WithOffset(new Vector2(910,82)).WithButtonInfo(Tab.SCORES).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Credits").WithOffset(new Vector2(1140,82)).WithButtonInfo(Tab.CREDITS).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Level Editor").WithOffset(new Vector2(1370,82)).WithButtonInfo(Tab.LEVEL_EDITOR).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Dev Console").WithOffset(new Vector2(1600,82)).WithButtonInfo(Tab.DEV_CONSOLE).BuildLinkedButton());
+        buttons.Add(buttonBuilder.WithText("Options").WithOffset(new Vector2(220,82)).WithButtonInfo(Tab.OPTIONS).WithAvailable(false).BuildLinkedButton());
+
+        buttonBuilder = buttonBuilder.WithScreenAlignment(Alignment.CENTER).WithButtonAction(SwitchToEditor).WithAvailable(true);
+
+        levelEditorButtons.Add(buttonBuilder.WithText("Level 1").WithOffset(new Vector2(300, -200)).WithButtonInfo(LevelSelection.LEVEL_1).BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithText("Level 2").WithOffset(new Vector2(300, 0)).WithButtonInfo(LevelSelection.LEVEL_2).BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithText("Level 3").WithOffset(new Vector2(300, 200)).WithButtonInfo(LevelSelection.LEVEL_3).BuildButton());
 
         foreach (LinkedButton button in buttons)
         {
@@ -136,6 +148,12 @@ public class AboutMenu
             case Tab.CREDITS:
                 creditsText.Update();
                 break;
+            case Tab.LEVEL_EDITOR:
+                foreach (Button button in levelEditorButtons)
+                {
+                    button.Update();
+                }
+                break;
             case Tab.DEV_CONSOLE:
                 devConsole.Update();
                 break;
@@ -155,6 +173,16 @@ public class AboutMenu
         if (INFO is Tab tab)
         {
             currentTab = tab;
+        }
+    }
+
+    public void SwitchToEditor(object SENDER, object INFO)
+    {
+        if (INFO is LevelSelection level)
+        {
+            GameGlobals.currentLevel = level;
+            resetEditor(null, null);
+            TransitionManager.ChangeGameState(null, GameState.LEVEL_EDITOR);
         }
     }
 
@@ -188,6 +216,12 @@ public class AboutMenu
                 break;
             case Tab.CREDITS:
                 creditsText.Draw();
+                break;
+            case Tab.LEVEL_EDITOR:
+                foreach (Button button in levelEditorButtons)
+                {
+                    button.Draw();
+                }
                 break;
             case Tab.DEV_CONSOLE:
                 devConsole.Draw();

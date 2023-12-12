@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 
-public class Camera
+public class PlayerCamera
 {
     private Sprite playerSprite;
     private Level level;
     private Vector2 offset = new(860, 540);
 
-    public Camera(Sprite PLAYER, Level LEVEL)
+    public PlayerCamera(Sprite PLAYER, Level LEVEL)
     {
         playerSprite = PLAYER;
         level = LEVEL;

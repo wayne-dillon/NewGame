@@ -77,8 +77,8 @@ public class MainMenu
             cloud.Update();
         }
         bkg.Update();
-        logo.Update();
         title.Update();
+        logo.Update();
         versionNo.Update();
 
         if (levelSelect)
@@ -125,8 +125,8 @@ public class MainMenu
             cloud.Draw();
         }
         bkg.Draw();
-        logo.Draw();
         title.Draw();
+        logo.Draw();
         versionNo.Draw();
 
         if (levelSelect)
