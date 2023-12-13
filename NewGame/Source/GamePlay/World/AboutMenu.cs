@@ -15,6 +15,7 @@ public class AboutMenu
     private readonly TextComponent level1Text;
     private readonly TextComponent level2Text;
     private readonly TextComponent level3Text;
+    private readonly TextComponent editorInstructionsText;
 
     private readonly string story = "Charlie is off on a well earned holiday, but some rude kittens on the flight\n"
                                   + "haven't switched their phones to airplane mode. In order to avoid CATastrophy\n"
@@ -34,7 +35,16 @@ public class AboutMenu
 
     private readonly string credits = "Programming, Gameplay and Level Design By\nWayne Dillon\n\n"
                                     + "Illustations and Animations By\nFairy Elina\n\n"
-                                    + "Music and Sound Effects By\nAbraham Putnam"; 
+                                    + "Music and Sound Effects By\nAbraham Putnam";
+
+    private readonly string editorInstructions = "Click a tile to cycle through\n"
+                                               + "the available options.\n\n"
+                                               + "To be completable levels need\n"
+                                               + "a single spawn point, at least\n"
+                                               + "one objective (phone) and at\n"
+                                               + "least one starting tile.\n\n"
+                                               + "There should also be an empty\n"
+                                               + "space below the spawn point\n";
 
     private OptionsMenu options;
     private DevConsole devConsole;
@@ -62,12 +72,17 @@ public class AboutMenu
                                                 .WithTextAlignment(Alignment.CENTER_RIGHT)
                                                 .WithOffset(new Vector2(400, 0))
                                                 .Build();
-                                                
+
+        editorInstructionsText = new TextComponentBuilder().WithText(editorInstructions)
+                                            .WithTextAlignment(Alignment.CENTER_LEFT)
+                                            .WithOffset(new Vector2(-500, 0))
+                                            .Build();
+
         level1Text = new TextComponentBuilder().WithText("Level 1")
                                             .WithTextAlignment(Alignment.CENTER_LEFT)
                                             .WithOffset(new Vector2(-400, -150))
                                             .Build();
-                                            
+
         level2Text = new TextComponentBuilder().WithText("Level 2")
                                             .WithTextAlignment(Alignment.CENTER_LEFT)
                                             .WithOffset(new Vector2(-400, 0))
@@ -94,9 +109,19 @@ public class AboutMenu
 
         buttonBuilder = buttonBuilder.WithScreenAlignment(Alignment.CENTER).WithButtonAction(SwitchToEditor).WithAvailable(true);
 
-        levelEditorButtons.Add(buttonBuilder.WithText("Level 1").WithOffset(new Vector2(300, -200)).WithButtonInfo(LevelSelection.LEVEL_1).BuildButton());
-        levelEditorButtons.Add(buttonBuilder.WithText("Level 2").WithOffset(new Vector2(300, 0)).WithButtonInfo(LevelSelection.LEVEL_2).BuildButton());
-        levelEditorButtons.Add(buttonBuilder.WithText("Level 3").WithOffset(new Vector2(300, 200)).WithButtonInfo(LevelSelection.LEVEL_3).BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithText("Level 1").WithOffset(new Vector2(250, -200)).WithButtonInfo(LevelSelection.LEVEL_1).BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithText("Level 2").WithOffset(new Vector2(250, 0)).WithButtonInfo(LevelSelection.LEVEL_2).BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithText("Level 3").WithOffset(new Vector2(250, 200)).WithButtonInfo(LevelSelection.LEVEL_3).BuildButton());
+
+        levelEditorButtons.Add(buttonBuilder.WithText("Reset")
+                                            .WithPath("UI//Button397x114")
+                                            .WithDims(new Vector2(120,30))
+                                            .WithOffset(new Vector2(450, -200))
+                                            .WithButtonAction(ResetLevel)
+                                            .WithButtonInfo(LevelSelection.LEVEL_1)
+                                            .BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithOffset(new Vector2(450, 0)).WithButtonInfo(LevelSelection.LEVEL_2).BuildButton());
+        levelEditorButtons.Add(buttonBuilder.WithOffset(new Vector2(450, 200)).WithButtonInfo(LevelSelection.LEVEL_3).BuildButton());
 
         foreach (LinkedButton button in buttons)
         {
@@ -146,6 +171,7 @@ public class AboutMenu
                 creditsText.Update();
                 break;
             case Tab.LEVEL_EDITOR:
+                editorInstructionsText.Update();
                 foreach (Button button in levelEditorButtons)
                 {
                     button.Update();
@@ -163,6 +189,25 @@ public class AboutMenu
         scoreDisplays.Add(Scores.GetHighScores(LevelSelection.LEVEL_1, Alignment.CENTER, new Vector2(100, -150)));
         scoreDisplays.Add(Scores.GetHighScores(LevelSelection.LEVEL_2, Alignment.CENTER, new Vector2(100, 0)));
         scoreDisplays.Add(Scores.GetHighScores(LevelSelection.LEVEL_3, Alignment.CENTER, new Vector2(100, 150)));
+    }
+
+    public void ResetLevel(object SENDER, object INFO)
+    {
+        if (INFO is LevelSelection level)
+        {
+            switch (level)
+            {
+                case LevelSelection.LEVEL_1:
+                    CSVWriter.WriteFile(EnumHelper.GetLevelPath(level), CSVReader.ReadFile("Source//Content//Levels//Level1Base.csv"));
+                    break;
+                case LevelSelection.LEVEL_2:
+                    CSVWriter.WriteFile(EnumHelper.GetLevelPath(level), CSVReader.ReadFile("Source//Content//Levels//Level2Base.csv"));
+                    break;
+                case LevelSelection.LEVEL_3:
+                    CSVWriter.WriteFile(EnumHelper.GetLevelPath(level), CSVReader.ReadFile("Source//Content//Levels//Level3Base.csv"));
+                    break;
+            }
+        }
     }
 
     public void SwitchTabs(object SENDER, object INFO)
@@ -215,6 +260,7 @@ public class AboutMenu
                 creditsText.Draw();
                 break;
             case Tab.LEVEL_EDITOR:
+                editorInstructionsText.Draw();
                 foreach (Button button in levelEditorButtons)
                 {
                     button.Draw();

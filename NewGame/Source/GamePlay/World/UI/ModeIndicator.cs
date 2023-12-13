@@ -19,14 +19,14 @@ public class ModeIndicator
     public ModeIndicator()
     {
         SpriteBuilder builder = new SpriteBuilder().WithPathDict(spriteDict).WithScreenAlignment(Alignment.TOP).WithUI(true);
-        prev = builder.WithDims(new Vector2(50,50)).WithOffset(new Vector2(-100, 50)).BuildAnimated();
-        next = builder.WithOffset(new Vector2(100, 50)).BuildAnimated();
-        current = builder.WithDims(new Vector2(100,100)).WithOffset(new Vector2(0, 50)).BuildAnimated();
+        prev = builder.WithOffset(new Vector2(-100, 75)).WithDims(new Vector2(50,50)).BuildAnimated();
+        next = builder.WithOffset(new Vector2(100, 75)).BuildAnimated();
+        current = builder.WithOffset(new Vector2(0, 75)).WithDims(new Vector2(100,100)).BuildAnimated();
 
         SpriteBuilder bkgBuilder = new SpriteBuilder().WithPath("UI//Circle208x208").WithScreenAlignment(Alignment.TOP).WithUI(true);
-        backgrounds.Add(bkgBuilder.WithDims(new Vector2(50,50)).WithOffset(new Vector2(-100, 50)).Build());
-        backgrounds.Add(bkgBuilder.WithOffset(new Vector2(100,50)).Build());
-        backgrounds.Add(bkgBuilder.WithDims(new Vector2(100, 100)).WithOffset(new Vector2(0,50)).Build());
+        backgrounds.Add(bkgBuilder.WithOffset(new Vector2(-100, 75)).WithDims(new Vector2(50,50)).Build());
+        backgrounds.Add(bkgBuilder.WithOffset(new Vector2(100,75)).Build());
+        backgrounds.Add(bkgBuilder.WithOffset(new Vector2(0,75)).WithDims(new Vector2(100, 100)).Build());
     }
 
     public void Update()
