@@ -66,39 +66,39 @@ public class Player
                     break;
                 case Direction.LEFT:
                     if (box.bottom - sprite.hitbox.top <= mantleDist) {
-                        sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.adjustedDims.top);
                     } else if (sprite.hitbox.bottom - box.top <= mantleDist) {
-                        sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.adjustedDims.bottom);
                     } else {
-                        sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, sprite.Pos.Y);
+                        sprite.Pos = new Vector2(box.right + sprite.adjustedDims.left, sprite.Pos.Y);
                     }
                     break;
                 case Direction.RIGHT:
                     if (box.bottom - sprite.hitbox.top <= mantleDist) {
-                        sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.adjustedDims.top);
                     } else if (sprite.hitbox.bottom - box.top <= mantleDist) {
-                        sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
+                        sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.adjustedDims.bottom);
                     } else {
-                        sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, sprite.Pos.Y);
+                        sprite.Pos = new Vector2(box.left - sprite.adjustedDims.right, sprite.Pos.Y);
                     }
                     break;
                 case Direction.UP:
-                    sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.dims.Y / 2);
+                    sprite.Pos = new Vector2(sprite.Pos.X, box.top - sprite.adjustedDims.bottom);
                     break;
                 case Direction.DOWN:
-                    sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.dims.Y / 2);
+                    sprite.Pos = new Vector2(sprite.Pos.X, box.bottom + sprite.adjustedDims.top);
                     break;
                 case Direction.UP_LEFT:
-                    sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, box.top - sprite.dims.Y / 2);
+                    sprite.Pos = new Vector2(box.right + sprite.adjustedDims.left, box.top - sprite.adjustedDims.bottom);
                     break;
                 case Direction.UP_RIGHT:
-                    sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, box.top - sprite.dims.Y / 2);
+                    sprite.Pos = new Vector2(box.left - sprite.adjustedDims.right, box.top - sprite.adjustedDims.bottom);
                     break;
                 case Direction.DOWN_LEFT:
-                    sprite.Pos = new Vector2(box.right + sprite.dims.X / 2, box.bottom + sprite.dims.Y / 2);
+                    sprite.Pos = new Vector2(box.right + sprite.adjustedDims.left + 1, box.bottom + sprite.adjustedDims.top);
                     break;
                 case Direction.DOWN_RIGHT:
-                    sprite.Pos = new Vector2(box.left - sprite.dims.X / 2, box.bottom + sprite.dims.Y / 2);
+                    sprite.Pos = new Vector2(box.left - sprite.adjustedDims.right - 1, box.bottom + sprite.adjustedDims.top);
                     break;
             }
         }
@@ -135,6 +135,14 @@ public class Player
                 break;
             case CharacterState.RUNNING:
                 sprite.SetAnimationValues(baseNum + 11, baseNum + 20, 75);
+                break;
+            case CharacterState.CLINGING_LEFT:
+            case CharacterState.CLINGING_RIGHT:
+                sprite.SetAnimationValues(baseNum + 31, baseNum + 34, 150);
+                break;
+            case CharacterState.CLIMBING_LEFT:
+            case CharacterState.CLIMBING_RIGHT:
+                sprite.SetAnimationValues(baseNum + 35, baseNum + 38, 100);
                 break;
             case CharacterState.IDLE:
             default:

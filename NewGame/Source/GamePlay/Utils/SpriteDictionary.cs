@@ -95,6 +95,16 @@ public class SpriteDictionary
             { 228, "Player//Monkey//Jump2" },
             { 229, "Player//Monkey//Jump3" },
             { 230, "Player//Monkey//Jump2" },
+
+            { 231, "Player//Monkey//Cling1" },
+            { 232, "Player//Monkey//Cling1" },
+            { 233, "Player//Monkey//Cling1" },
+            { 234, "Player//Monkey//Cling2" },
+
+            { 235, "Player//Monkey//Climb1" },
+            { 236, "Player//Monkey//Climb2" },
+            { 237, "Player//Monkey//Climb3" },
+            { 238, "Player//Monkey//Climb2" },
         };
 
         return ret;
