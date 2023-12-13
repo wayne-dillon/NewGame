@@ -18,7 +18,7 @@ public class Slider
         float minX = background.Pos.X - length/2;
         float maxX = minX + length;
         Vector2 nodePos = new(minX + (length * INITIALPOS), background.Pos.Y); 
-        node = new("UI//Oval20x20", nodePos, new Vector2(20, 20), Color.Blue, null, ACTION, null, true, true, minX, maxX);
+        node = new("UI//Oval20x20", nodePos, new Vector2(20, 20), Color.Gray, null, ACTION, null, true, true, minX, maxX);
     }
 
     public void Update()

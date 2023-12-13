@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <preferences>
-  <musicVolume>0.25</musicVolume>
+  <musicVolume>0.23</musicVolume>
   <sfxVolume>0.25</sfxVolume>
   <fullScreen>false</fullScreen>
-  <resolution>1080</resolution>
-  <levelsComplete>0</levelsComplete>
+  <resolution>900</resolution>
+  <levelsComplete>4</levelsComplete>
   <hAcc>0.1</hAcc>
   <hDec>0.15</hDec>
   <maxSpeed>0.6</maxSpeed>

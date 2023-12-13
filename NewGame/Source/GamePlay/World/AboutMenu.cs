@@ -78,12 +78,9 @@ public class AboutMenu
                                             .WithOffset(new Vector2(-400, 150))
                                             .Build();
 
-        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
+        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("UI//Button397x114")
                                                         .WithDims(new Vector2(220,40))
                                                         .WithScreenAlignment(Alignment.TOP_LEFT)
-                                                        .WithColor(Colors.Buttons)
-                                                        .WithHoverColor(Colors.Hover)
-                                                        .WithUnavailableColor(Colors.AirForceBlue)
                                                         .WithHoverScale(new Vector2(1.01f, 1.01f))
                                                         .WithButtonAction(SwitchTabs);
 

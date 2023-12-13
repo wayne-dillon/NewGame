@@ -10,7 +10,7 @@ public class Music
     public Music()
     {
         menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
-        gameTheme = Globals.content.Load<Song>("Sound//runAmok");
+        gameTheme = Globals.content.Load<Song>("Sound//mainTheme");
         PlayOnRepeat(menuTheme);
         MediaPlayer.Volume = Persistence.preferences.musicVolume;
     }

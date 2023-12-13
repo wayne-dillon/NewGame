@@ -8,8 +8,8 @@ public class DevConsole
 
     public DevConsole()
     {
-        resetButton = new SpriteBuilder().WithPath("UI//Button96x32")
-                                        .WithDims(new Vector2(96,32))
+        resetButton = new SpriteBuilder().WithPath("UI//Button397x114")
+                                        .WithDims(new Vector2(100,24))
                                         .WithText("Reset")
                                         .WithScreenAlignment(Alignment.BOTTOM)
                                         .WithOffset(new Vector2(0, -120))

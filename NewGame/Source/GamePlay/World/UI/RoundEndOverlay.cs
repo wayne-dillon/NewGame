@@ -15,19 +15,18 @@ public class RoundEndOverlay
         changeGameState = CHANGEGAMESTATE;
         reset = RESET;
 
-        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("UI//Button220x32")
-                                                        .WithDims(new Vector2(220, 32))
-                                                        .WithColor(Colors.Buttons)
+        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("UI//Button727x112")
+                                                        .WithDims(new Vector2(243, 37))
                                                         .WithUI(true);
-        resetBtn = buttonBuilder.WithOffset(new Vector2(-120, 200))
+        resetBtn = buttonBuilder.WithOffset(new Vector2(0, 150))
                             .WithText("Play Again")
                             .WithButtonAction(reset)
                             .BuildButton();
-        nextBtn = buttonBuilder.WithOffset(new Vector2(0, 150))
+        nextBtn = buttonBuilder.WithOffset(new Vector2(0, 100))
                             .WithText("Next Level")
                             .WithButtonInfo(true)
                             .BuildButton();
-        backBtn = buttonBuilder.WithOffset(new Vector2(120, 200))
+        backBtn = buttonBuilder.WithOffset(new Vector2(0, 200))
                             .WithText("Main Menu")
                             .WithButtonAction(changeGameState)
                             .WithButtonInfo(GameState.MAIN_MENU)

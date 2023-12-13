@@ -1049,17 +1049,17 @@
 /processorParam:TextureFormat=Color
 /build:rect.png
 
+#begin Sound/mainTheme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/mainTheme.wav
+
 #begin Sound/MenuLoop.wav
 /importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/MenuLoop.wav
-
-#begin Sound/Run-Amok(chosic.com).mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Sound/Run-Amok(chosic.com).mp3;Sound/runAmok.mp3
 
 #begin Symbols/airplaneModePhone.png
 /importer:TextureImporter
@@ -1072,6 +1072,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Symbols/airplaneModePhone.png
+
+#begin Symbols/baseMode.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Symbols/baseMode.png
 
 #begin Symbols/Checker.png
 /importer:TextureImporter
@@ -1109,6 +1121,18 @@
 /processorParam:TextureFormat=Color
 /build:Symbols/Diamonds.png
 
+#begin Symbols/frogSymbol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Symbols/frogSymbol.png
+
 #begin Symbols/Hearts.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1120,6 +1144,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Symbols/Hearts.png
+
+#begin Symbols/monkeySymbol.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Symbols/monkeySymbol.png
 
 #begin Symbols/ringingPhone1.png
 /importer:TextureImporter
@@ -1181,7 +1217,7 @@
 /processorParam:TextureFormat=Color
 /build:Symbols/Spades.png
 
-#begin UI/BorderedOval300x200.png
+#begin UI/Button397x114.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1191,9 +1227,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/BorderedOval300x200.png
+/build:UI/Button397x114.png
 
-#begin UI/Button190x32.png
+#begin UI/Button727x112.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1203,31 +1239,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/Button190x32.png
-
-#begin UI/Button220x32.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/Button220x32.png
-
-#begin UI/Button96x32.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/Button96x32.png
+/build:UI/Button727x112.png
 
 #begin UI/Cursor.png
 /importer:TextureImporter
@@ -1289,18 +1301,6 @@
 /processorParam:TextureFormat=Color
 /build:UI/menuButton3.png
 
-#begin UI/Oval200x175.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/Oval200x175.png
-
 #begin UI/Oval20x20.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1312,18 +1312,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/Oval20x20.png
-
-#begin UI/Oval300x200.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:UI/Oval300x200.png
 
 #begin UI/OvalFill20x20.png
 /importer:TextureImporter

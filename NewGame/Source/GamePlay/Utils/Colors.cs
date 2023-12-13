@@ -13,7 +13,7 @@ public class Colors
     public static readonly Color DarkMossGreen = new(92,102,55);
     public static readonly Color SealBrown = new(107,43,6);
 
-    public static readonly Color BaseUIElement = VistaBlue;
+    public static readonly Color BaseUIElement = Color.White;
     public static readonly Color Unavailable = Color.Gray;
     public static readonly Color Hover = BrunswickGreen;
     public static readonly Color Buttons = ShamrockGreen;
