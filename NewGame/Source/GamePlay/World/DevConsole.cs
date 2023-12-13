@@ -16,8 +16,8 @@ public class DevConsole
                                         .WithButtonAction(PlayerMovementValues.ResetValues)
                                         .BuildButton();
 
-        int height = -320;
-        for (int i = 0; i <= 10 ; i++)
+        int height = -300;
+        for (int i = 0; i < 10 ; i++)
         {
             valueSelectors.Add(new((ValueSelector.Variable)i, new Vector2(0, height)));
             height += 60;

@@ -19,16 +19,16 @@ public class Persistence
         preferences.resolution = Convert.ToInt32(xml.Element("resolution").Value);
         preferences.levelsComplete = Convert.ToInt32(xml.Element("levelsComplete").Value);
 
-        PlayerMovementValues.horizontalAcceleration = (float)Convert.ToDecimal(xml.Element("hAcc").Value);
-        PlayerMovementValues.horizontalDeceleration = (float)Convert.ToDecimal(xml.Element("hDec").Value);
-        PlayerMovementValues.maxSpeed = (float)Convert.ToDecimal(xml.Element("maxSpeed").Value);
-        PlayerMovementValues.dashSpeed = (float)Convert.ToDecimal(xml.Element("dashSpeed").Value);
+        PlayerMovementValues.horizontalAcceleration = Convert.ToInt32(xml.Element("hAcc").Value);
+        PlayerMovementValues.horizontalDeceleration = Convert.ToInt32(xml.Element("hDec").Value);
+        PlayerMovementValues.maxSpeed = Convert.ToInt32(xml.Element("maxSpeed").Value);
+        PlayerMovementValues.dashSpeed = Convert.ToInt32(xml.Element("dashSpeed").Value);
         PlayerMovementValues.dashTime = Convert.ToInt32(xml.Element("dashTime").Value);
-        PlayerMovementValues.dashDeceleration = (float)Convert.ToDecimal(xml.Element("dashDeceleration").Value);
-        PlayerMovementValues.jumpSpeed = (float)Convert.ToDecimal(xml.Element("jumpSpeed").Value);
+        PlayerMovementValues.dashDeceleration = Convert.ToInt32(xml.Element("dashDeceleration").Value);
+        PlayerMovementValues.jumpSpeed = Convert.ToInt32(xml.Element("jumpSpeed").Value);
         PlayerMovementValues.jumpHoldTime = Convert.ToInt32(xml.Element("jumpHoldTime").Value);
-        PlayerMovementValues.gravity = (float)Convert.ToDecimal(xml.Element("gravity").Value);
-        PlayerMovementValues.maxFallSpeed = (float)Convert.ToDecimal(xml.Element("maxFallSpeed").Value);
+        PlayerMovementValues.gravity = Convert.ToInt32(xml.Element("gravity").Value);
+        PlayerMovementValues.maxFallSpeed = Convert.ToInt32(xml.Element("maxFallSpeed").Value);
 
         if (preferences.fullScreen) Globals.graphics.ToggleFullScreen();
     }

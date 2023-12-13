@@ -1,36 +1,44 @@
 public struct PlayerMovementValues
 {
-    public static float horizontalAcceleration = 0.1f;
-    public static float horizontalDeceleration = 0.15f;
-    public static float maxSpeed = 0.6f;
+    public static int horizontalAcceleration;
+    public static int horizontalDeceleration;
+    public static int maxSpeed;
+    public static float HorizontalAcceleration{ get { return (float)horizontalAcceleration/1000; } }
+    public static float HorizontalDeceleration{ get { return (float)horizontalDeceleration/1000; } }
+    public static float MaxSpeed{ get { return (float)maxSpeed/1000; } }
 
     public static float climbSpeedRatio = 2f/3f;
 
-    public static float dashSpeed = 2;
-    public static int dashTime = 220;
-    public static float dashDeceleration = 0.5f;
+    public static int dashSpeed;
+    public static int dashDeceleration;
+    public static float DashSpeed{ get { return (float)dashSpeed/1000; } }
+    public static int dashTime;
+    public static float DashDeceleration{ get { return (float)dashDeceleration/1000; } }
 
-    public static float jumpSpeed = 0.9f;
-    public static int jumpHoldTime = 250;
+    public static int jumpSpeed;
+    public static float JumpSpeed{ get { return (float)jumpSpeed/1000; } }
+    public static int jumpHoldTime;
     public static int jumpBufferTime = 50;
 
-    public static float gravity = 0.06f;
-    public static float maxFallSpeed = 0.9f;
+    public static int gravity;
+    public static int maxFallSpeed;
+    public static float Gravity{ get { return (float)gravity/1000; } }
+    public static float MaxFallSpeed{ get { return (float)maxFallSpeed/1000; } }
 
     public static void ResetValues(object SENDER, object INFO)
     {
-        horizontalAcceleration = 0.1f;
-        horizontalDeceleration = 0.15f;
-        maxSpeed = 0.6f;
+        horizontalAcceleration = 100;
+        horizontalDeceleration = 150;
+        maxSpeed = 600;
 
-        dashSpeed = 2;
+        dashSpeed = 2000;
         dashTime = 220;
-        dashDeceleration = 0.5f;
+        dashDeceleration = 500;
         
-        jumpSpeed = 0.9f;
+        jumpSpeed = 900;
         jumpHoldTime = 250;
 
-        gravity = 0.06f;
-        maxFallSpeed = 0.9f;
+        gravity = 60;
+        maxFallSpeed = 900;
     }
 }

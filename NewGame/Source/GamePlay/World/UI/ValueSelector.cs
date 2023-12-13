@@ -39,27 +39,27 @@ public class ValueSelector
                                                         .WithButtonAction(UpdateVariable);
         
         buttons.Add(buttonBuilder.WithText("-100")
-                                .WithButtonInfo(-0.1f)
+                                .WithButtonInfo(-100)
                                 .WithOffset(OFFSET)
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("-10")
-                                .WithButtonInfo(-0.01f)
+                                .WithButtonInfo(-10)
                                 .WithOffset(OFFSET + new Vector2(75, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("-1")
-                                .WithButtonInfo(-0.001f)
+                                .WithButtonInfo(-1)
                                 .WithOffset(OFFSET + new Vector2(150, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("+1")
-                                .WithButtonInfo(0.001f)
+                                .WithButtonInfo(1)
                                 .WithOffset(OFFSET + new Vector2(350, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("+10")
-                                .WithButtonInfo(0.01f)
+                                .WithButtonInfo(10)
                                 .WithOffset(OFFSET + new Vector2(425, 0))
                                 .BuildButton());
         buttons.Add(buttonBuilder.WithText("+100")
-                                .WithButtonInfo(0.1f)
+                                .WithButtonInfo(100)
                                 .WithOffset(OFFSET + new Vector2(500, 0))
                                 .BuildButton());
     }
@@ -91,22 +91,22 @@ public class ValueSelector
     
     private int GetValue() => variable switch
     {
-        Variable.H_ACCEL => (int)(PlayerMovementValues.horizontalAcceleration * 1000),
-        Variable.H_DECEL => (int)(PlayerMovementValues.horizontalDeceleration * 1000),
-        Variable.MAX_SPEED => (int)(PlayerMovementValues.maxSpeed * 1000),
-        Variable.DASH_SPEED => (int)(PlayerMovementValues.dashSpeed * 1000),
+        Variable.H_ACCEL => PlayerMovementValues.horizontalAcceleration,
+        Variable.H_DECEL => PlayerMovementValues.horizontalDeceleration,
+        Variable.MAX_SPEED => PlayerMovementValues.maxSpeed,
+        Variable.DASH_SPEED => PlayerMovementValues.dashSpeed,
         Variable.DASH_TIME => PlayerMovementValues.dashTime,
-        Variable.DASH_DECEL => (int)(PlayerMovementValues.dashDeceleration * 1000),
-        Variable.JUMP_SPEED => (int)(PlayerMovementValues.jumpSpeed * 1000),
+        Variable.DASH_DECEL => PlayerMovementValues.dashDeceleration,
+        Variable.JUMP_SPEED => PlayerMovementValues.jumpSpeed,
         Variable.JUMP_HOLD_TIME => PlayerMovementValues.jumpHoldTime,
-        Variable.GRAVITY => (int)(PlayerMovementValues.gravity * 1000),
-        Variable.MAX_FALL_SPEED => (int)(PlayerMovementValues.maxFallSpeed * 1000),
+        Variable.GRAVITY => PlayerMovementValues.gravity,
+        Variable.MAX_FALL_SPEED => PlayerMovementValues.maxFallSpeed,
         _ => 0
     };
 
     private void UpdateVariable(object SENDER, object INFO)
     {
-        if (INFO is float value)
+        if (INFO is int value)
         {
             switch (variable)
             {
@@ -123,7 +123,7 @@ public class ValueSelector
                     PlayerMovementValues.dashSpeed += value;
                     break;
                 case Variable.DASH_TIME:
-                    PlayerMovementValues.dashTime += (int)(value * 1000);
+                    PlayerMovementValues.dashTime += value;
                     break;
                 case Variable.DASH_DECEL:
                     PlayerMovementValues.dashDeceleration += value;
@@ -132,7 +132,7 @@ public class ValueSelector
                     PlayerMovementValues.jumpSpeed += value;
                     break;
                 case Variable.JUMP_HOLD_TIME:
-                    PlayerMovementValues.jumpHoldTime += (int)(value * 1000);
+                    PlayerMovementValues.jumpHoldTime += value;
                     break;
                 case Variable.GRAVITY:
                     PlayerMovementValues.gravity += value;

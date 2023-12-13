@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <preferences>
-  <musicVolume>0.23</musicVolume>
+  <musicVolume>0.25</musicVolume>
   <sfxVolume>0.25</sfxVolume>
   <fullScreen>false</fullScreen>
   <resolution>900</resolution>
   <levelsComplete>4</levelsComplete>
-  <hAcc>0.1</hAcc>
-  <hDec>0.15</hDec>
-  <maxSpeed>0.6</maxSpeed>
-  <dashSpeed>2</dashSpeed>
+  <hAcc>100</hAcc>
+  <hDec>150</hDec>
+  <maxSpeed>600</maxSpeed>
+  <dashSpeed>2000</dashSpeed>
   <dashTime>220</dashTime>
-  <dashDeceleration>0.5</dashDeceleration>
-  <jumpSpeed>0.9</jumpSpeed>
+  <dashDeceleration>500</dashDeceleration>
+  <jumpSpeed>900</jumpSpeed>
   <jumpHoldTime>250</jumpHoldTime>
-  <gravity>0.06</gravity>
-  <maxFallSpeed>0.9</maxFallSpeed>
+  <gravity>60</gravity>
+  <maxFallSpeed>900</maxFallSpeed>
 </preferences>

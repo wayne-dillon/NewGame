@@ -42,7 +42,7 @@ public class Jump
                 isJumping = false;
                 return 0;
             }
-            return -PlayerMovementValues.jumpSpeed;
+            return -PlayerMovementValues.JumpSpeed;
         }
         isJumping = false;
         return 0;

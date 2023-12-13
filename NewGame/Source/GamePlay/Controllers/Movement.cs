@@ -68,7 +68,7 @@ public class Movement
     {
         if (InputController.Dash() && IsCat && canDash)
         {
-            horizontalSpeed = GameGlobals.facingLeft ? -PlayerMovementValues.dashSpeed : PlayerMovementValues.dashSpeed;
+            horizontalSpeed = GameGlobals.facingLeft ? -PlayerMovementValues.DashSpeed : PlayerMovementValues.DashSpeed;
             canDash = false;
             dashTimer.ResetToZero();
         }
@@ -76,7 +76,7 @@ public class Movement
     
     private void Fall()
     {
-        verticalSpeed = verticalSpeed < PlayerMovementValues.maxFallSpeed ? verticalSpeed + PlayerMovementValues.gravity : PlayerMovementValues.maxFallSpeed;
+        verticalSpeed = verticalSpeed < PlayerMovementValues.MaxFallSpeed ? verticalSpeed + PlayerMovementValues.Gravity : PlayerMovementValues.MaxFallSpeed;
     }
 
     private void HorizontalMovement()
@@ -123,36 +123,36 @@ public class Movement
         if (!dashTimer.Test()) return;
         if (InputController.Left() && !InputController.Right())
         {
-            if (horizontalSpeed > -PlayerMovementValues.maxSpeed)
+            if (horizontalSpeed > -PlayerMovementValues.MaxSpeed)
             {
-                horizontalSpeed -= PlayerMovementValues.horizontalAcceleration * 2;
+                horizontalSpeed -= PlayerMovementValues.HorizontalAcceleration * 2;
             }
-            else if (horizontalSpeed < -PlayerMovementValues.maxSpeed)
+            else if (horizontalSpeed < -PlayerMovementValues.MaxSpeed)
             {
-                horizontalSpeed += PlayerMovementValues.horizontalDeceleration * 2;
+                horizontalSpeed += PlayerMovementValues.HorizontalDeceleration * 2;
                 
-                if (horizontalSpeed > -PlayerMovementValues.maxSpeed)
-                    horizontalSpeed = -PlayerMovementValues.maxSpeed;
+                if (horizontalSpeed > -PlayerMovementValues.MaxSpeed)
+                    horizontalSpeed = -PlayerMovementValues.MaxSpeed;
             }
         } else if (InputController.Right() && !InputController.Left())
         {
-            if (horizontalSpeed < PlayerMovementValues.maxSpeed)
+            if (horizontalSpeed < PlayerMovementValues.MaxSpeed)
             {
-                horizontalSpeed += PlayerMovementValues.horizontalAcceleration;
+                horizontalSpeed += PlayerMovementValues.HorizontalAcceleration;
             }
-            else if (horizontalSpeed > PlayerMovementValues.maxSpeed)
+            else if (horizontalSpeed > PlayerMovementValues.MaxSpeed)
             {
-                horizontalSpeed -= PlayerMovementValues.horizontalDeceleration;
+                horizontalSpeed -= PlayerMovementValues.HorizontalDeceleration;
 
-                if (horizontalSpeed < PlayerMovementValues.maxSpeed)
-                    horizontalSpeed = PlayerMovementValues.maxSpeed;
+                if (horizontalSpeed < PlayerMovementValues.MaxSpeed)
+                    horizontalSpeed = PlayerMovementValues.MaxSpeed;
             }
         } else if (horizontalSpeed > 0)
         {
-            horizontalSpeed -= horizontalSpeed > PlayerMovementValues.maxSpeed ? PlayerMovementValues.dashDeceleration : PlayerMovementValues.horizontalDeceleration;
+            horizontalSpeed -= horizontalSpeed > PlayerMovementValues.MaxSpeed ? PlayerMovementValues.DashDeceleration : PlayerMovementValues.HorizontalDeceleration;
             if (horizontalSpeed < 0) horizontalSpeed = 0;
         } else {
-            horizontalSpeed += horizontalSpeed < -PlayerMovementValues.maxSpeed ? PlayerMovementValues.dashDeceleration : PlayerMovementValues.horizontalDeceleration;
+            horizontalSpeed += horizontalSpeed < -PlayerMovementValues.MaxSpeed ? PlayerMovementValues.DashDeceleration : PlayerMovementValues.HorizontalDeceleration;
             if (horizontalSpeed > 0) horizontalSpeed = 0;
         }
     }
