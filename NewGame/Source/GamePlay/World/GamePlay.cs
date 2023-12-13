@@ -5,14 +5,13 @@ public class GamePlay
 {
     private Player player;
     private PlayerCamera camera;
+    private ModeIndicator modeIndicator;
     private Level level;
     private TextComponent timeDisplay;
     private TextComponent addedTimeDisplay;
     private int collected;
     private readonly int startTime = 10;
     private readonly int timeBonus = 5;
-
-    public TextComponent modeText;
 
     private TimeSpan runTime;
     private string TimerText
@@ -52,14 +51,11 @@ public class GamePlay
                                                 .WithFont(Fonts.numberFont)
                                                 .Build();
 
-        modeText = new TextComponentBuilder().WithScreenAlignment(Alignment.TOP)
-                                            .WithOffset(new Vector2(0, 30))
-                                            .Build();
-
         collected = 0;
 
         GameGlobals.roundState = RoundState.START;
         GameGlobals.beatLevel = false;
+        modeIndicator = new();
     }
 
     public virtual void Update()
@@ -107,9 +103,9 @@ public class GamePlay
             Globals.isNewGame = false;
             ResetWorld(null, null);
         }
-        modeText.Update(GameGlobals.currentMode.ToString());
         timeDisplay.Update(TimerText);
         addedTimeDisplay.Update();
+        modeIndicator.Update();
     }
 
     private void CheckEnd()
@@ -182,7 +178,7 @@ public class GamePlay
             text.Draw();
         }
         player.Draw();
-        modeText.Draw();
+        modeIndicator.Draw();
         timeDisplay.Draw();
         if (addedTimeDisplay.animation != null)
             addedTimeDisplay.Draw();

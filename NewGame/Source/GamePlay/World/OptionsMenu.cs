@@ -38,17 +38,19 @@ public class OptionsMenu
                                                     .WithOffset(new Vector2(100, 150))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(res1920x1080)
-                                                    .WithChecked(true)
+                                                    .WithChecked(Persistence.preferences.resolution == 1080)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1600 x 900")
                                                     .WithOffset(new Vector2(100, 175))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(res1600x900)
+                                                    .WithChecked(Persistence.preferences.resolution == 900)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1280 x 720")
                                                     .WithOffset(new Vector2(100, 200))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(res1280x720)
+                                                    .WithChecked(Persistence.preferences.resolution == 720)
                                                     .BuildLinkedCheckbox());
 
         foreach (LinkedCheckbox box in resolutionCheckboxs)

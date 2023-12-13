@@ -15,8 +15,8 @@ public class UI
         changeGameState = TransitionManager.ChangeGameState;
         
         homeBtn = new SpriteBuilder().WithPath("UI//Home")
-                                    .WithAbsolutePosition(new Vector2(30, 30))
-                                    .WithDims(new Vector2(32, 32))
+                                    .WithAbsolutePosition(new Vector2(50, 50))
+                                    .WithDims(new Vector2(50, 50))
                                     .WithButtonAction(changeGameState)
                                     .WithButtonInfo(GameState.MAIN_MENU)
                                     .WithUI(true)
