@@ -1217,6 +1217,18 @@
 /processorParam:TextureFormat=Color
 /build:Symbols/Spades.png
 
+#begin UI/Button168x100.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Button168x100.png
+
 #begin UI/Button397x114.png
 /importer:TextureImporter
 /processor:TextureProcessor

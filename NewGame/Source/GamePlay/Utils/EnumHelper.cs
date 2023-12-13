@@ -75,7 +75,7 @@ public class EnumHelper
         LevelObject.EMPTY => "UI//Oval20x20",
         LevelObject.HAZARD => "Symbols//Diamonds",
         LevelObject.OBJECTIVE => "Symbols//ringingPhone1",
-        LevelObject.PLAYER => "Player//Cat//Idle1",
+        LevelObject.PLAYER => "Symbols//baseMode",
         LevelObject.START => "Symbols//Checker",
         _ => "Platforms//platformBunting"
     };

@@ -9,7 +9,7 @@ public class DevConsole
     public DevConsole()
     {
         resetButton = new SpriteBuilder().WithPath("UI//Button397x114")
-                                        .WithDims(new Vector2(100,24))
+                                        .WithDims(new Vector2(120,30))
                                         .WithText("Reset")
                                         .WithScreenAlignment(Alignment.BOTTOM)
                                         .WithOffset(new Vector2(0, -120))

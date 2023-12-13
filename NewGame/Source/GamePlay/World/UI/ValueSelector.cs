@@ -34,8 +34,8 @@ public class ValueSelector
                                         .WithOffset(OFFSET + new Vector2(250, 0))
                                         .Build();
 
-        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("rect")
-                                                        .WithDims(new Vector2(55, 32))
+        SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("UI//Button168x100")
+                                                        .WithDims(new Vector2(60, 40))
                                                         .WithButtonAction(UpdateVariable);
         
         buttons.Add(buttonBuilder.WithText("-100")
