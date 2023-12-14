@@ -142,6 +142,7 @@ public class GamePlay
 
             addedTimeDisplay.color.A = 255;
             addedTimeDisplay.animation = new FadeOut(750);
+            SFXPlayer.PlaySound(SoundEffects.OBJECTIVE_HIT);
         }
     }
 

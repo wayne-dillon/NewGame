@@ -38,6 +38,7 @@ public class Jump
             {
                 isJumping = true;
                 inputTimer.ResetToZero();
+                SFXPlayer.PlaySound(SoundEffects.JUMP);
             } else if (inputTimer.Test()) {
                 isJumping = false;
                 return 0;
@@ -53,6 +54,7 @@ public class Jump
         canDoubleJump = false;
         isJumping = true;
         inputTimer.ResetToZero();
+        SFXPlayer.PlaySound(SoundEffects.JUMP);
         return GetFallSpeed();
     }
 }

@@ -1091,6 +1091,18 @@
 /processorParam:Quality=Best
 /build:Sound/buttonClick.wav
 
+#begin Sound/dash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/dash.wav
+
+#begin Sound/jump.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/jump.wav
+
 #begin Sound/mainTheme.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -1102,6 +1114,24 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/MenuLoop.wav
+
+#begin Sound/objectiveHit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/objectiveHit.wav
+
+#begin Sound/shock.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/shock.wav
+
+#begin Sound/swoosh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/swoosh.wav
 
 #begin Symbols/airplaneModePhone.png
 /importer:TextureImporter

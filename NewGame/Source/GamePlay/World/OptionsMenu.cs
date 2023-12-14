@@ -36,25 +36,25 @@ public class OptionsMenu
         sfxVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -80), Persistence.preferences.sfxVolume,
                                     (sender, info) => { Persistence.preferences.sfxVolume = (float)info; });
 
-        fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, 40))
+        fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, 80))
                                                 .WithButtonAction(UpdateFullscreen)
                                                 .WithChecked(Persistence.preferences.fullScreen)
                                                 .BuildCheckbox();
 
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1920 x 1080")
-                                                    .WithOffset(new Vector2(100, 150))
+                                                    .WithOffset(new Vector2(100, 190))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(res1920x1080)
                                                     .WithChecked(Persistence.preferences.resolution == 1080)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1600 x 900")
-                                                    .WithOffset(new Vector2(100, 175))
+                                                    .WithOffset(new Vector2(100, 215))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(res1600x900)
                                                     .WithChecked(Persistence.preferences.resolution == 900)
                                                     .BuildLinkedCheckbox());
         resolutionCheckboxs.Add(new SpriteBuilder().WithText("1280 x 720")
-                                                    .WithOffset(new Vector2(100, 200))
+                                                    .WithOffset(new Vector2(100, 240))
                                                     .WithButtonAction(UpdateResolution)
                                                     .WithButtonInfo(res1280x720)
                                                     .WithChecked(Persistence.preferences.resolution == 720)

@@ -71,6 +71,7 @@ public class Movement
             horizontalSpeed = GameGlobals.facingLeft ? -PlayerMovementValues.DashSpeed : PlayerMovementValues.DashSpeed;
             canDash = false;
             dashTimer.ResetToZero();
+            SFXPlayer.PlaySound(SoundEffects.DASH);
         }
     }
     

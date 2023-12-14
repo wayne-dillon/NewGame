@@ -117,6 +117,7 @@ public class Player
             {
                 sprite.SetAnimationValues(300, 300, 10);
                 GameGlobals.roundState = RoundState.END;
+                SFXPlayer.PlaySound(SoundEffects.SHOCK);
             }
         }
     }
@@ -159,11 +160,13 @@ public class Player
         {
             GameGlobals.currentMode = (int)GameGlobals.currentMode == 2 ? 0 : GameGlobals.currentMode + 1;
             animationChanged = true;
+            SFXPlayer.PlaySound(SoundEffects.SWOOSH);
         }
         if (InputController.PrevMode())
         {
             GameGlobals.currentMode = GameGlobals.currentMode == 0 ? (CharacterMode)2 : GameGlobals.currentMode - 1;
             animationChanged = true;
+            SFXPlayer.PlaySound(SoundEffects.SWOOSH);
         }
     }
 
