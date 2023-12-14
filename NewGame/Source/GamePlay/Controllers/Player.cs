@@ -115,6 +115,7 @@ public class Player
         {
             if (box.PassesThrough(prevHitbox, sprite.hitbox) != Direction.NONE)
             {
+                sprite.SetAnimationValues(300, 300, 10);
                 GameGlobals.roundState = RoundState.END;
             }
         }

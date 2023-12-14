@@ -17,6 +17,13 @@ public class LevelBuilder
         { 6, "Symbols//ringingPhone2" }
     };
 
+    private static readonly Dictionary<int, string> hazardDict = new()
+    {
+        { 0, "Symbols//Hazard1" },
+        { 1, "Symbols//Hazard2" },
+        { 2, "Symbols//Hazard3" }
+    };
+
     public static Level Build()
     {
         Platforms.Reset();
@@ -94,11 +101,12 @@ public class LevelBuilder
     private static void CreateHazard(Vector2 POS)
     {
         level.hazards.Add(new SpriteBuilder().WithInteractableType(InteractableType.HAZARD)
-                                                        .WithPath("rect")
-                                                        .WithColor(Color.Red)
+                                                        .WithPathDict(hazardDict)
+                                                        .WithFrameTime(100)
+                                                        .WithRangeMinMax(0,2)
                                                         .WithAbsolutePosition(POS)
                                                         .WithDims(new Vector2(tileSize, tileSize))
-                                                        .Build());
+                                                        .BuildAnimated());
     }
 
     private static void CreateStart(Vector2 POS)

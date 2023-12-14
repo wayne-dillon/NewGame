@@ -39,6 +39,8 @@ public class AboutMenu
 
     private readonly string editorInstructions = "Click a tile to cycle through\n"
                                                + "the available options.\n\n"
+                                               + "Use W,A,S,D or the directional\n"
+                                               + "arrows to move around the level\n\n"
                                                + "To be completable levels need\n"
                                                + "a single spawn point, at least\n"
                                                + "one objective (phone) and at\n"
@@ -75,7 +77,7 @@ public class AboutMenu
 
         editorInstructionsText = new TextComponentBuilder().WithText(editorInstructions)
                                             .WithTextAlignment(Alignment.CENTER_LEFT)
-                                            .WithOffset(new Vector2(-500, 0))
+                                            .WithOffset(new Vector2(-500, 75))
                                             .Build();
 
         level1Text = new TextComponentBuilder().WithText("Level 1")

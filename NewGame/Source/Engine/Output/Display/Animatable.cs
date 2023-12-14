@@ -41,7 +41,7 @@ public abstract class Animatable
         if (type == InteractableType.PLATFORM) Platforms.hitboxes.Add(hitbox);
         if (type == InteractableType.HAZARD)
         {
-            ShrinkHitbox(40, 0, 3, 3);
+            ShrinkHitbox(20, 10, 15, 15);
             Hazards.hitboxes.Add(hitbox);
         }
     }
