@@ -4,7 +4,8 @@
   <sfxVolume>0.25</sfxVolume>
   <fullScreen>false</fullScreen>
   <resolution>900</resolution>
-  <levelsComplete>4</levelsComplete>
+  <levelsComplete>0</levelsComplete>
+  <displayOutro>true</displayOutro>
   <hAcc>100</hAcc>
   <hDec>150</hDec>
   <maxSpeed>600</maxSpeed>

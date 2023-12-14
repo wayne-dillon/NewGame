@@ -60,7 +60,7 @@ public class Main : Game
         mainMenu = new MainMenu();
         aboutMenu = new AboutMenu(levelEditor.Init);
         gamePlay = new GamePlay();
-        ui = new UI(gamePlay.ResetWorld);
+        ui = new UI(gamePlay.ResetWorld, aboutMenu.OpenAsEditor);
 
         background = new SpriteBuilder().WithPath("Background//background")
                                         .WithDims(new Vector2(Coordinates.screenWidth, Coordinates.screenHeight))

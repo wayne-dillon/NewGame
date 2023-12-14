@@ -212,6 +212,12 @@ public class AboutMenu
         }
     }
 
+    public void OpenAsEditor(object SENDER, object INFO)
+    {
+        currentTab = Tab.LEVEL_EDITOR;
+        TransitionManager.ChangeGameState(null, GameState.ABOUT);
+    }
+
     public void SwitchTabs(object SENDER, object INFO)
     {
         if (INFO is Tab tab)

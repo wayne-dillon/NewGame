@@ -5,4 +5,5 @@ public struct Preferences
     public bool fullScreen;
     public int resolution;
     public int levelsComplete;
+    public bool displayOutro;
 }

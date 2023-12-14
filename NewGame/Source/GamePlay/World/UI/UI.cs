@@ -7,11 +7,12 @@ public class UI
 
     private readonly Clickable homeBtn;
 
-    public EventHandler<object> reset, changeGameState;
+    public EventHandler<object> reset, openEditor, changeGameState;
 
-    public UI(EventHandler<object> RESET) 
+    public UI(EventHandler<object> RESET, EventHandler<object> OPENEDITOR) 
     {
         reset = RESET;
+        openEditor = OPENEDITOR;
         changeGameState = TransitionManager.ChangeGameState;
         
         homeBtn = new SpriteBuilder().WithPath("UI//Home")
@@ -27,7 +28,7 @@ public class UI
     {
         if (GameGlobals.roundState == RoundState.END) 
         {
-            endOverlay ??= new RoundEndOverlay(reset, changeGameState);
+            endOverlay ??= new RoundEndOverlay(reset, changeGameState, openEditor);
             endOverlay.Update();
         } else {
             endOverlay = null;

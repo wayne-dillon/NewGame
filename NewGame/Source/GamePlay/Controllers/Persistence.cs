@@ -18,6 +18,7 @@ public class Persistence
         preferences.fullScreen = Convert.ToBoolean(xml.Element("fullScreen").Value);
         preferences.resolution = Convert.ToInt32(xml.Element("resolution").Value);
         preferences.levelsComplete = Convert.ToInt32(xml.Element("levelsComplete").Value);
+        preferences.displayOutro = Convert.ToBoolean(xml.Element("displayOutro").Value);
 
         PlayerMovementValues.horizontalAcceleration = Convert.ToInt32(xml.Element("hAcc").Value);
         PlayerMovementValues.horizontalDeceleration = Convert.ToInt32(xml.Element("hDec").Value);
@@ -42,6 +43,7 @@ public class Persistence
             new("fullScreen", preferences.fullScreen),
             new("resolution", preferences.resolution),
             new("levelsComplete", preferences.levelsComplete),
+            new("displayOutro", preferences.displayOutro),
             
             new("hAcc", PlayerMovementValues.horizontalAcceleration),
             new("hDec", PlayerMovementValues.horizontalDeceleration),

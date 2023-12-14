@@ -3,16 +3,20 @@ using Microsoft.Xna.Framework;
 
 public class RoundEndOverlay
 {
+    private readonly Button lvlEditorBtn;
     private readonly Button nextBtn;
     private readonly Button resetBtn;
     private readonly Button backBtn;
     private readonly EventHandler<object> changeGameState;
+    private readonly EventHandler<object> openEditor;
     private readonly EventHandler<object> reset;
     private HighScoreDisplay highScoreDisplay;
+    private OutroBackdrop outroBackdrop;
 
-    public RoundEndOverlay(EventHandler<object> RESET, EventHandler<object> CHANGEGAMESTATE) 
+    public RoundEndOverlay(EventHandler<object> RESET, EventHandler<object> CHANGEGAMESTATE, EventHandler<object> OPENEDITOR) 
     {
         changeGameState = CHANGEGAMESTATE;
+        openEditor = OPENEDITOR;
         reset = RESET;
 
         SpriteBuilder buttonBuilder = new SpriteBuilder().WithPath("UI//Button727x112")
@@ -31,6 +35,10 @@ public class RoundEndOverlay
                             .WithButtonAction(changeGameState)
                             .WithButtonInfo(GameState.MAIN_MENU)
                             .BuildButton();
+        lvlEditorBtn = buttonBuilder.WithOffset(new Vector2(0, 100))
+                            .WithText("Level Editor")
+                            .WithButtonAction(openEditor)
+                            .BuildButton();
         
         if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
         {
@@ -40,9 +48,24 @@ public class RoundEndOverlay
 
     public void Update() 
     {
-        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_3)
+        if (GameGlobals.beatLevel && GameGlobals.currentLevel == LevelSelection.LEVEL_3
+                && Persistence.preferences.displayOutro)
         {
-            nextBtn.Update();
+            outroBackdrop = new OutroBackdrop();
+            Persistence.preferences.displayOutro = false;
+            Persistence.SavePreferences();
+        }
+
+        outroBackdrop?.Update();
+
+        if (GameGlobals.beatLevel)
+        {
+            if (GameGlobals.currentLevel == LevelSelection.LEVEL_3)
+            {
+                lvlEditorBtn.Update();
+            } else {
+                nextBtn.Update();
+            }
         }
         if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
         {
@@ -56,15 +79,25 @@ public class RoundEndOverlay
 
     public void Draw()
     {
-        if (GameGlobals.beatLevel && GameGlobals.currentLevel != LevelSelection.LEVEL_3)
+        outroBackdrop?.Draw();
+
+        if (outroBackdrop == null || !outroBackdrop.IsPlaying())
         {
-            nextBtn.Draw();
+            if (GameGlobals.beatLevel)
+            {
+                if (GameGlobals.currentLevel == LevelSelection.LEVEL_3)
+                {
+                    lvlEditorBtn.Draw();
+                } else {
+                    nextBtn.Draw();
+                }
+            }
+            if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
+            {
+                highScoreDisplay?.Draw();
+            }
+            resetBtn.Draw();
+            backBtn.Draw();
         }
-        if (GameGlobals.currentLevel != LevelSelection.TUTORIAL)
-        {
-            highScoreDisplay?.Draw();
-        }
-        resetBtn.Draw();
-        backBtn.Draw();
     }
 }
