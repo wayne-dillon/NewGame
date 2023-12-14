@@ -40,6 +40,11 @@ public class Dragable : Sprite
         base.Update();
     }
 
+    protected void SkipOverUpdate()
+    {
+        base.Update();
+    }
+
     public override void Draw()
     {
         base.Draw();

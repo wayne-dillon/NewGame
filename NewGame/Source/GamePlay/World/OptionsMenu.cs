@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 
 public class OptionsMenu
 {
-    private readonly TextComponent fullscreenText, resolutionText, musicVolumeText;
+    private readonly TextComponent fullscreenText, resolutionText, musicVolumeText, sfxVolumeText;
     private readonly Checkbox fullscreenCheckbox;
     private readonly List<LinkedCheckbox> resolutionCheckboxs = new();
     private readonly Slider musicVolumeSlider;
+    private readonly Slider sfxVolumeSlider;
 
     private static readonly Vector2 res1920x1080 = new(1920, 1080);
     private static readonly Vector2 res1600x900 = new(1600, 900);
@@ -16,18 +17,24 @@ public class OptionsMenu
     {
         musicVolumeText = new TextComponentBuilder().WithText("Music Volume")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
-                                                .WithOffset(new Vector2(-200, -40))
+                                                .WithOffset(new Vector2(-200, 0))
+                                                .Build();
+        sfxVolumeText = new TextComponentBuilder().WithText("SFX Volume")
+                                                .WithTextAlignment(Alignment.CENTER_LEFT)
+                                                .WithOffset(new Vector2(-200, -80))
                                                 .Build();
         fullscreenText = new TextComponentBuilder().WithText("Fullscreen")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
-                                                .WithOffset(new Vector2(-200, 40))
+                                                .WithOffset(new Vector2(-200, 80))
                                                 .Build();
         resolutionText = new TextComponentBuilder().WithText("Resolution")
                                                 .WithTextAlignment(Alignment.CENTER_LEFT)
-                                                .WithOffset(new Vector2(-200, 120))
+                                                .WithOffset(new Vector2(-200, 160))
                                                 .Build();
 
-        musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -40), Music.GetVolume(), Music.SetPreferredVolume);
+        musicVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, 0), Music.GetVolume(), Music.SetPreferredVolume);
+        sfxVolumeSlider = new Slider(Alignment.CENTER, new Vector2(100, -80), Persistence.preferences.sfxVolume,
+                                    (sender, info) => { Persistence.preferences.sfxVolume = (float)info; });
 
         fullscreenCheckbox = new SpriteBuilder().WithOffset(new Vector2(100, 40))
                                                 .WithButtonAction(UpdateFullscreen)
@@ -73,6 +80,8 @@ public class OptionsMenu
 
     public void Update()
     {
+        sfxVolumeText.Update();
+        sfxVolumeSlider.Update();
         musicVolumeText.Update();
         musicVolumeSlider.Update();
         fullscreenText.Update();
@@ -112,6 +121,8 @@ public class OptionsMenu
 
     public void Draw()
     {
+        sfxVolumeText.Draw();
+        sfxVolumeSlider.Draw();
         musicVolumeText.Draw();
         musicVolumeSlider.Draw();
         fullscreenText.Draw();

@@ -1085,6 +1085,12 @@
 /processorParam:TextureFormat=Color
 /build:rect.png
 
+#begin Sound/buttonClick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/buttonClick.wav
+
 #begin Sound/mainTheme.wav
 /importer:WavImporter
 /processor:SongProcessor

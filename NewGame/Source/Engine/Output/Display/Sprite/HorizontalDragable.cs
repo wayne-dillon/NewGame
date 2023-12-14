@@ -20,14 +20,31 @@ public class HorizontalDragable : Dragable
 
     public override void Update()
     {
-        base.Update();
-        float xValue = Pos.X;
-        if (xValue < minValue) xValue = minValue;
-        if (xValue > maxValue) xValue = maxValue;
-        Pos = new Vector2(xValue, yValue);
+        if (Hover())
+        {
+            if (Globals.mouse.LeftClick())
+            {
+                isHeld = true;
+                cursorOffset = Pos - Globals.mouse.newMousePos;
+            }
+        }
+        if (Globals.mouse.LeftClickRelease())
+        {
+            isHeld = false;
+        }
 
-        float currentValue = (xValue - minValue) / range;
-        action(null, currentValue);
+        if (isHeld)
+        {
+            float xValue = Globals.mouse.newMousePos.X + cursorOffset.X;
+            if (xValue < minValue) xValue = minValue;
+            if (xValue > maxValue) xValue = maxValue;
+            Pos = new Vector2(xValue, yValue);
+
+            float currentValue = (xValue - minValue) / range;
+            action(null, currentValue);
+        }
+
+        base.SkipOverUpdate();
     }
 
     public override void Draw()

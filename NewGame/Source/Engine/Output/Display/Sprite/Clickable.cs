@@ -80,6 +80,7 @@ public class Clickable : Sprite
         ButtonClicked?.Invoke(this, info);
 
         Reset();
+        SoundEffects.PlayButtonClick();
     }
 
     public override void Draw()
