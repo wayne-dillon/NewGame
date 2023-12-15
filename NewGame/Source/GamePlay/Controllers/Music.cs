@@ -4,6 +4,8 @@ public class Music
 {
     private static Song menuTheme;
     private static Song gameTheme;
+    private static Song completionJingle;
+    private static Song endJingle;
     private static MyTimer fadeTime;
     private static Song currentSong;
 
@@ -11,6 +13,8 @@ public class Music
     {
         menuTheme = Globals.content.Load<Song>("Sound//menuLoop");
         gameTheme = Globals.content.Load<Song>("Sound//mainTheme");
+        completionJingle = Globals.content.Load<Song>("Sound//completionJingle");
+        endJingle = Globals.content.Load<Song>("Sound//endJingle");
         PlayOnRepeat(menuTheme);
         MediaPlayer.Volume = Persistence.preferences.musicVolume;
     }
@@ -26,6 +30,20 @@ public class Music
                 PlayOnRepeat(menuTheme);
                 break;
         }
+    }
+
+    public static void PlayCompletionJingle()
+    {
+        MediaPlayer.MediaStateChanged -= (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
+        MediaPlayer.Play(completionJingle);
+        MediaPlayer.MediaStateChanged += (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
+    }
+
+    public static void PlayEndJingle()
+    {
+        MediaPlayer.MediaStateChanged -= (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
+        MediaPlayer.Play(endJingle);
+        MediaPlayer.MediaStateChanged += (SENDER, OBJECT) => MediaPlayer.Play(currentSong);
     }
 
     private static void PlayOnRepeat(Song SONG)

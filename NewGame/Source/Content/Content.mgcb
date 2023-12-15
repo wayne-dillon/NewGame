@@ -1091,11 +1091,23 @@
 /processorParam:Quality=Best
 /build:Sound/buttonClick.wav
 
+#begin Sound/completionJingle.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/completionJingle.wav
+
 #begin Sound/dash.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/dash.wav
+
+#begin Sound/endJingle.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sound/endJingle.wav
 
 #begin Sound/jump.wav
 /importer:WavImporter
@@ -1169,30 +1181,6 @@
 /processorParam:TextureFormat=Color
 /build:Symbols/Checker.png
 
-#begin Symbols/Clubs.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Symbols/Clubs.png
-
-#begin Symbols/Diamonds.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Symbols/Diamonds.png
-
 #begin Symbols/frogSymbol.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1240,18 +1228,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Symbols/Hazard3.png
-
-#begin Symbols/Hearts.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Symbols/Hearts.png
 
 #begin Symbols/monkeySymbol.png
 /importer:TextureImporter
@@ -1312,18 +1288,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Symbols/ringingPhone4.png
-
-#begin Symbols/Spades.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Symbols/Spades.png
 
 #begin UI/Button168x100.png
 /importer:TextureImporter
