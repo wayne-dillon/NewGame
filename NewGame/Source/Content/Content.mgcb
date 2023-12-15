@@ -1289,6 +1289,18 @@
 /processorParam:TextureFormat=Color
 /build:Symbols/ringingPhone4.png
 
+#begin Symbols/star.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Symbols/star.png
+
 #begin UI/Button168x100.png
 /importer:TextureImporter
 /processor:TextureProcessor

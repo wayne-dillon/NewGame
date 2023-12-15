@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 
 public abstract class Animatable
 {
+    public float rot;
     public Color color;
     private Vector2 pos;
     public Vector2 dims, baseDims;

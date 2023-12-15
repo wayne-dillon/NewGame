@@ -6,6 +6,7 @@ public class MainMenu
 {
     public Sprite bkg;
     public List<Sprite> clouds = new();
+    public List<Sprite> stars = new();
     public Sprite logo;
     public Sprite title;
     public TextComponent versionNo;
@@ -23,6 +24,29 @@ public class MainMenu
                                         .WithAnimation(new ScrollHorizontal(-0.2f))
                                         .Build());
         }
+
+        SpriteBuilder starBuilder = new SpriteBuilder().WithPath("Symbols//star");
+        stars.Add(starBuilder.WithDims(new Vector2(30, 30))
+                            .WithAnimation(new Jiggle(new Vector2(100,100), 0.0011f, 0.0005f, 2))
+                            .WithOffset(new Vector2(200, 200)).Build());
+        stars.Add(starBuilder.WithDims(new Vector2(50, 50))
+                            .WithAnimation(new Jiggle(new Vector2(110,110), 0.0009f, 0.0005f, 3))
+                            .WithScreenAlignment(Alignment.TOP_RIGHT)
+                            .WithOffset(new Vector2(-265, 105)).Build());
+        stars.Add(starBuilder.WithDims(new Vector2(40, 40))
+                            .WithAnimation(new Jiggle(new Vector2(95,95), 0.00095f, 0.0005f, 3))
+                            .WithOffset(new Vector2(-630, 100)).Build());
+        stars.Add(starBuilder.WithDims(new Vector2(20, 20))
+                            .WithAnimation(new Jiggle(new Vector2(100,100), 0.0012f, 0.0005f, 2))
+                            .WithScreenAlignment(Alignment.TOP)
+                            .WithOffset(new Vector2(-50, 210)).Build());
+        stars.Add(starBuilder.WithDims(new Vector2(25, 25))
+                            .WithAnimation(new Jiggle(new Vector2(115,115), 0.001f, 0.0005f, 3))
+                            .WithScreenAlignment(Alignment.CENTER_RIGHT)
+                            .WithOffset(new Vector2(-230, 5)).Build());
+        stars.Add(starBuilder.WithDims(new Vector2(35, 35))
+                            .WithAnimation(new Jiggle(new Vector2(105,105), 0.001f, 0.0005f, 2))
+                            .WithOffset(new Vector2(-260, 450)).Build());
 
         bkg = new SpriteBuilder().WithPath("Background//menuLogo").WithDims(new Vector2(Coordinates.screenWidth,Coordinates.screenHeight)).Build();
         logo = new SpriteBuilder().WithPath("Background//logo").WithDims(new Vector2(Coordinates.screenWidth,Coordinates.screenHeight)).Build();
@@ -76,6 +100,10 @@ public class MainMenu
         {
             cloud.Update();
         }
+        foreach (Sprite star in stars)
+        {
+            star.Update();
+        }
         bkg.Update();
         title.Update();
         logo.Update();
@@ -125,8 +153,6 @@ public class MainMenu
             cloud.Draw();
         }
         bkg.Draw();
-        title.Draw();
-        logo.Draw();
         versionNo.Draw();
 
         if (levelSelect)
@@ -142,5 +168,11 @@ public class MainMenu
                 button.Draw();
             }
         }
+        foreach (Sprite star in stars)
+        {
+            star.Draw();
+        }
+        title.Draw();
+        logo.Draw();
     }
 }

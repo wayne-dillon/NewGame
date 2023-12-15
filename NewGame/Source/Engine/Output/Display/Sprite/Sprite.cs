@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 public class Sprite : Animatable
 {
-    public float rot;
     public Vector2 screenPos;
     public bool hFlipped;
     public Texture2D myModel;

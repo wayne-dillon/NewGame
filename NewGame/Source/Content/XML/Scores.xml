@@ -31,18 +31,8 @@
     </dateTime>
   </runDetails>
   <runDetails>
-    <score>14233</score>
-    <player>You</player>
-    <level>0</level>
-    <dateTime>
-      <day>15</day>
-      <month>12</month>
-      <year>2023</year>
-    </dateTime>
-  </runDetails>
-  <runDetails>
     <score>21083</score>
-    <player>You</player>
+    <player>Abe</player>
     <level>1</level>
     <dateTime>
       <day>15</day>
@@ -52,7 +42,7 @@
   </runDetails>
   <runDetails>
     <score>28483</score>
-    <player>You</player>
+    <player>Abe</player>
     <level>2</level>
     <dateTime>
       <day>15</day>
@@ -61,48 +51,38 @@
     </dateTime>
   </runDetails>
   <runDetails>
-    <score>29266</score>
-    <player>You</player>
-    <level>3</level>
-    <dateTime>
-      <day>15</day>
-      <month>12</month>
-      <year>2023</year>
-    </dateTime>
-  </runDetails>
-  <runDetails>
-    <score>15633</score>
-    <player>You</player>
-    <level>3</level>
-    <dateTime>
-      <day>15</day>
-      <month>12</month>
-      <year>2023</year>
-    </dateTime>
-  </runDetails>
-  <runDetails>
-    <score>36883</score>
-    <player>You</player>
-    <level>3</level>
-    <dateTime>
-      <day>15</day>
-      <month>12</month>
-      <year>2023</year>
-    </dateTime>
-  </runDetails>
-  <runDetails>
-    <score>25933</score>
-    <player>You</player>
-    <level>3</level>
-    <dateTime>
-      <day>15</day>
-      <month>12</month>
-      <year>2023</year>
-    </dateTime>
-  </runDetails>
-  <runDetails>
     <score>37283</score>
-    <player>You</player>
+    <player>Abe</player>
+    <level>3</level>
+    <dateTime>
+      <day>15</day>
+      <month>12</month>
+      <year>2023</year>
+    </dateTime>
+  </runDetails>
+  <runDetails>
+    <score>23623</score>
+    <player>Elina</player>
+    <level>1</level>
+    <dateTime>
+      <day>15</day>
+      <month>12</month>
+      <year>2023</year>
+    </dateTime>
+  </runDetails>
+  <runDetails>
+    <score>29552</score>
+    <player>Elina</player>
+    <level>2</level>
+    <dateTime>
+      <day>15</day>
+      <month>12</month>
+      <year>2023</year>
+    </dateTime>
+  </runDetails>
+  <runDetails>
+    <score>34268</score>
+    <player>Elina</player>
     <level>3</level>
     <dateTime>
       <day>15</day>
